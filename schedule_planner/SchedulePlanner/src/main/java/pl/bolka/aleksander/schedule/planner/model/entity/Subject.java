@@ -21,8 +21,8 @@ public class Subject implements Serializable {
     private String name = "";
     ;
 
-	@ManyToMany(mappedBy = "subject")
-    private List<StudentGroup> group;
+	@ManyToOne
+	private Semester semester;
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")
@@ -96,21 +96,12 @@ public class Subject implements Serializable {
         this.subjectType = subjectType;
     }
 
-    public List<StudentGroup> getGroup() {
-        return group;
-    }
+	public Semester getSemester() {
+		return semester;
+	}
 
-    public void setGroup(List<StudentGroup> group) {
-        this.group = group;
-    }
-
-    @Override
-    public String toString() {
-        if (subjectType != null) {
-            return name + " " + subjectType.getShortcut();
-        } else {
-            return "";
-        }
-    }
+	public void setSemester(Semester semester) {
+		this.semester = semester;
+	}
 
 }

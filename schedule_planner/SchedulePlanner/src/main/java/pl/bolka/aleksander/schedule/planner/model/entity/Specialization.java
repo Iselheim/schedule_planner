@@ -13,7 +13,12 @@ import javax.persistence.Transient;
 @Entity
 public class Specialization implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private long id;
 
@@ -35,22 +40,6 @@ public class Specialization implements Serializable {
 
 	@OneToMany(mappedBy = "specialization")
     private List<StudentGroup> group;
-
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Specialization() {
-        // TODO Auto-generated constructor stub
-    }
 
     public long getId() {
         return id;
@@ -114,12 +103,6 @@ public class Specialization implements Serializable {
 
     public void setGroup(List<StudentGroup> group) {
         this.group = group;
-    }
-
-    @Override
-    public String toString() {
-        return "Kierunek [id=" + id + ", nazwa=" + name + ", wydzial=" + faculty + ", typ=" + type + ", iloscSemestrow="
-                + semesterCount + ", stopien=" + grade + ", skrot=" + shortcut + ", grupa=" + group + "]";
     }
 
 }

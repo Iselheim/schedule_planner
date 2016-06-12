@@ -1,12 +1,10 @@
-package pl.bolka.aleksander.schedule.planner.config;
+package pl.bolka.aleksander.schedule.planner.util;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,8 +12,6 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,32 +27,34 @@ import pl.bolka.aleksander.schedule.planner.model.entity.StudentGroup;
 import pl.bolka.aleksander.schedule.planner.model.entity.Subject;
 
 @Repository
-@Transactional
 public class Database {
 
-	@PersistenceContext
+	@Autowired
 	private EntityManager entityManager;
 
 	public Database() {
 
 	}
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+//	public EntityManager getEntityManager() {
+//		return entityManager;
+//	}
+//
+//	public void setEntityManager(EntityManager entityManager) {
+//		this.entityManager = entityManager;
+//	}
 
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-
-	@Transactional
+	@Transactional("jpaTransactionManager")
 	public ObservableList<StudentGroup> getFreeGrupa() {
 		ObservableList<StudentGroup> grupy = FXCollections.observableArrayList();
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<StudentGroup> criteriaQuery = criteriaBuilder.createQuery(StudentGroup.class);
+		
 		Root<StudentGroup> group = criteriaQuery.from(StudentGroup.class);
 		criteriaQuery.select(group);
+		
 		TypedQuery<StudentGroup> query = entityManager.createQuery(criteriaQuery);
+		
 		List<StudentGroup> groups = query.getResultList();
 		grupy.addAll(groups);
 		return grupy;
@@ -154,9 +152,9 @@ public class Database {
 	}
 
 	private void removeSubjectFromGroup(StudentGroup group, Subject subject) {
-		List<Subject> subjects = group.getSubject();
-		subjects.remove(subject);
-		group.setSubject(subjects);
+//		List<Subject> subjects = group.getSubject();
+//		subjects.remove(subject);
+//		group.setSubject(subjects);
 	}
 
 	private FreeRoom removeHourFromFreeRoom(FreeRoom freeRoom, Hour hour, Day day) {
@@ -198,14 +196,14 @@ public class Database {
 
 	public void persist(Object object) {
 		entityManager.persist(object);
-//		entityManager.getTransaction().begin();
-//		try {
-//			entityManager.persist(object);
-//			entityManager.getTransaction().commit();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			entityManager.getTransaction().rollback();
-//		}
+		// entityManager.getTransaction().begin();
+		// try {
+		// entityManager.persist(object);
+		// entityManager.getTransaction().commit();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// entityManager.getTransaction().rollback();
+		// }
 	}
 
 	public <T> T merge(T entity) {
@@ -222,5 +220,7 @@ public class Database {
 		// }
 		return resultEntity;
 	}
+
+	
 
 }

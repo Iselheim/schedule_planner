@@ -15,7 +15,12 @@ import javax.persistence.Transient;
 @Entity
 public class Day implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private Long id;
 
@@ -61,11 +66,6 @@ public class Day implements Serializable {
 
     public void setHour(Set<Hour> hour) {
         this.hour = hour;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 
 }

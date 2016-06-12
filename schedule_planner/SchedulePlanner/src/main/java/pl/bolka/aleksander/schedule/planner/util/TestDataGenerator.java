@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import pl.bolka.aleksander.schedule.planner.config.Database;
 import pl.bolka.aleksander.schedule.planner.model.entity.Day;
 import pl.bolka.aleksander.schedule.planner.model.entity.Faculty;
 import pl.bolka.aleksander.schedule.planner.model.entity.FreeRoom;
@@ -34,21 +33,11 @@ public class TestDataGenerator {
         data = new ArrayList<>();
     }
 
-    public void addToDatabase(Database database) {
-        if (database == null) {
-            return;
-        }
-        EntityManager entityManager = database.getEntityManager();
+    public List<Object> addToDatabase() {
+        
         generate();
-        Collections.reverse(data);
-        entityManager.getTransaction().begin();
-        for (Object object : data) {
-            entityManager.persist(object);
-        }
-        entityManager.flush();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        database.getEntityManager();
+//        Collections.reverse(data);
+        return data;
 
     }
 
@@ -65,15 +54,19 @@ public class TestDataGenerator {
 //        data.add(przedmiot);
 
         for (StudentGroup group : studentGroups) {
-            group.setSubject(subjects.get(group.getSemester()));
+//            group.setSubject(subjects.get(group.getSemester()));
         }
 
+        for (List<Subject> subject : subjects) {
+        	
+        }
+        
         List<Subject> subjectsToSave = new ArrayList<>();
         for (List<Subject> subject : subjects) {
             subjectsToSave.addAll(subject);
         }
-
         List<Lecturer> lecturers = generateLecturers(faculty, subjectsToSave);
+        
         data.add(faculty);
         data.add(specialization);
         data.addAll(studentGroups);
@@ -137,7 +130,7 @@ public class TestDataGenerator {
             StudentGroup grupa = new StudentGroup();
             grupa.setNumber(i);
             grupa.setQuantity(random(15, 20));
-            grupa.setSemester(semester);
+//            grupa.setSemester(semester);
             grupa.setSpecialization(specialization);
             studentGroups.add(grupa);
         }

@@ -6,6 +6,8 @@ import java.util.Observer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -22,9 +24,9 @@ import javafx.util.Callback;
 import pl.bolka.aleksander.schedule.planner.controller.fx.FXController;
 import pl.bolka.aleksander.schedule.planner.controller.fx.ManualSelectByGroupsController;
 import pl.bolka.aleksander.schedule.planner.controller.fx.StartPageController;
+import pl.bolka.aleksander.schedule.planner.model.services.RepositorySemesterSearchService;
 
 @Configuration
-@Lazy
 public class ScreensConfig implements Observer {
 	private static final Logger logger = LogManager.getLogger(ScreensConfig.class);
 
@@ -32,23 +34,27 @@ public class ScreensConfig implements Observer {
 	public static final int HEIGHT = 800;
 	public static final String STYLE_FILE = "/pl/bolka/aleksander/schedule/planner/fx/css/main.css";
 
+	private ApplicationContext context;
+
 	private Stage stage;
 	private Scene scene;
 	private StackPane root;
-	
+
 	public ScreensConfig() {
 		super();
 	}
 
+	
+	
 	@Bean
 	@Scope("prototype")
-	StartPageController getStartPageController(){
+	public StartPageController getStartPageController() {
 		return new StartPageController(this);
 	}
 
 	@Bean
 	@Scope("prototype")
-	ManualSelectByGroupsController getManualSelectByGroupsController() {
+	public ManualSelectByGroupsController getManualSelectByGroupsController() {
 		return new ManualSelectByGroupsController(this);
 	}
 
@@ -57,6 +63,7 @@ public class ScreensConfig implements Observer {
 	}
 
 	public void showMainScreen() {
+			
 		root = new StackPane();
 		root.getStylesheets().add(STYLE_FILE);
 		root.getStyleClass().add("main-window");
@@ -122,4 +129,13 @@ public class ScreensConfig implements Observer {
 
 	}
 
+	public ApplicationContext getContext() {
+		return context;
+	}
+
+	public void setContext(ApplicationContext context) {
+		this.context = context;
+	}
+
+	
 }

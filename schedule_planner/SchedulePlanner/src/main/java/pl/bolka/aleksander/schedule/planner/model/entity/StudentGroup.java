@@ -3,46 +3,37 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 @Entity
 public class StudentGroup implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private long id;
 
-    private int semester;
-    //ilosc ludzi w grupie
+	@OneToOne
+    private Semester semester;  
+    
     private int quantity;
-    //numer grupy
+
     private int number;
 
-    //kierunek
     @ManyToOne
     @JoinColumn(name = "specialization_id")
     private Specialization specialization;
-
-    //przedmiot
-    @ManyToMany
-    private List<Subject> subject;
-
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     public long getId() {
         return id;
@@ -50,14 +41,6 @@ public class StudentGroup implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public void setSemester(int semester) {
-        this.semester = semester;
     }
 
     public int getQuantity() {
@@ -87,17 +70,17 @@ public class StudentGroup implements Serializable {
     public StudentGroup() {
     }
 
-    public List<Subject> getSubject() {
-        return subject;
-    }
+	public Semester getSemester() {
+		return semester;
+	}
 
-    public void setSubject(List<Subject> subject) {
-        this.subject = subject;
-    }
+	public void setSemester(Semester semester) {
+		this.semester = semester;
+	}
 
-    @Override
-    public String toString() {
-        return specialization.getShortcut() + " sem. " + semester + " grupa: " + number;
-    }
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+    
+    
 }
