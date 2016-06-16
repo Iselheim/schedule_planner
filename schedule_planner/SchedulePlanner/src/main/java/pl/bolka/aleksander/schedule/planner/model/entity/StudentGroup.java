@@ -24,7 +24,7 @@ public class StudentGroup implements Serializable {
     @GeneratedValue
     private long id;
 
-	@OneToOne
+	@ManyToOne
     private Semester semester;  
     
     private int quantity;
@@ -32,7 +32,7 @@ public class StudentGroup implements Serializable {
     private int number;
 
     @ManyToOne
-    @JoinColumn(name = "specialization_id")
+//    @JoinColumn(name = "specialization_id")
     private Specialization specialization;
 
     public long getId() {

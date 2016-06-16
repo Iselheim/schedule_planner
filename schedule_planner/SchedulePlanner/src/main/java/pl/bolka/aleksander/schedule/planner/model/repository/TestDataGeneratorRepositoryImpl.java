@@ -25,12 +25,12 @@ public class TestDataGeneratorRepositoryImpl implements TestDataGeneratorReposit
 	@Transactional("jpaTransactionManager")
 	@Override
 	public void generateTestData() {
-		testujemy();
-		TestDataGenerator dataGenerator = new TestDataGenerator();
-		List<Object> data = dataGenerator.addToDatabase();
-		for (Object object : data) {
-			entityManager.persist(object);
-		}
+//		testujemy();
+//		TestDataGenerator dataGenerator = new TestDataGenerator();
+//		List<Object> data = dataGenerator.addToDatabase();
+//		for (Object object : data) {
+//			entityManager.persist(object);
+//		}
 
 	}
 

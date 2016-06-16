@@ -1,37 +1,25 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Transient;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Room implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
 
-    protected int number;
+    protected String number;
 
     protected int roomSpace;
 
-    @Transient
-    protected String text;
+    @OneToMany
+    private Set<Week> week;
 
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
     public Room() {
     }
 
@@ -43,11 +31,11 @@ public class Room implements Serializable {
         this.id = id;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -57,6 +45,14 @@ public class Room implements Serializable {
 
     public void setRoomSpace(int roomSpace) {
         this.roomSpace = roomSpace;
+    }
+
+    public Set<Week> getWeek() {
+        return week;
+    }
+
+    public void setWeek(Set<Week> week) {
+        this.week = week;
     }
 
     @Override

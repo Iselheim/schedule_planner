@@ -16,6 +16,6 @@
 <category name="org.springframework">
     <priority value="WARN" />
 </category>
-<Logger name="org.hibernate" level="warn" />
+<Logger name="org.hibernate" level="WARN" />
 
 </log4j:configuration>

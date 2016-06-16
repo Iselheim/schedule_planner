@@ -1,6 +1,8 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,21 +29,29 @@ public class Day implements Serializable {
     private String name = "";
 
     @ManyToMany
-    private Set<Hour> hour;
+    private List<Hour> hour;
 
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
+	private Date date;
+	
+	private boolean isFree = false;
     
-    public Day() {
+    public boolean isFree() {
+		return isFree;
+	}
+
+	public void setFree(boolean isFree) {
+		this.isFree = isFree;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Day() {
     }
 
     public Long getId() {
@@ -60,12 +70,13 @@ public class Day implements Serializable {
         this.name = name;
     }
 
-    public Set<Hour> getHour() {
-        return hour;
-    }
+	public List<Hour> getHour() {
+		return hour;
+	}
 
-    public void setHour(Set<Hour> hour) {
-        this.hour = hour;
-    }
+	public void setHour(List<Hour> hour) {
+		this.hour = hour;
+	}
+
 
 }

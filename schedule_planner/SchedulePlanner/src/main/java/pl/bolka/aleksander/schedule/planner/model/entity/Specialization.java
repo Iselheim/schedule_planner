@@ -8,24 +8,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity
 public class Specialization implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue
     private long id;
 
     private String name = "";
     ;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 

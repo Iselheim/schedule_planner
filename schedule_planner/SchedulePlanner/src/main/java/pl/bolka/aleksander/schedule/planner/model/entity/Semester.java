@@ -1,14 +1,15 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 
 @Entity
 public class Semester implements Serializable {
@@ -25,11 +26,11 @@ public class Semester implements Serializable {
 	@OneToMany
 	private Set<Week> week;
 
-	@OneToOne(mappedBy = "semester")
-	private StudentGroup group;
+	@OneToMany(mappedBy = "semester")
+	private List<StudentGroup> group;
 
 	@OneToMany(mappedBy = "semester")
-	private Set<Subject> subject;
+	private List<Subject> subject;
 
 	private int number;
 
@@ -43,11 +44,11 @@ public class Semester implements Serializable {
 		this.id = id;
 	}
 
-	public StudentGroup getGroup() {
+	public List<StudentGroup> getGroup() {
 		return group;
 	}
 
-	public void setGroup(StudentGroup group) {
+	public void setGroup(List<StudentGroup> group) {
 		this.group = group;
 	}
 
@@ -79,12 +80,11 @@ public class Semester implements Serializable {
 		this.week = week;
 	}
 
-	public Set<Subject> getSubject() {
+	public List<Subject> getSubject() {
 		return subject;
 	}
 
-	public void setSubject(Set<Subject> subject) {
+	public void setSubject(List<Subject> subject) {
 		this.subject = subject;
 	}
-
 }
