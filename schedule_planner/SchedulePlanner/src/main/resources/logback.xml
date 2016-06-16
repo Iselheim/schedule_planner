@@ -9,7 +9,7 @@
   </appender>
 
   <!-- Setting the root level of logging to INFO -->
-  <root level="warn">
+  <root level="WARN">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

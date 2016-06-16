@@ -174,7 +174,7 @@ public class Database {
 	}
 
 	private void removeHourFromDay(Day day, Hour hour) {
-		Set<Hour> hours = day.getHour();
+		List<Hour> hours = day.getHour();
 		hours.remove(hour);
 	}
 

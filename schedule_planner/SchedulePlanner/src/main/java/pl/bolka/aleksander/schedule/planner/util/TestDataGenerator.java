@@ -162,15 +162,15 @@ public class TestDataGenerator {
     }
 
     private void generateRoomsWithDaysAndHours() {
-        Set<Day> dzienList = addHoursToDays();
-        generateRooms(dzienList);
+//        Set<Day> dzienList = addHoursToDays();
+//        generateRooms(dzienList);
     }
 
-    private Set<Day> addHoursToDays() {
-        Set<Hour> godzinas = generateHours();
-        Set<Day> dzienList = generateDays(godzinas);
-        return dzienList;
-    }
+//    private Set<Day> addHoursToDays() {
+//        Set<Hour> godzinas = generateHours();
+////        Set<Day> dzienList = generateDays(godzinas);
+////        return dzienList;
+//    }
 
     private void generateRooms(Set<Day> dzienList) {
         data.addAll(addDaysToRooms(dzienList));
@@ -181,40 +181,40 @@ public class TestDataGenerator {
         for (int i = 0; i < ROOMS_NUMBER; i++) {
             FreeRoom room = new FreeRoom();
             room.setRoomSpace(random(15, 20));
-            room.setNumber(i);
+//            room.setNumber(i);
             room.setDay(dzienList);
             freeRooms.add(room);
         }
         return freeRooms;
     }
 
-    private Set<Day> generateDays(Set<Hour> godzinas) {
-        Day dzien = new Day();
-        dzien.setName("Poniedziałek");
-        dzien.setHour(godzinas);
-        Day dzien2 = new Day();
-        dzien2.setName("Wtorek");
-        dzien2.setHour(godzinas);
-        Day dzien3 = new Day();
-        dzien3.setName("Środa");
-        dzien3.setHour(godzinas);
-        Day dzien4 = new Day();
-        dzien4.setName("Czwartek");
-        dzien4.setHour(godzinas);
-        Day dzien5 = new Day();
-        dzien5.setName("Piątek");
-        dzien5.setHour(godzinas);
-        Set<Day> dzienList = new LinkedHashSet<>();
-        dzienList.add(dzien);
-        dzienList.add(dzien2);
-        dzienList.add(dzien3);
-        dzienList.add(dzien4);
-        dzienList.add(dzien5);
-        for (Day dzien8 : dzienList) {
-            data.add(dzien8);
-        }
-        return dzienList;
-    }
+//    private Set<Day> generateDays(Set<Hour> godzinas) {
+//        Day dzien = new Day();
+//        dzien.setName("Poniedziałek");
+//        dzien.setHour(godzinas);
+//        Day dzien2 = new Day();
+//        dzien2.setName("Wtorek");
+//        dzien2.setHour(godzinas);
+//        Day dzien3 = new Day();
+//        dzien3.setName("Środa");
+//        dzien3.setHour(godzinas);
+//        Day dzien4 = new Day();
+//        dzien4.setName("Czwartek");
+//        dzien4.setHour(godzinas);
+//        Day dzien5 = new Day();
+//        dzien5.setName("Piątek");
+//        dzien5.setHour(godzinas);
+//        Set<Day> dzienList = new LinkedHashSet<>();
+//        dzienList.add(dzien);
+//        dzienList.add(dzien2);
+//        dzienList.add(dzien3);
+//        dzienList.add(dzien4);
+//        dzienList.add(dzien5);
+//        for (Day dzien8 : dzienList) {
+//            data.add(dzien8);
+//        }
+//        return dzienList;
+//    }
 
     private Set<Hour> generateHours() {
         Set<Hour> godzinas = new LinkedHashSet<>();
