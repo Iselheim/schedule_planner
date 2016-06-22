@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 //TODO dni i godziny preferencji pracy
 @Entity
@@ -19,34 +18,18 @@ public class Lecturer implements Serializable {
     private long id;
 
     private String firstName = "";
-    ;
 
-	private String lastName = "";
-    ;
+    private String lastName = "";
 
-	// TODO enum lub encja
-	private String universityDegree = "";
-    ;
+    // TODO enum lub encja
+    private String universityDegree = "";
 
-	@ManyToOne
-    @JoinColumn(name = "faculty_id")
+    @ManyToOne
     private Faculty faculty;
 
 //	private int iloscGodzin;
     @ManyToMany
     private List<Subject> subject;
-
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     public List<Subject> getSubject() {
         return subject;

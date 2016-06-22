@@ -33,31 +33,8 @@ public class Faculty implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Subject> subjects;
 
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Faculty() {
         // TODO Auto-generated constructor stub
-    }
-
-    public Faculty(long id, String nazwa, String skrot, List<Specialization> kierunek, List<Lecturer> wykladowcy,
-            List<Subject> przedmiot) {
-        super();
-        this.id = id;
-        this.name = nazwa;
-        this.shortcut = skrot;
-        this.specialization = kierunek;
-        this.lecturers = wykladowcy;
-        this.subjects = przedmiot;
     }
 
     public List<Lecturer> getLecturers() {

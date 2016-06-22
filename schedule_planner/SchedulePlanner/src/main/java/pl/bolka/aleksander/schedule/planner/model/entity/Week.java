@@ -26,8 +26,6 @@ public class Week implements Serializable{
 	
 	private int weekOfSemester;
 
-	private Date date;
-
 	public Long getId() {
 		return id;
 	}
@@ -50,14 +48,6 @@ public class Week implements Serializable{
 
 	public void setWeekOfSemester(int weekOfSemester) {
 		this.weekOfSemester = weekOfSemester;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	public static long getSerialversionuid() {

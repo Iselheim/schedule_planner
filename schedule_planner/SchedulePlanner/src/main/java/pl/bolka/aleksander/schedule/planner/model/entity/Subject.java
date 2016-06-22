@@ -14,7 +14,12 @@ import javax.persistence.Transient;
 @Entity
 public class Subject implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private long id;
 
@@ -36,18 +41,8 @@ public class Subject implements Serializable {
     @OneToMany
     private List<Room> room;
 
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
+    private int hours;
+    
     public List<Room> getRoom() {
         return room;
     }
@@ -102,6 +97,14 @@ public class Subject implements Serializable {
 
 	public void setSemester(Semester semester) {
 		this.semester = semester;
+	}
+
+	public int getHours() {
+		return hours;
+	}
+
+	public void setHours(int hours) {
+		this.hours = hours;
 	}
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane fx:controller="pl.bolka.aleksander.schedule.planner.controller.fx.AddDataChooseController" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="addLecturers" layoutX="56.0" layoutY="95.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Wykładowcy" />
+      <Button fx:id="addSubject" layoutX="240.0" layoutY="95.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Przedmioty" />
+      <Button fx:id="addSpecialization" layoutX="422.0" layoutY="95.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Kierunki" />
+      <Button fx:id="addFaculty" layoutX="607.0" layoutY="95.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Wydziały" />
+      <Button fx:id="addSemester" layoutX="240.0" layoutY="211.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Semestry" />
+      <Button fx:id="addGroup" layoutX="56.0" layoutY="211.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Grupy" />
+      <Button fx:id="addDay" layoutX="607.0" layoutY="211.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Dni" />
+      <Button fx:id="addRoom" layoutX="422.0" layoutY="211.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Sale" />
+      <Button fx:id="mainMain" layoutX="329.0" layoutY="394.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Główne menu" />
+   </children>
+</AnchorPane>

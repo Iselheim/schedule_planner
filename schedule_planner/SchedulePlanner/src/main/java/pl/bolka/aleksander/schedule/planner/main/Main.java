@@ -1,46 +1,52 @@
 package pl.bolka.aleksander.schedule.planner.main;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Stage;
+import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.config.AppConfig;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
+import pl.bolka.aleksander.schedule.planner.model.entity.Lecturer;
+import pl.bolka.aleksander.schedule.planner.model.repository.LecturerRepository;
+import pl.bolka.aleksander.schedule.planner.model.services.LecturerRepositoryService;
+
+import java.util.List;
 
 @SpringBootApplication
 public class Main extends Application {
 
-	private static final Logger logger = LogManager.getLogger(Main.class);
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
-	// ScreensConfig flow;
-	
+    // ScreensConfig flow;
 
-	public static void main(String[] args) {
-		
+
+    public static void main(String[] args) {
+
 //		BasicConfigurator.configure();
-		launch(args);
-	}
+        launch(args);
+    }
 
-	@Override
-	public void start(Stage stage) throws Exception {
-		logger.warn("Starting application");
-		
-		Platform.setImplicitExit(true);
+    @Override
+    public void start(Stage stage) throws Exception {
+        logger.warn("Starting application");
 
-		try {
-			GenericApplicationContext springContext = new AnnotationConfigApplicationContext(AppConfig.class);
-			ScreensConfig flow = springContext.getBean(ScreensConfig.class);
-			flow.setContext(springContext);
-			flow.setPrimaryStage(stage);
-			flow.showMainScreen();
-			flow.loadStartPageController();
-		} catch (Throwable e) {
-			logger.error("Exception occurs in loading Spring context: ", e);
-		}
-	}
+        Platform.setImplicitExit(true);
+
+        try {
+            GenericApplicationContext springContext = new AnnotationConfigApplicationContext(AppConfig.class);
+
+            ScreensConfig flow = springContext.getBean(ScreensConfig.class);
+//			flow.setContext(springContext);
+//			flow.setPrimaryStage(stage);
+//			flow.showMainScreen();
+//			flow.loadStartPageController();
+        } catch (Throwable e) {
+            logger.error("Exception occurs in loading Spring context: ", e);
+        }
+    }
 }

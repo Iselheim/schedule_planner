@@ -6,11 +6,9 @@ import java.util.Observer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 import javafx.event.EventHandler;
@@ -24,7 +22,6 @@ import javafx.util.Callback;
 import pl.bolka.aleksander.schedule.planner.controller.fx.FXController;
 import pl.bolka.aleksander.schedule.planner.controller.fx.ManualSelectByGroupsController;
 import pl.bolka.aleksander.schedule.planner.controller.fx.StartPageController;
-import pl.bolka.aleksander.schedule.planner.model.services.RepositorySemesterSearchService;
 
 @Configuration
 public class ScreensConfig implements Observer {
