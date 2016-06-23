@@ -1,5 +1,6 @@
 package pl.bolka.aleksander.schedule.planner.controller.fx;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
@@ -11,9 +12,6 @@ public class AddDataChooseController extends FXController {
 
     private static final String PATH = "/pl/bolka/aleksander/schedule/planner/fx/fxml/AddDataChoose.fxml";
 
-    public AddDataChooseController(ScreensConfig flow) {
-        super(flow);
-    }
     @FXML
     private Button addLecturers;
 
@@ -39,12 +37,30 @@ public class AddDataChooseController extends FXController {
     private Button addRoom;
 
     @FXML
-    private Button mainMain;
+    private Button mainMenu;
 
     @FXML
-    public void initialize(){
-
+    public void initialize() {
+        setButtons();
     }
+
+    private void setButtons() {
+        setAddLecturerButton();
+        setMainMainButton();
+    }
+
+    private void setAddLecturerButton() {
+        addLecturers.setOnAction(event -> flow.loadAddDataLecturerController());
+    }
+
+    private void setMainMainButton() {
+        mainMenu.setOnAction((ActionEvent event) -> flow.loadStartPageController());
+    }
+
+    public AddDataChooseController(ScreensConfig flow) {
+        super(flow);
+    }
+
     @Override
     public String getPath() {
         return PATH;

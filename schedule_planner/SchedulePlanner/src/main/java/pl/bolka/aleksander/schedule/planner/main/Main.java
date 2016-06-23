@@ -8,14 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.config.AppConfig;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
-import pl.bolka.aleksander.schedule.planner.model.entity.Lecturer;
-import pl.bolka.aleksander.schedule.planner.model.repository.LecturerRepository;
-import pl.bolka.aleksander.schedule.planner.model.services.LecturerRepositoryService;
-
-import java.util.List;
 
 @SpringBootApplication
 public class Main extends Application {
@@ -41,10 +35,10 @@ public class Main extends Application {
             GenericApplicationContext springContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
             ScreensConfig flow = springContext.getBean(ScreensConfig.class);
-//			flow.setContext(springContext);
-//			flow.setPrimaryStage(stage);
-//			flow.showMainScreen();
-//			flow.loadStartPageController();
+			flow.setContext(springContext);
+			flow.setPrimaryStage(stage);
+			flow.showMainScreen();
+			flow.loadStartPageController();
         } catch (Throwable e) {
             logger.error("Exception occurs in loading Spring context: ", e);
         }

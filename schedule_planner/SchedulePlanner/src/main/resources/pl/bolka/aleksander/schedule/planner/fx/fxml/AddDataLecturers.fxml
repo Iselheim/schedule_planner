@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.controller.fx.AddDataLecturerController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.controller.fx.AddDataLecturerController">
    <children>
-      <TableView fx:id="LecturerTable" layoutX="50.0" layoutY="80.0" prefHeight="265.0" prefWidth="150.0" />
+      <TableView fx:id="lecturerTable" layoutX="0" layoutY="80.0" prefHeight="265.0" prefWidth="200.0" />
       <TextField fx:id="firstName" layoutX="218.0" layoutY="80.0" promptText="Imie" />
       <TextField fx:id="lastName" layoutX="218.0" layoutY="126.0" promptText="nazwisko" />
       <TextField fx:id="universityDegree" layoutX="218.0" layoutY="169.0" promptText="tytuł" />
