@@ -1,13 +1,8 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 //TODO dni i godziny preferencji pracy
 @Entity
@@ -24,11 +19,11 @@ public class Lecturer implements Serializable {
     // TODO enum lub encja
     private String universityDegree = "";
 
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
     private Faculty faculty;
 
 //	private int iloscGodzin;
-    @ManyToMany
+    @ManyToMany(fetch= FetchType.EAGER)
     private List<Subject> subject;
 
     public List<Subject> getSubject() {

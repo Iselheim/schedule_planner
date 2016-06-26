@@ -1,14 +1,10 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Faculty implements Serializable {
@@ -21,15 +17,15 @@ public class Faculty implements Serializable {
 
     private String shortcut = "";
 
-    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Specialization> specialization;
 
-    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Lecturer> lecturers;
 
-    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Subject> subjects;
 
@@ -87,8 +83,7 @@ public class Faculty implements Serializable {
 
     @Override
     public String toString() {
-        return "Wydzial [id=" + id + ", nazwa=" + name + ", skrot=" + shortcut + ", kierunek=" + specialization
-                + ", wykladowcy=" + lecturers + ", przedmiot=" + subjects + "]";
+        return getName();
     }
 
 }
