@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" 
-prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="pl.bolka.aleksander.schedule.planner.controller.fx.ManualSelectByGroupsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.ManualSelectByGroupsController">
    <children>
       <TableView fx:id="GroupTable" layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="176.0" />
       <TableView fx:id="SubjectTable" layoutX="246.0" layoutY="50.0" prefHeight="297.0" prefWidth="176.0" />

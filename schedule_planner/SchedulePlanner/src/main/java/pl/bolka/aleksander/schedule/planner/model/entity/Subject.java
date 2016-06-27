@@ -1,15 +1,8 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity
 public class Subject implements Serializable {
@@ -24,7 +17,6 @@ public class Subject implements Serializable {
     private long id;
 
     private String name = "";
-    ;
 
 	@ManyToOne
 	private Semester semester;

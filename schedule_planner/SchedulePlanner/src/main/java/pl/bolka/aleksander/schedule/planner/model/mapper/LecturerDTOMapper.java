@@ -1,4 +1,4 @@
-package pl.bolka.aleksander.schedule.planner.model.dto.mapper;
+package pl.bolka.aleksander.schedule.planner.model.mapper;
 
 import org.springframework.stereotype.Service;
 import pl.bolka.aleksander.schedule.planner.model.dto.LecturerDTO;
@@ -10,13 +10,16 @@ import pl.bolka.aleksander.schedule.planner.model.entity.Lecturer;
 @Service
 public class LecturerDTOMapper extends GenericDTOMapper<Lecturer, LecturerDTO> {
 
+//    @Autowired
+//    SubjectDTOMapper subjectDtoMapper;
+
     @Override
     protected LecturerDTO translateToDTO(Lecturer entity) {
         LecturerDTO dto = new LecturerDTO(entity.getId());
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
-        dto.setFaculty(entity.getFaculty());
-        dto.setSubject(entity.getSubject());
+//        dto.setFaculty(entity.getFaculty());
+//        dto.setSubject(subjectDtoMapper.getDtos(entity.getSubject()));
         dto.setUniversityDegree(entity.getUniversityDegree());
         return dto;
     }
@@ -27,8 +30,8 @@ public class LecturerDTOMapper extends GenericDTOMapper<Lecturer, LecturerDTO> {
         lecturer.setId(dto.getId());
         lecturer.setLastName(dto.getLastName());
         lecturer.setFirstName(dto.getFirstName());
-        lecturer.setFaculty(dto.getFaculty());
-        lecturer.setSubject(dto.getSubject());
+//        lecturer.setFaculty(dto.getFaculty());
+//        lecturer.setSubject(subjectDtoMapper.getEntitys(dto.getSubject()));
         lecturer.setUniversityDegree(dto.getUniversityDegree());
         return lecturer;
     }

@@ -1,37 +1,15 @@
-package pl.bolka.aleksander.schedule.planner.controller.fx;
+package pl.bolka.aleksander.schedule.planner.fx.controller;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.hibernate.Hibernate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
-import javafx.beans.Observable;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
-import pl.bolka.aleksander.schedule.planner.model.entity.BusyRoom;
-import pl.bolka.aleksander.schedule.planner.model.entity.Day;
-import pl.bolka.aleksander.schedule.planner.model.entity.FreeRoom;
-import pl.bolka.aleksander.schedule.planner.model.entity.Hour;
-import pl.bolka.aleksander.schedule.planner.model.entity.Lecturer;
-import pl.bolka.aleksander.schedule.planner.model.entity.Schedule;
-import pl.bolka.aleksander.schedule.planner.model.entity.ScheduleInterface;
-import pl.bolka.aleksander.schedule.planner.model.entity.StudentGroup;
-import pl.bolka.aleksander.schedule.planner.model.entity.Subject;
-import pl.bolka.aleksander.schedule.planner.model.entity.TemporarySchedule;
-import pl.bolka.aleksander.schedule.planner.util.Database;
+import pl.bolka.aleksander.schedule.planner.model.entity.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManualSelectByGroupsController extends FXController {
 

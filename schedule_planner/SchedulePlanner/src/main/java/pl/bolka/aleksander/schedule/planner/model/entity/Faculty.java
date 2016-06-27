@@ -21,9 +21,9 @@ public class Faculty implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Specialization> specialization;
 
-    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
-    private List<Lecturer> lecturers;
+//    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+//    @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
+//    private List<Lecturer> lecturers;
 
     @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
@@ -31,14 +31,6 @@ public class Faculty implements Serializable {
 
     public Faculty() {
         // TODO Auto-generated constructor stub
-    }
-
-    public List<Lecturer> getLecturers() {
-        return lecturers;
-    }
-
-    public void setLecturers(List<Lecturer> lecturers) {
-        this.lecturers = lecturers;
     }
 
     public List<Subject> getSubjects() {

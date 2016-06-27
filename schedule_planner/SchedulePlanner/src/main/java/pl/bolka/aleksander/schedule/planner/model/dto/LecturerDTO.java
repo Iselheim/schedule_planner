@@ -1,8 +1,5 @@
 package pl.bolka.aleksander.schedule.planner.model.dto;
 
-import pl.bolka.aleksander.schedule.planner.model.entity.Faculty;
-import pl.bolka.aleksander.schedule.planner.model.entity.Subject;
-
 import java.util.List;
 
 /**
@@ -16,9 +13,13 @@ public class LecturerDTO extends BaseDTO {
 
     private String universityDegree = "";
 
-    private Faculty faculty;
+    private FacultyDTO faculty;
 
-    private List<Subject> subject;
+    private List<SubjectDTO> subject;
+
+    public LecturerDTO(){
+        super();
+    }
 
     public LecturerDTO(Long id) {
         super(id);
@@ -48,20 +49,19 @@ public class LecturerDTO extends BaseDTO {
         this.universityDegree = universityDegree;
     }
 
-    public Faculty getFaculty() {
+    public FacultyDTO getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(Faculty faculty) {
+    public void setFaculty(FacultyDTO faculty) {
         this.faculty = faculty;
     }
 
-    public List<Subject> getSubject() {
+    public List<SubjectDTO> getSubject() {
         return subject;
     }
 
-    public void setSubject(List<Subject> subject) {
+    public void setSubject(List<SubjectDTO> subject) {
         this.subject = subject;
     }
-
 }

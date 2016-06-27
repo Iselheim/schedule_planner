@@ -3,7 +3,6 @@ package pl.bolka.aleksander.schedule.planner.util;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.model.entity.*;
@@ -74,7 +73,7 @@ public class TestTestDataGenerator {
         List<Lecturer> lecturers = new ArrayList<>();
 
         Lecturer lecturer = new Lecturer();
-        lecturer.setFaculty(faculty);
+//        lecturer.setFaculty(faculty);
         lecturer.setFirstName("Katarzyna");
         lecturer.setLastName("Borkowska");
         List<Subject> subjectsForBorkowska = new ArrayList<>();
@@ -99,7 +98,6 @@ public class TestTestDataGenerator {
 
         semester.setSubject(subjects);
 
-        faculty.setLecturers(lecturers);
 
         faculty.setSubjects(subjects);
 

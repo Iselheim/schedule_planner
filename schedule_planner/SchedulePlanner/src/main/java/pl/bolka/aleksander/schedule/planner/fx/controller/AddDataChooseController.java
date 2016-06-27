@@ -1,4 +1,4 @@
-package pl.bolka.aleksander.schedule.planner.controller.fx;
+package pl.bolka.aleksander.schedule.planner.fx.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

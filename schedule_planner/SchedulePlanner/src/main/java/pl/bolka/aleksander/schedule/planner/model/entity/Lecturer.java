@@ -19,8 +19,8 @@ public class Lecturer implements Serializable {
     // TODO enum lub encja
     private String universityDegree = "";
 
-    @ManyToOne(fetch= FetchType.EAGER)
-    private Faculty faculty;
+//    @ManyToOne(fetch= FetchType.EAGER)
+//    private Faculty faculty;
 
 //	private int iloscGodzin;
     @ManyToMany(fetch= FetchType.EAGER)
@@ -64,14 +64,6 @@ public class Lecturer implements Serializable {
 
     public void setUniversityDegree(String universityDegree) {
         this.universityDegree = universityDegree;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
     }
 
     @Override

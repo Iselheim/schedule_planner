@@ -14,7 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import pl.bolka.aleksander.schedule.planner.controller.fx.*;
+import pl.bolka.aleksander.schedule.planner.fx.controller.*;
 
 import java.net.URL;
 import java.util.Observable;

@@ -1,26 +1,9 @@
 package pl.bolka.aleksander.schedule.planner.util;
 
+import pl.bolka.aleksander.schedule.planner.model.entity.*;
+
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import javax.persistence.EntityManager;
-
-import pl.bolka.aleksander.schedule.planner.model.entity.Day;
-import pl.bolka.aleksander.schedule.planner.model.entity.Faculty;
-import pl.bolka.aleksander.schedule.planner.model.entity.FreeRoom;
-import pl.bolka.aleksander.schedule.planner.model.entity.Grade;
-import pl.bolka.aleksander.schedule.planner.model.entity.Hour;
-import pl.bolka.aleksander.schedule.planner.model.entity.Lecturer;
-import pl.bolka.aleksander.schedule.planner.model.entity.Specialization;
-import pl.bolka.aleksander.schedule.planner.model.entity.StudentGroup;
-import pl.bolka.aleksander.schedule.planner.model.entity.StudiesType;
-import pl.bolka.aleksander.schedule.planner.model.entity.Subject;
-import pl.bolka.aleksander.schedule.planner.model.entity.SubjectType;
+import java.util.*;
 
 public class TestDataGenerator {
 
@@ -79,7 +62,7 @@ public class TestDataGenerator {
         List<Lecturer> lecturers = new ArrayList<>();
         for (int i = 0; i < list.size() / 5; i++) {
             Lecturer lecturer = new Lecturer();
-            lecturer.setFaculty(faculty);
+//            lecturer.setFaculty(faculty);
             lecturer.setFirstName("Imie" + i);
             lecturer.setLastName("Nazwisko" + i);
             List<Subject> subjects = new ArrayList<>();

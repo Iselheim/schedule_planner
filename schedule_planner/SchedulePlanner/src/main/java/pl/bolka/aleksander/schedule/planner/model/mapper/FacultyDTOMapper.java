@@ -1,4 +1,4 @@
-package pl.bolka.aleksander.schedule.planner.model.dto.mapper;
+package pl.bolka.aleksander.schedule.planner.model.mapper;
 
 import org.springframework.stereotype.Service;
 import pl.bolka.aleksander.schedule.planner.model.dto.FacultyDTO;
@@ -15,7 +15,6 @@ public class FacultyDTOMapper extends GenericDTOMapper<Faculty,FacultyDTO> {
         FacultyDTO dto = new FacultyDTO(entity.getId());
         dto.setName(entity.getName());
         dto.setShortcut(entity.getShortcut());
-        dto.setLecturers(entity.getLecturers());
         dto.setSpecialization(entity.getSpecialization());
         dto.setSubjects(entity.getSubjects());
         return dto;
@@ -29,7 +28,6 @@ public class FacultyDTOMapper extends GenericDTOMapper<Faculty,FacultyDTO> {
         faculty.setShortcut(dto.getShortcut());
         faculty.setSubjects(dto.getSubjects());
         faculty.setSpecialization(dto.getSpecialization());
-        faculty.setLecturers(dto.getLecturers());
         return faculty;
     }
 }

@@ -7,9 +7,11 @@ public abstract class BaseDTO {
 
     private long id;
 
-    private BaseDTO(){};
+    public BaseDTO() {
 
-    public BaseDTO(Long id){
+    }
+
+    public BaseDTO(Long id) {
         this.id = id;
     }
 

@@ -1,4 +1,4 @@
-package pl.bolka.aleksander.schedule.planner.model.dto.mapper;
+package pl.bolka.aleksander.schedule.planner.model.mapper;
 
 import org.springframework.stereotype.Service;
 import pl.bolka.aleksander.schedule.planner.model.dto.BaseDTO;
