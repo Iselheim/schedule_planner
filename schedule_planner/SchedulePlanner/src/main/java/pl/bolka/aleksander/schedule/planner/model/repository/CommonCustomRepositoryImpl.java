@@ -27,8 +27,8 @@ public class CommonCustomRepositoryImpl<T, ID extends Serializable> extends Simp
         return super.findAll(specification);
     }
 
-    @Override
-    public String getFirstName() {
-        return "Kupa Dupa sialala";
-    }
+//    @Override
+//    public String getFirstName() {
+//        return "Kupa Dupa sialala";
+//    }
 }

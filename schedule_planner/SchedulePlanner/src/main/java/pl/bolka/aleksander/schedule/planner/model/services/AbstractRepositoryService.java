@@ -32,4 +32,9 @@ public abstract class AbstractRepositoryService<E extends Serializable, F extend
     @Transactional
     public abstract  List<E> findAll(F filter);
 
+    @Transactional
+    public void delete(E entity){
+        commonCustomRepository.delete(entity);
+    }
+
 }

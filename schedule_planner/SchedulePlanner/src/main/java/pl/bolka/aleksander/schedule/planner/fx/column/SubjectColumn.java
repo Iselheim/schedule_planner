@@ -9,14 +9,6 @@ import pl.bolka.aleksander.schedule.planner.model.entity.Subject;
  */
 public class SubjectColumn extends TableColumn<Subject,String> {
 
-    private String name = "Przedmioty";
-
-    public SubjectColumn(){
-        super();
-        this.setText(name);
-        setCellFactory();
-    }
-
     public SubjectColumn(String header){
         super(header);
         setCellFactory();
@@ -32,12 +24,4 @@ public class SubjectColumn extends TableColumn<Subject,String> {
         });
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-        this.setText(name);
-    }
 }

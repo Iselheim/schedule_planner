@@ -8,17 +8,9 @@ import pl.bolka.aleksander.schedule.planner.model.entity.Lecturer;
  * Created by Aleksander Bołka on 2016-06-27.
  */
 public class LecturerColumn extends TableColumn<Lecturer,String> {
-    
-    private String name = "Wykładowcy";
-    
-    public LecturerColumn(){
-        super();
-        this.setText(name);
-        setCellFactory();
-    }
 
-    public LecturerColumn(String header){
-        super(header);
+    public LecturerColumn(String name){
+        super(name);
         setCellFactory();
     }
 
@@ -32,14 +24,4 @@ public class LecturerColumn extends TableColumn<Lecturer,String> {
         });
     }
 
-
-    
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-        this.setText(name);
-    }
 }
