@@ -16,13 +16,8 @@ public class Lecturer implements Serializable {
 
     private String lastName = "";
 
-    // TODO enum lub encja
     private String universityDegree = "";
 
-//    @ManyToOne(fetch= FetchType.EAGER)
-//    private Faculty faculty;
-
-//	private int iloscGodzin;
     @ManyToMany(fetch= FetchType.EAGER)
     private List<Subject> subject;
 

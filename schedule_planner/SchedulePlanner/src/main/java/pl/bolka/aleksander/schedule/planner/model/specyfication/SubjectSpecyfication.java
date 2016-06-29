@@ -31,17 +31,6 @@ public class SubjectSpecyfication implements Specification<Subject> {
                     .add(cb.isNotMember(filter.getLecturer(),root.get("lecturer")));
         }
 
-//        if (filter.getName() != null) {
-//            p.getExpressions()
-//                    .add(cb.equal(root.get("name"), filter.getName()));
-//        }
-//
-//        if (filter.getSurname() != null && filter.getAge() != null) {
-//            p.getExpressions().add(
-//                    cb.and(cb.equal(root.get("surname"), filter.getSurname()),
-//                            cb.equal(root.get("age"), filter.getAge())));
-//        }
-
         return p;
 
     }

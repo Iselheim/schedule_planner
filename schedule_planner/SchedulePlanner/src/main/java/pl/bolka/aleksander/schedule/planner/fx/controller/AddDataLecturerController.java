@@ -100,13 +100,13 @@ public class AddDataLecturerController extends FXController {
     private void setDeleteButton() {
         delete.setOnAction(event -> {
             List<Subject> lecturersSubjects = getSelectedItemsFromTable(lecturerSubjectTable);
-            if(!lecturersSubjects.isEmpty()){
+            if (!lecturersSubjects.isEmpty()) {
                 List<Subject> subjects = selectedLecturer.getSubject();
                 subjects.removeAll(lecturersSubjects);
                 selectedLecturer.setSubject(subjects);
                 lecturerRepositoryService.add(selectedLecturer);
                 setSubjectsColumns(selectedLecturer);
-            }else{
+            } else {
                 lecturerRepositoryService.delete(selectedLecturer);
                 selectedLecturer = null;
                 setLecturerTable();
@@ -125,7 +125,7 @@ public class AddDataLecturerController extends FXController {
             add.setDisable(false);
             subjectTable.getItems().clear();
             List<Subject> subjects = subjectRepositoryService.findAll();
-            setColumns(lecturerSubjectTable,new SubjectColumn("Przedmioty wybrane"), subjects);
+            setColumns(lecturerSubjectTable, new SubjectColumn("Przedmioty wybrane"), subjects);
         });
     }
 
@@ -171,7 +171,7 @@ public class AddDataLecturerController extends FXController {
 
 
     private void setLecturerTable() {
-        setColumns(lecturerTable,new LecturerColumn("Wykładowcy"),translateToObsList(lecturerRepositoryService.findAll()));
+        setColumns(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(lecturerRepositoryService.findAll()));
 
     }
 
@@ -191,10 +191,10 @@ public class AddDataLecturerController extends FXController {
     }
 
     private void setSubjectsColumns(Lecturer lecturer) {
-        setColumns(lecturerSubjectTable,new SubjectColumn("Przedmioty wybrane"), lecturer.getSubject());
+        setColumns(lecturerSubjectTable, new SubjectColumn("Przedmioty wybrane"), lecturer.getSubject());
         SubjectFilter subjectFilter = new SubjectFilter();
         subjectFilter.setLecturer(lecturer);
-        setColumns(subjectTable,new SubjectColumn("Przedmioty"),subjectRepositoryService.findAll(subjectFilter));
+        setColumns(subjectTable, new SubjectColumn("Przedmioty"), subjectRepositoryService.findAll(subjectFilter));
     }
 
     public AddDataLecturerController(ScreensConfig flow) {
