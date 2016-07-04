@@ -88,7 +88,7 @@ public class TestTestDataGenerator {
         List<Room> rooms = new ArrayList<>();
         Room room = new Room();
         room.setNumber("2AN");
-        room.setWeek(weeks);
+//        room.setWeek(weeks);
         room.setRoomSpace(200);
         rooms.add(room);
 

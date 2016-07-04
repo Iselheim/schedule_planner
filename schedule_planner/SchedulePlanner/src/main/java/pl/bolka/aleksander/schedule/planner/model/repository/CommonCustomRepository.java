@@ -14,8 +14,9 @@ import java.util.List;
 @NoRepositoryBean
 public interface CommonCustomRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
-    public List<T> findAll(Specification specification);
+    List<T> findAll(Specification specification);
 
+    T findOne(Specification specification);
 //    // przykładowa metoda
 //    String getFirstName();
 }

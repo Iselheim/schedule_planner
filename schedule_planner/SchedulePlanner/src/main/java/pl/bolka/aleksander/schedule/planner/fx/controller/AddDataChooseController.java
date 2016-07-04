@@ -39,6 +39,10 @@ public class AddDataChooseController extends FXController {
     @FXML
     private Button mainMenu;
 
+    public AddDataChooseController(ScreensConfig flow) {
+        super(flow);
+    }
+
     @FXML
     public void initialize() {
         setButtons();
@@ -46,7 +50,12 @@ public class AddDataChooseController extends FXController {
 
     private void setButtons() {
         setAddLecturerButton();
+        setAddRoomButton();
         setMainMainButton();
+    }
+
+    private void setAddRoomButton() {
+        addRoom.setOnAction(event -> flow.loadAddDataRoomController());
     }
 
     private void setAddLecturerButton() {
@@ -55,10 +64,6 @@ public class AddDataChooseController extends FXController {
 
     private void setMainMainButton() {
         mainMenu.setOnAction((ActionEvent event) -> flow.loadStartPageController());
-    }
-
-    public AddDataChooseController(ScreensConfig flow) {
-        super(flow);
     }
 
     @Override

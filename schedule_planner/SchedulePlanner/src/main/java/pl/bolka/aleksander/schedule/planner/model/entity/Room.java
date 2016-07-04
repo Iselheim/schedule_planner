@@ -1,9 +1,8 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
-import javax.persistence.*;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -17,8 +16,11 @@ public class Room implements Serializable {
 
     protected int roomSpace;
 
-    @OneToMany
-    private Set<Week> week;
+    @ManyToMany
+    private List<Week> week;
+
+    @ManyToMany
+    private List<Day> day;
 
     public Room() {
     }
@@ -47,17 +49,19 @@ public class Room implements Serializable {
         this.roomSpace = roomSpace;
     }
 
-    public Set<Week> getWeek() {
+    public List<Week> getWeek() {
         return week;
     }
 
-    public void setWeek(Set<Week> week) {
+    public void setWeek(List<Week> week) {
         this.week = week;
     }
 
-    @Override
-    public String toString() {
-        return "nr. " + number + ", ilość miejsc: " + roomSpace;
+    public List<Day> getDay() {
+        return day;
     }
 
+    public void setDay(List<Day> day) {
+        this.day = day;
+    }
 }

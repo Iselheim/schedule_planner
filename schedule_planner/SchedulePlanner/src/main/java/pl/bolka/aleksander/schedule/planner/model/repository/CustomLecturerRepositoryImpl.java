@@ -11,9 +11,4 @@ public class CustomLecturerRepositoryImpl implements CustomLecturerRepository {
     @PersistenceContext
     private EntityManager em;
 
-
-    @Override
-    public String getFirstName() {
-        return "A jakis tescik se strzele";
-    }
 }

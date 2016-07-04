@@ -1,11 +1,10 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import java.io.Serializable;
-import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import java.io.Serializable;
+import java.sql.Time;
 
 @Entity
 public class Hour implements Serializable {
@@ -17,18 +16,6 @@ public class Hour implements Serializable {
     private Time timeFrom;
 
     private Time timeTo;
-
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
     
     public Hour() {
         super();

@@ -8,13 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import pl.bolka.aleksander.schedule.planner.model.repository.CustomRepositoryFactoryBean;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -42,18 +40,12 @@ public class PersistenceConfig {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
+
         dataSource.setUrl("jdbc:postgresql://localhost:5432/schedule_planner");
         dataSource.setUsername("postgres");
         dataSource.setPassword("asdqwe1234");
         return dataSource;
     }
-
-//    @Bean
-//    public JpaTransactionManager jpaTransactionManager() {
-//        JpaTransactionManager transactionManager = new JpaTransactionManager();
-//        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-//        return transactionManager;
-//    }
 
     private HibernateJpaVendorAdapter vendorAdaptor() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -74,23 +66,15 @@ public class PersistenceConfig {
         return entityManagerFactoryBean;
     }
 
-//    @Bean
-//    public EntityManager entityManager() {
-//        return entityManagerFactory().getObject().createEntityManager();
-//    }
 
     private Properties jpaHibernateProperties() {
 
         Properties properties = new Properties();
-
-//         properties.put(PROPERTY_NAME_HIBERNATE_MAX_FETCH_DEPTH, env.getProperty(PROPERTY_NAME_HIBERNATE_MAX_FETCH_DEPTH));
-//         properties.put(PROPERTY_NAME_HIBERNATE_JDBC_FETCH_SIZE, env.getProperty(PROPERTY_NAME_HIBERNATE_JDBC_FETCH_SIZE));
-//         properties.put(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE, env.getProperty(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE));
         properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, "false");
-
         properties.put(AvailableSettings.SCHEMA_GEN_DATABASE_ACTION, "none");
         properties.put(AvailableSettings.USE_CLASS_ENHANCER, "false");
         properties.put(org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO, "update");
+        properties.put(org.hibernate.cfg.AvailableSettings.FORMAT_SQL, "true");
         return properties;
     }
 

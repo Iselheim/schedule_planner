@@ -1,14 +1,13 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import java.io.Serializable;
-import java.util.Set;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -35,6 +34,30 @@ public class Semester implements Serializable {
 	private int number;
 
 	private int year;
+
+    private Date fromDate;
+
+    private Date toDate;
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
 
 	public Long getId() {
 		return id;
@@ -66,10 +89,6 @@ public class Semester implements Serializable {
 
 	public void setYear(int year) {
 		this.year = year;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public Set<Week> getWeek() {

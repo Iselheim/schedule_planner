@@ -8,5 +8,4 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface CustomLecturerRepository {
 
-    public String getFirstName();
 }

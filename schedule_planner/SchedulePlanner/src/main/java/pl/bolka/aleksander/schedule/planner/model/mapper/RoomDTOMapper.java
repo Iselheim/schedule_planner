@@ -29,7 +29,7 @@ public class RoomDTOMapper extends GenericDTOMapper<Room, RoomDTO>{
         room.setId(dto.getId());
         room.setRoomSpace(dto.getRoomSpace());
         room.setNumber(dto.getNumber());
-        room.setWeek(new HashSet<>());
+//        room.setWeek(new HashSet<>());
         return room;
     }
 }

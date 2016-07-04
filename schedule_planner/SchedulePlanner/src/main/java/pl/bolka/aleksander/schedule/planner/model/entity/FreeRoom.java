@@ -1,9 +1,9 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+import java.util.Set;
 
 @Entity(name = "free_room")
 public class FreeRoom extends Room{
@@ -22,10 +22,10 @@ public class FreeRoom extends Room{
     public void setText(String text) {
         this.text = text;
     }
-    
-    public Set<Day> getDay() {
-        return day;
-    }
+
+//    public Set<Day> getDay() {
+//        return day;
+//    }
 
     public void setDay(Set<Day> day) {
         this.day = day;

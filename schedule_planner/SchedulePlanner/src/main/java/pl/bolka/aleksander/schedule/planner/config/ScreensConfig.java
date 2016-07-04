@@ -22,12 +22,10 @@ import java.util.Observer;
 
 @Configuration
 public class ScreensConfig implements Observer {
-    private static final Logger logger = LogManager.getLogger(ScreensConfig.class);
-
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     public static final String STYLE_FILE = "/pl/bolka/aleksander/schedule/planner/fx/css/main.css";
-
+    private static final Logger logger = LogManager.getLogger(ScreensConfig.class);
     private ApplicationContext context;
 
     private Stage stage;
@@ -79,7 +77,15 @@ public class ScreensConfig implements Observer {
         setNode(getNode(getAddDataLecturerController()));
     }
 
+    @Bean
+    @Scope("prototype")
+    public AddDataRoomController getAddDataRoomController() {
+        return new AddDataRoomController(this);
+    }
 
+    public void loadAddDataRoomController() {
+        setNode(getNode(getAddDataRoomController()));
+    }
 
 
 

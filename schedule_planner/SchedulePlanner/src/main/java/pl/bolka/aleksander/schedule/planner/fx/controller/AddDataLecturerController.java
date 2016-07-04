@@ -74,6 +74,10 @@ public class AddDataLecturerController extends FXController {
 
     private Lecturer selectedLecturer;
 
+    public AddDataLecturerController(ScreensConfig flow) {
+        super(flow);
+    }
+
     @FXML
     public void initialize() {
         setLecturerTable();
@@ -125,16 +129,19 @@ public class AddDataLecturerController extends FXController {
             add.setDisable(false);
             subjectTable.getItems().clear();
             List<Subject> subjects = subjectRepositoryService.findAll();
-            setColumns(lecturerSubjectTable, new SubjectColumn("Przedmioty wybrane"), subjects);
+            lecturerSubjectTable.getItems().clear();
+            setColumns(subjectTable, new SubjectColumn("Przedmioty"), subjects);
         });
     }
 
     private void setAddButton() {
         add.setOnAction(event -> {
             change.setDisable(true);
-            Lecturer lecturer = createNewLecturer();
-            lecturerRepositoryService.add(lecturer);
-            setLecturerTable();
+            if (!firstName.getText().isEmpty()) {
+                Lecturer lecturer = createNewLecturer();
+                lecturerRepositoryService.add(lecturer);
+                setLecturerTable();
+            }
         });
     }
 
@@ -169,7 +176,6 @@ public class AddDataLecturerController extends FXController {
         setBackButton();
     }
 
-
     private void setLecturerTable() {
         setColumns(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(lecturerRepositoryService.findAll()));
 
@@ -195,10 +201,6 @@ public class AddDataLecturerController extends FXController {
         SubjectFilter subjectFilter = new SubjectFilter();
         subjectFilter.setLecturer(lecturer);
         setColumns(subjectTable, new SubjectColumn("Przedmioty"), subjectRepositoryService.findAll(subjectFilter));
-    }
-
-    public AddDataLecturerController(ScreensConfig flow) {
-        super(flow);
     }
 
     private void setBackButton() {
