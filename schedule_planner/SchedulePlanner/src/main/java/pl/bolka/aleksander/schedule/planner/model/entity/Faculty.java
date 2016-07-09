@@ -17,7 +17,7 @@ public class Faculty implements Serializable {
 
     private String shortcut = "";
 
-    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Specialization> specialization;
 
@@ -25,7 +25,7 @@ public class Faculty implements Serializable {
 //    @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
 //    private List<Lecturer> lecturers;
 
-    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Subject> subjects;
 
