@@ -86,11 +86,7 @@ public class AddDataLecturerController extends FXController {
         setButtons();
     }
 
-    private void setSelectionModeMultiple(TableView tableView) {
-        tableView.getSelectionModel().setSelectionMode(
-                SelectionMode.MULTIPLE
-        );
-    }
+
 
     private void setButtons() {
         setChangeButton();

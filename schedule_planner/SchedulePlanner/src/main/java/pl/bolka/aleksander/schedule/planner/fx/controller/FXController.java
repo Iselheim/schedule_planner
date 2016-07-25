@@ -3,6 +3,7 @@ package pl.bolka.aleksander.schedule.planner.fx.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
@@ -47,6 +48,12 @@ public abstract class FXController {
 		tableColumn.setPrefWidth(tableView.getPrefWidth());
 		tableView.getColumns().setAll(tableColumn);
 		tableView.setItems(translateToObsList(observableList));
+	}
+
+	public void setSelectionModeMultiple(TableView tableView) {
+		tableView.getSelectionModel().setSelectionMode(
+				SelectionMode.MULTIPLE
+		);
 	}
 
 }

@@ -52,6 +52,7 @@ public class AddDataChooseController extends FXController {
         setAddLecturerButton();
         setAddRoomButton();
         setMainMainButton();
+        setAddSubjectButton();
     }
 
     private void setAddRoomButton() {
@@ -65,6 +66,8 @@ public class AddDataChooseController extends FXController {
     private void setMainMainButton() {
         mainMenu.setOnAction((ActionEvent event) -> flow.loadStartPageController());
     }
+
+    private void setAddSubjectButton(){addSubject.setOnAction(event -> flow.loadAddDataSubjectController());}
 
     @Override
     public String getPath() {

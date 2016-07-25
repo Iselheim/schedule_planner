@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="757.0"
-            xmlns="http://javafx.com/javafx/8"
-            fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataRoomController">
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="757.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataSubjectController">
     <children>
-        <TableView fx:id="SubjectTable" layoutY="80.0" prefHeight="265.0" prefWidth="200.0"/>
-        <TextField fx:id="name" layoutX="219.0" layoutY="80.0" promptText="nazwa"/>
-        <TextField fx:id="hours" layoutX="219.0" layoutY="140.0" promptText="ilość godzin"/>
-        <Button fx:id="change" layoutX="285.0" layoutY="314.0" mnemonicParsing="false" text="Zmień"/>
-        <Button fx:id="back" layoutX="20.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0"
-                text="Wróć"/>
-        <Button fx:id="mainMenu" layoutX="613.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0"
-                prefWidth="122.0" text="Główne Menu"/>
-        <Button fx:id="add" layoutX="222.0" layoutY="314.0" mnemonicParsing="false" text="Dodaj"/>
-        <Button fx:id="addNewSubject" layoutX="20.0" layoutY="362.0" mnemonicParsing="false" prefHeight="31.0"
-                prefWidth="161.0" text="Dodaj przedmiot"/>
-        <Button fx:id="delete" layoutX="349.0" layoutY="314.0" mnemonicParsing="false" text="Usuń"/>
-        <TableView fx:id="roomTable" layoutX="424.0" layoutY="80.0" prefHeight="265.0" prefWidth="150.0"/>
-        <Label layoutX="326.0" layoutY="119.0" text="Ilość godzin"/>
-        <Label layoutX="356.0" layoutY="59.0" text="Nazwa"/>
-        <ComboBox fx:id="facultyPicker" layoutX="219.0" layoutY="250.0" prefHeight="31.0" prefWidth="187.0"/>
-        <TableView fx:id="lecturerTable" layoutX="599.0" layoutY="80.0" prefHeight="265.0" prefWidth="150.0"/>
-        <ComboBox fx:id="typePicker" layoutX="219.0" layoutY="197.0" prefHeight="31.0" prefWidth="187.0"/>
+        <TableView fx:id="subjectTable" layoutY="80.0" prefHeight="265.0" prefWidth="200.0" />
+        <TextField fx:id="name" layoutX="219.0" layoutY="80.0" promptText="nazwa" />
+        <TextField fx:id="hours" layoutX="221.0" layoutY="126.0" promptText="ilość godzin" />
+        <Button fx:id="change" layoutX="285.0" layoutY="314.0" mnemonicParsing="false" text="Zmień" />
+        <Button fx:id="back" layoutX="20.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Wróć" />
+        <Button fx:id="mainMenu" layoutX="613.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Główne Menu" />
+        <Button fx:id="add" layoutX="222.0" layoutY="314.0" mnemonicParsing="false" text="Dodaj" />
+        <Button fx:id="addNewSubject" layoutX="20.0" layoutY="362.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="161.0" text="Dodaj przedmiot" />
+        <Button fx:id="delete" layoutX="349.0" layoutY="314.0" mnemonicParsing="false" text="Usuń" />
+        <TableView fx:id="roomTable" layoutX="424.0" layoutY="80.0" prefHeight="265.0" prefWidth="150.0" />
+        <Label layoutX="316.0" layoutY="109.0" text="Ilość godzin" />
+        <Label layoutX="347.0" layoutY="61.0" text="Nazwa" />
+        <ComboBox fx:id="facultyPicker" layoutX="219.0" layoutY="250.0" prefHeight="31.0" prefWidth="187.0" />
+        <TableView fx:id="lecturerTable" layoutX="599.0" layoutY="80.0" prefHeight="265.0" prefWidth="150.0" />
+        <ComboBox fx:id="typePicker" layoutX="219.0" layoutY="210.0" prefHeight="31.0" prefWidth="187.0" />
+      <TextField fx:id="semester" layoutX="221.0" layoutY="176.0" promptText="semestr" />
+      <Label layoutX="316.0" layoutY="156.0" text="semestr" />
     </children>
 </AnchorPane>

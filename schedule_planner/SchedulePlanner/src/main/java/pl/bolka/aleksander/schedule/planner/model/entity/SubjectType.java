@@ -1,5 +1,8 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum SubjectType {
 
     LABOLATORIUM("Labolatorium", "lab"), PROJEKT("Projekt", "proj"), CWICZENIA("Ćwiczenia", "cwicz"), WYKLAD("Wykład",
@@ -30,4 +33,12 @@ public enum SubjectType {
         this.shortcut = shortcut;
     }
 
+    public static List<String> getAllAsList() {
+        List<String> stringList = new ArrayList<>();
+        SubjectType[] values = SubjectType.values();
+        for(SubjectType subjectType :values){
+            stringList.add(subjectType.getName());
+        }
+        return stringList;
+    }
 }

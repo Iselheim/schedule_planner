@@ -125,12 +125,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jetty</artifactId>
 		</dependency>
+
 		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.8.8</version>
+			<groupId>SchedulePlanner</groupId>
+			<artifactId>SchedulePlanner</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+			<version>LATEST</version>
+        </dependency>
+    </dependencies>
 
 
 

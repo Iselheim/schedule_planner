@@ -27,10 +27,10 @@ public class Subject implements Serializable {
 
     private SubjectType subjectType;
 
-    @ManyToMany(mappedBy = "subject")
+    @ManyToMany(mappedBy = "subject", fetch = FetchType.EAGER)
     private List<Lecturer> lecturer;
 
-    @OneToMany
+    @OneToMany(fetch= FetchType.EAGER)
     private List<Room> room;
 
     private int hours;
