@@ -18,4 +18,10 @@ public class RoomRepositoryService extends AbstractRepositoryService<Room, RoomF
         RoomSpecification roomSpecification = new RoomSpecification(filter);
         return commonCustomRepository.findAll(roomSpecification);
     }
+
+    @Override
+    public Room findOne(RoomFilter filter){
+        RoomSpecification spec = new RoomSpecification(filter);
+        return commonCustomRepository.findOne(spec);
+    }
 }

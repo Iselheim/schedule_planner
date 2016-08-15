@@ -34,6 +34,9 @@ public abstract class AbstractRepositoryService<E extends Serializable, F extend
     public abstract  List<E> findAll(F filter);
 
     @Transactional
+    public abstract  E findOne(F filter);
+
+    @Transactional
     public void delete(E entity){
         commonCustomRepository.delete(entity);
     }
@@ -42,5 +45,6 @@ public abstract class AbstractRepositoryService<E extends Serializable, F extend
     public E findOne(Specification specification) {
         return commonCustomRepository.findOne(specification);
     }
+
 
 }

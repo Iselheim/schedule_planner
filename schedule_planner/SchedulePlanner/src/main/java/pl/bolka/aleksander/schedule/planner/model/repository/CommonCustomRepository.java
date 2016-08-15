@@ -17,6 +17,6 @@ public interface CommonCustomRepository<T, ID extends Serializable> extends JpaR
     List<T> findAll(Specification specification);
 
     T findOne(Specification specification);
-//    // przykładowa metoda
-//    String getFirstName();
+
+
 }

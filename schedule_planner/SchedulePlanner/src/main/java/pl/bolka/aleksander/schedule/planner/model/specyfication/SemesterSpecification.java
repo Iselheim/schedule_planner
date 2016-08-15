@@ -20,7 +20,6 @@ public class SemesterSpecification implements Specification<Semester> {
     @Override
     public Predicate toPredicate(Root<Semester> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
 
-
         Predicate p = cb.disjunction();
 
         return p;

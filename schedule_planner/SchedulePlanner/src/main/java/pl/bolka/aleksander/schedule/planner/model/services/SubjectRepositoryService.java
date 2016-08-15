@@ -19,4 +19,12 @@ public class SubjectRepositoryService extends AbstractRepositoryService<Subject,
         SubjectSpecyfication spec = new SubjectSpecyfication(subjectFilter);
         return commonCustomRepository.findAll(spec);
     }
+
+    @Override
+    public Subject findOne(SubjectFilter filter) {
+        SubjectSpecyfication spec = new SubjectSpecyfication(filter);
+        return commonCustomRepository.findOne(spec);
+    }
+
+
 }

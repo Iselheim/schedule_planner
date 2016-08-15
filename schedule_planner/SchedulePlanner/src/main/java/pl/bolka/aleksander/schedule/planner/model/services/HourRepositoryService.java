@@ -18,4 +18,10 @@ public class HourRepositoryService extends AbstractRepositoryService<Hour, HourF
         HourSpecification specification = new HourSpecification(filter);
         return commonCustomRepository.findAll(specification);
     }
+
+    @Override
+    public Hour findOne(HourFilter filter){
+        HourSpecification spec = new HourSpecification(filter);
+        return commonCustomRepository.findOne(spec);
+    }
 }

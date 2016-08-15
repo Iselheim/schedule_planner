@@ -18,4 +18,10 @@ public class WeekRepositoryService extends AbstractRepositoryService<Week, WeekF
         WeekSpecification specification = new WeekSpecification(filter);
         return commonCustomRepository.findAll(specification);
     }
+
+    @Override
+    public Week findOne(WeekFilter filter){
+        WeekSpecification specification = new WeekSpecification(filter);
+        return commonCustomRepository.findOne(specification);
+    }
 }

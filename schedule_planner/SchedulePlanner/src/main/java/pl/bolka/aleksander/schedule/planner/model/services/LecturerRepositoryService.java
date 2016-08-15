@@ -17,4 +17,9 @@ public class LecturerRepositoryService extends AbstractRepositoryService<Lecture
     public List<Lecturer> findAll(LecturerFilter filter) {
         return null;
     }
+
+    @Override
+    public Lecturer findOne(LecturerFilter filter) {
+        return null;
+    }
 }

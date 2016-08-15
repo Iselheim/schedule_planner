@@ -1,5 +1,7 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import pl.bolka.aleksander.schedule.planner.exceptions.NotExistingTypeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +42,15 @@ public enum SubjectType {
             stringList.add(subjectType.getName());
         }
         return stringList;
+    }
+
+    public static SubjectType getFromString(String type) throws NotExistingTypeException{
+        SubjectType[] values = SubjectType.values();
+        for(SubjectType sType : values){
+            if(sType.getName().equals(type)){
+                return sType;
+            }
+        }
+        throw new NotExistingTypeException("Taki typ przedmiotu nie istnieje!");
     }
 }

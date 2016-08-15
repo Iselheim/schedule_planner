@@ -16,4 +16,9 @@ public class FacultyRepositoryService extends AbstractRepositoryService<Faculty,
     public List<Faculty> findAll(FacultyFilter filter) {
         return null;
     }
+
+    @Override
+    public Faculty findOne(FacultyFilter filter) {
+        return null;
+    }
 }

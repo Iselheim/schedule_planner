@@ -6,11 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.apache.log4j.Logger;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 
 import java.util.List;
 
 public abstract class FXController {
+
+	protected final static Logger logger = Logger.getLogger(FXController.class);
 
 	protected ScreensConfig flow;
 
