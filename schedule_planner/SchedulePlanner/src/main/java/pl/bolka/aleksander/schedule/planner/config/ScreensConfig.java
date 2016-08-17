@@ -97,6 +97,16 @@ public class ScreensConfig implements Observer {
         setNode(getNode(getAddDataSubjectController()));
     }
 
+    @Bean
+    @Scope("prototype")
+    public AddDataSemesterController getAddDataSemesterController(){
+        return new AddDataSemesterController(this);
+    }
+
+    public void loadAddDataSemesterController(){
+        setNode(getNode(getAddDataSemesterController()));
+    }
+
     public void setPrimaryStage(Stage primaryStage) {
         this.stage = primaryStage;
     }

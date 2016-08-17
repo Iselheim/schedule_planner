@@ -15,6 +15,7 @@ import pl.bolka.aleksander.schedule.planner.model.filter.DayFilter;
 import pl.bolka.aleksander.schedule.planner.model.services.DayRepositoryService;
 import pl.bolka.aleksander.schedule.planner.model.services.RoomRepositoryService;
 import pl.bolka.aleksander.schedule.planner.model.services.WeekRepositoryService;
+import pl.bolka.aleksander.schedule.planner.util.CallbackForDatePickers;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -136,7 +137,7 @@ public class AddDataRoomController extends FXController {
             setColumns(hourTable, new HourColumn("Godziny"), day.getHour());
         });
         List<Day> days = dayRepositoryService.findAll();
-        datePicker.setDayCellFactory(getCallBackForDates(getLocalDates(days)));
+        datePicker.setDayCellFactory(CallbackForDatePickers.getCallBackForDates(getLocalDates(days)));
     }
 
     private List<LocalDate> getLocalDates(List<Day> days) {
@@ -145,26 +146,6 @@ public class AddDataRoomController extends FXController {
             localDates.add(d.getDate().toLocalDate());
         }
         return localDates;
-    }
-
-    private Callback<DatePicker, DateCell> getCallBackForDates(List<LocalDate> dates) {
-        final Callback<DatePicker, DateCell> dayCellFactory =
-                new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker datePicker) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (!dates.contains(item)) {
-                                    setDisable(true);
-                                    setStyle("-fx-background-color: #ffc0cb;");
-                                }
-                            }
-                        };
-                    }
-                };
-        return dayCellFactory;
     }
 
     private void setChangeButton() {

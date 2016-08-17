@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataSemesterController">
+    <children>
+        <TableView fx:id="semesterTable" layoutY="80.0" prefHeight="265.0" prefWidth="200.0" />
+        <TextField fx:id="number" layoutX="219.0" layoutY="108.0" promptText="numer" />
+        <Button fx:id="back" layoutX="20.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Wróć" />
+        <Button fx:id="mainMenu" layoutX="252.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Główne Menu" />
+        <Button fx:id="add" layoutX="219.0" layoutY="273.0" mnemonicParsing="false" text="Dodaj" />
+        <Button fx:id="delete" layoutX="346.0" layoutY="273.0" mnemonicParsing="false" text="Usuń" />
+        <DatePicker fx:id="datePickerFrom" layoutX="219.0" layoutY="176.0" prefHeight="31.0" prefWidth="187.0" />
+        <Label layoutX="354.0" layoutY="155.0" text="Data od" />
+        <Label layoutX="357.0" layoutY="80.0" text="Numer" />
+      <Label layoutX="354.0" layoutY="213.0" text="Data do" />
+      <DatePicker fx:id="datePickerTo" layoutX="219.0" layoutY="234.0" prefHeight="31.0" prefWidth="187.0" />
+    </children>
+</AnchorPane>

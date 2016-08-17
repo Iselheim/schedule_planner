@@ -11,16 +11,17 @@ import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
+import pl.bolka.aleksander.schedule.planner.exceptions.NotExistingTypeException;
 import pl.bolka.aleksander.schedule.planner.fx.column.LecturerColumn;
 import pl.bolka.aleksander.schedule.planner.fx.column.RoomColumn;
 import pl.bolka.aleksander.schedule.planner.fx.column.SubjectColumn;
 import pl.bolka.aleksander.schedule.planner.model.entity.*;
-import pl.bolka.aleksander.schedule.planner.model.filter.FacultyFilter;
-import pl.bolka.aleksander.schedule.planner.model.filter.SubjectFilter;
+import pl.bolka.aleksander.schedule.planner.model.filter.*;
 import pl.bolka.aleksander.schedule.planner.model.repository.FacultyRepository;
 import pl.bolka.aleksander.schedule.planner.model.services.AbstractRepositoryService;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Aleksander Bołka on 2016-07-05.
@@ -79,7 +80,16 @@ public class AddDataSubjectController extends FXController {
     private AbstractRepositoryService<Faculty, FacultyFilter> facultyRepositoryService;
 
     @Autowired
-    private AbstractRepositoryService<Subject,SubjectFilter> subjectRepositoryService;
+    private AbstractRepositoryService<Subject, SubjectFilter> subjectRepositoryService;
+
+    @Autowired
+    private AbstractRepositoryService<Semester, SemesterFilter> semesterRepositoryService;
+
+    @Autowired
+    private AbstractRepositoryService<Room, RoomFilter> roomRepositoryService;
+
+    @Autowired
+    private AbstractRepositoryService<Lecturer, LecturerFilter> lecturerRepositoryService;
 
     private Subject selectedSubject;
 
@@ -90,25 +100,88 @@ public class AddDataSubjectController extends FXController {
 
     @Override
     public void initialize() {
+        setButtons();
+        setPickers();
+        setSubjectActions();
+        setMultiSelectionMode();
+    }
+
+    private void setButtons() {
         setNavigateButtons();
+        setStartButtons();
+        setAddNewSubjectButton();
+        setAddButton();
+        setDeleteButton();
+    }
+
+    private void setDeleteButton() {
+        delete.setOnAction(event ->{
+            Subject subject = getSelectedItemFromTable(subjectTable);
+            subjectRepositoryService.delete(subject);
+            setSubjectTable();
+        });
+    }
+
+    private void setAddButton() {
+        add.setOnAction(event -> {
+            selectedSubject = new Subject();
+            if (setSubject() != null) {
+                subjectRepositoryService.add(selectedSubject);
+            }
+        });
+    }
+
+    private void setMultiSelectionMode() {
+        setSelectionModeMultiple(roomTable);
+        setSelectionModeMultiple(lecturerTable);
+    }
+
+    private void setSubjectActions() {
+        setSubjectTableListener();
+        setSubjectTable();
+        setChangedSubject();
+    }
+
+    private void setPickers() {
         setConverterForFacultyPicker();
         setDefaultItemsForTypePicker();
         setFacultyPickerForEmpty();
+    }
 
-        setStartButtons();
-
-        setSubjectTableListener();
-        setSubjectTable();
-
-        setSelectionModeMultiple(roomTable);
-        setSelectionModeMultiple(lecturerTable);
-
-        change.setOnAction(event -> {
-
+    private void setAddNewSubjectButton() {
+        addNewSubject.setOnAction(event -> {
+            change.setDisable(true);
+            delete.setDisable(true);
+            add.setDisable(false);
+            name.clear();
+            hours.clear();
+            semester.clear();
+            List<Room> rooms = roomRepositoryService.findAll();
+            setColumns(roomTable, new RoomColumn("Sale"), translateToObsList(rooms));
+            List<Lecturer> lecturers = lecturerRepositoryService.findAll();
+            setColumns(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(lecturers));
         });
+    }
 
+    private void setChangedSubject() {
+        change.setOnAction(event -> subjectRepositoryService.add(setSubject()));
+    }
 
-
+    private Subject setSubject() {
+        try {
+            selectedSubject.setFaculty(facultyPicker.getSelectionModel().getSelectedItem());
+            selectedSubject.setHours(Integer.parseInt(hours.getText()));
+            selectedSubject.setName(name.getText());
+            SemesterFilter filter = new SemesterFilter();
+            Semester semester = semesterRepositoryService.findOne(filter);
+            selectedSubject.setSemester(semester);
+            selectedSubject.setLecturer(getSelectedItemsFromTable(lecturerTable));
+            selectedSubject.setRoom(getSelectedItemsFromTable(roomTable));
+            selectedSubject.setSubjectType(SubjectType.getFromString(typePicker.getSelectionModel().getSelectedItem()));
+        } catch (NotExistingTypeException e) {
+            logger.error(e.getMessage());
+        }
+        return selectedSubject;
     }
 
     private void setStartButtons() {
@@ -120,14 +193,15 @@ public class AddDataSubjectController extends FXController {
     private void setSubjectTableListener() {
         subjectTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
             Subject subject = getSelectedItemFromTable(subjectTable);
-            if(subject != null){
+            if (subject != null) {
+                delete.setDisable(false);
                 name.setText(subject.getName());
                 hours.setText(subject.getHours() + "");
                 change.setDisable(false);
                 add.setDisable(true);
                 typePicker.getSelectionModel().select(subject.getSubjectType().getName());
                 facultyPicker.getSelectionModel().select(subject.getFaculty());
-                setColumns(roomTable,new RoomColumn("Sale"), translateToObsList(subject.getRoom()));
+                setColumns(roomTable, new RoomColumn("Sale"), translateToObsList(subject.getRoom()));
                 setColumns(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(subject.getLecturer()));
                 semester.setText(subject.getSemester().getNumber() + "");
                 selectedSubject = subject;
@@ -135,8 +209,8 @@ public class AddDataSubjectController extends FXController {
         });
     }
 
-    private void setSubjectTable(){
-        setColumns(subjectTable,new SubjectColumn("Przedmioty"), translateToObsList(subjectRepositoryService.findAll()));
+    private void setSubjectTable() {
+        setColumns(subjectTable, new SubjectColumn("Przedmioty"), translateToObsList(subjectRepositoryService.findAll()));
     }
 
     private void setFacultyPickerForEmpty() {
