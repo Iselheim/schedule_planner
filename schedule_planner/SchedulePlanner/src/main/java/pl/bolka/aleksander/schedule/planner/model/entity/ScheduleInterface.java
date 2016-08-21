@@ -11,31 +11,31 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
  */
 public interface ScheduleInterface {
     
-    public long getId();
+    long getId();
 
-    public void setId(long id);
+    void setId(long id);
 
-    public Subject getSubject();
+    Subject getSubject();
 
-    public void setSubject(Subject subject);
+    void setSubject(Subject subject);
 
-    public Lecturer getLecturer();
+    Lecturer getLecturer();
 
-    public void setLecturer(Lecturer lecturer);
+    void setLecturer(Lecturer lecturer);
 
-    public FreeRoom getFreeRoom();
+    FreeRoom getFreeRoom();
 
-    public void setFreeRoom(FreeRoom room);
+    void setFreeRoom(FreeRoom room);
 
-    public Day getDay(); 
+    Day getDay();
 
-    public void setDay(Day day);
+    void setDay(Day day);
 
-    public Hour getHour();
+    Hour getHour();
 
-    public void setHour(Hour hour);
+    void setHour(Hour hour);
 
-    public StudentGroup getGroup() ;
+    StudentGroup getGroup() ;
 
-    public void setGroup(StudentGroup group);
+    void setGroup(StudentGroup group);
 }

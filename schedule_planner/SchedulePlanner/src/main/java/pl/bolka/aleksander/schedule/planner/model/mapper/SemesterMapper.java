@@ -8,7 +8,6 @@ import java.util.List;
 public class SemesterMapper {
 
 	public static List<SemesterDTO> mapEntitiesIntoDTOs(List<Semester> searchresult) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

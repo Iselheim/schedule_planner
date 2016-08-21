@@ -1,7 +1,6 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;

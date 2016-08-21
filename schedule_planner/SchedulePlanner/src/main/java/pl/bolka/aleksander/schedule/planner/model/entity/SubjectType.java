@@ -30,7 +30,7 @@ public enum SubjectType {
         this.shortcut = shortcut;
     }
 
-    private SubjectType(String name, String shortcut) {
+    SubjectType(String name, String shortcut) {
         this.name = name;
         this.shortcut = shortcut;
     }

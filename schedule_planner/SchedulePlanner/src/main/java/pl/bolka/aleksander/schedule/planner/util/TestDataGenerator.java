@@ -27,7 +27,6 @@ public class TestDataGenerator {
     private void generate() {
 
         generateRoomsWithDaysAndHours();
-        //TODO do testów narazie nie potrzebne 
         Faculty faculty = generateFaculty();
         Specialization specialization = generateSpecialization();
 
@@ -45,9 +44,7 @@ public class TestDataGenerator {
         }
         
         List<Subject> subjectsToSave = new ArrayList<>();
-        for (List<Subject> subject : subjects) {
-            subjectsToSave.addAll(subject);
-        }
+        subjects.forEach(subjectsToSave::addAll);
         List<Lecturer> lecturers = generateLecturers(faculty, subjectsToSave);
         
         data.add(faculty);
@@ -127,7 +124,6 @@ public class TestDataGenerator {
     }
 
     private Specialization generateSpecialization() {
-        //TODO generacja specializacji
         Specialization specialization = new Specialization();
         specialization.setSemesterCount(7);
         specialization.setName("kierunek testowy");

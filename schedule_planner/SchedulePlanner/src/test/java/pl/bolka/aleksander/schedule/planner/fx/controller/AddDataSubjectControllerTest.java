@@ -1,13 +1,11 @@
 package pl.bolka.aleksander.schedule.planner.fx.controller;
 
-import org.codehaus.groovy.runtime.ScriptReference;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.bolka.aleksander.schedule.planner.config.AppConfig;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;

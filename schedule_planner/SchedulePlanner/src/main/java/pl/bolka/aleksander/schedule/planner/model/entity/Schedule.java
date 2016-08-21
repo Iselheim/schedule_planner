@@ -51,7 +51,6 @@ public class Schedule implements Serializable, ScheduleInterface {
     }
 
     public Schedule() {
-        // TODO Auto-generated constructor stub
     }
 
     public Schedule(Subject subject, Lecturer lecturer, FreeRoom room, Day day, Hour hour, StudentGroup group) {

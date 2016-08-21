@@ -10,7 +10,7 @@ public enum Grade {
 		return name;
 	}
 
-	private Grade(String name) {
+	Grade(String name) {
 		this.name = name;
 	}
 

@@ -22,7 +22,6 @@ public class Specialization implements Serializable {
     private long id;
 
     private String name = "";
-    ;
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")
@@ -35,7 +34,6 @@ public class Specialization implements Serializable {
     private Grade grade;
 
     private String shortcut = "";
-    ;
 
 	@OneToMany(mappedBy = "specialization")
     private List<StudentGroup> group;

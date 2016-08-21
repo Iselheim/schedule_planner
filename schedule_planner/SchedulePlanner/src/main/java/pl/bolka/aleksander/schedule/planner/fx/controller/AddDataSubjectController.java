@@ -1,6 +1,5 @@
 package pl.bolka.aleksander.schedule.planner.fx.controller;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 import pl.bolka.aleksander.schedule.planner.exceptions.NotExistingTypeException;
 import pl.bolka.aleksander.schedule.planner.fx.column.LecturerColumn;
@@ -17,11 +15,9 @@ import pl.bolka.aleksander.schedule.planner.fx.column.RoomColumn;
 import pl.bolka.aleksander.schedule.planner.fx.column.SubjectColumn;
 import pl.bolka.aleksander.schedule.planner.model.entity.*;
 import pl.bolka.aleksander.schedule.planner.model.filter.*;
-import pl.bolka.aleksander.schedule.planner.model.repository.FacultyRepository;
 import pl.bolka.aleksander.schedule.planner.model.services.AbstractRepositoryService;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by Aleksander Bołka on 2016-07-05.

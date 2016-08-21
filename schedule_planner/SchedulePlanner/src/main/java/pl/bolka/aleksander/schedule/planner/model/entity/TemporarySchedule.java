@@ -46,7 +46,6 @@ public class TemporarySchedule implements ScheduleInterface,Serializable {
     }
 
     public TemporarySchedule() {
-        // TODO Auto-generated constructor stub
     }
 
     public TemporarySchedule(ScheduleInterface scheduleInterface) {

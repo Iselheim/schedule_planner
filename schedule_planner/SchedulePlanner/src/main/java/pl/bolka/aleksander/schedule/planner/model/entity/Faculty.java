@@ -30,7 +30,6 @@ public class Faculty implements Serializable {
     private List<Subject> subjects;
 
     public Faculty() {
-        // TODO Auto-generated constructor stub
     }
 
     public List<Subject> getSubjects() {

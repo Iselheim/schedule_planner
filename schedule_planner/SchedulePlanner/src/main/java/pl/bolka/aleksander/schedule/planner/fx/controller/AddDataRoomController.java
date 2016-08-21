@@ -3,7 +3,6 @@ package pl.bolka.aleksander.schedule.planner.fx.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.Callback;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
@@ -21,6 +20,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Aleksander Bołka on 2016-07-01.
@@ -141,10 +141,7 @@ public class AddDataRoomController extends FXController {
     }
 
     private List<LocalDate> getLocalDates(List<Day> days) {
-        List<LocalDate> localDates = new ArrayList<>();
-        for (Day d : days) {
-            localDates.add(d.getDate().toLocalDate());
-        }
+        List<LocalDate> localDates = days.stream().map(d -> d.getDate().toLocalDate()).collect(Collectors.toList());
         return localDates;
     }
 

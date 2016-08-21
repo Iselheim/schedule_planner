@@ -2,14 +2,14 @@ package pl.bolka.aleksander.schedule.planner.fx.column;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
-import pl.bolka.aleksander.schedule.planner.model.entity.Semester;
+import pl.bolka.aleksander.schedule.planner.model.entity.Specialization;
 
 /**
- * Created by Aleksander on 2016-08-17.
+ * Created by Aleksander Bołka on 2016-06-27.
  */
-public class SemesterColumn extends TableColumn<Semester,String> {
+public class SpecializationColumn extends TableColumn<Specialization,String> {
 
-    public SemesterColumn(String name) {
+    public SpecializationColumn(String name){
         super(name);
         setCellFactory();
     }
@@ -17,10 +17,11 @@ public class SemesterColumn extends TableColumn<Semester,String> {
     private void setCellFactory() {
         setCellValueFactory(p -> {
             if (p.getValue() != null) {
-                return new SimpleStringProperty("Semestr " + p.getValue().getNumber() + "\n rok: " + p.getValue().getYear());
+                return new SimpleStringProperty(p.getValue().getName()+ "\n Wydział: " + p.getValue().getFaculty().getName());
             } else {
                 return new SimpleStringProperty("");
             }
         });
     }
+
 }

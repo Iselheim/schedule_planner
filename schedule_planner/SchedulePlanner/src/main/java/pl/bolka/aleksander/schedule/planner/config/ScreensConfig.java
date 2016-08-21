@@ -107,6 +107,16 @@ public class ScreensConfig implements Observer {
         setNode(getNode(getAddDataSemesterController()));
     }
 
+    @Bean
+    @Scope
+    public AddDataSpecializationController getAddDataSpecializationController(){
+        return new AddDataSpecializationController(this);
+    }
+
+    public void loadAddDataSpecializationController(){
+        setNode(getNode(getAddDataSpecializationController()));
+    }
+
     public void setPrimaryStage(Stage primaryStage) {
         this.stage = primaryStage;
     }
@@ -121,11 +131,7 @@ public class ScreensConfig implements Observer {
         stage.setScene(scene);
         stage.setResizable(false);
 
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent event) {
-                System.exit(0);
-            }
-        });
+        stage.setOnHiding(event -> System.exit(0));
 
         stage.show();
     }
@@ -148,11 +154,7 @@ public class ScreensConfig implements Observer {
     private Node getNode(final FXController controller) {
         URL location = getClass().getResource(controller.getPath());
         FXMLLoader loader = new FXMLLoader(location);
-        loader.setControllerFactory(new Callback<Class<?>, Object>() {
-            public Object call(Class<?> aClass) {
-                return controller;
-            }
-        });
+        loader.setControllerFactory(aClass -> controller);
 
         try {
             return (Node) loader.load();

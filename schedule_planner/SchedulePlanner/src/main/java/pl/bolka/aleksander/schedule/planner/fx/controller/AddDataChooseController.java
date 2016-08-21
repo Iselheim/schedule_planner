@@ -54,6 +54,7 @@ public class AddDataChooseController extends FXController {
         setMainMainButton();
         setAddSubjectButton();
         setAddSemesterButton();
+        setAddSpecializationButton();
     }
 
     private void setAddRoomButton() {
@@ -72,6 +73,10 @@ public class AddDataChooseController extends FXController {
 
     private void setAddSemesterButton(){
         addSemester.setOnAction(event -> flow.loadAddDataSemesterController());
+    }
+
+    private void setAddSpecializationButton(){
+        addSpecialization.setOnAction(event -> flow.loadAddDataSpecializationController());
     }
 
     @Override

@@ -15,7 +15,6 @@ public class ManualSelectByGroupsController extends FXController {
 
 	public ManualSelectByGroupsController(ScreensConfig flow) {
 		super(flow);
-		// TODO Auto-generated constructor stub
 	}
 
 	private static final String PATH = "/pl/bolka/aleksander/schedule/planner/fx/fxml/ManualSelectByGroups.fxml";

@@ -21,8 +21,7 @@ public abstract class AbstractRepositoryService<E extends Serializable, F extend
 
     @Transactional
     public List<E> findAll(){
-        List<E> all = commonCustomRepository.findAll();
-        return all;
+        return commonCustomRepository.findAll();
     }
 
     @Transactional

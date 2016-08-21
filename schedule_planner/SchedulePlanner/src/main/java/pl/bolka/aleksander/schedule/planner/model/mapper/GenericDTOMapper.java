@@ -6,6 +6,7 @@ import pl.bolka.aleksander.schedule.planner.model.dto.BaseDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Aleksander Bołka on 2016-06-23.
@@ -16,20 +17,14 @@ public abstract class GenericDTOMapper<E extends Serializable,DTO extends BaseDT
     protected abstract DTO translateToDTO(E entity);
 
     private List<DTO> translateToDTOs(List<E> entitys){
-        ArrayList<DTO> dtos = new ArrayList<>();
-        for(E entity: entitys){
-            dtos.add(translateToDTO(entity));
-        }
+        ArrayList<DTO> dtos = entitys.stream().map(this::translateToDTO).collect(Collectors.toCollection(ArrayList::new));
         return dtos;
     }
 
     protected abstract E translateToEntity(DTO dto);
 
     private List<E> translateToEntitys(List<DTO> dtos){
-        ArrayList<E> entitys = new ArrayList<>();
-        for(DTO dto : dtos){
-            entitys.add(translateToEntity(dto));
-        }
+        ArrayList<E> entitys = dtos.stream().map(this::translateToEntity).collect(Collectors.toCollection(ArrayList::new));
         return entitys;
     }
 

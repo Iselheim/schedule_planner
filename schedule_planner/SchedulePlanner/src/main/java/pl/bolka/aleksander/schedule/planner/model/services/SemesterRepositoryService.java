@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import pl.bolka.aleksander.schedule.planner.model.entity.Semester;
 import pl.bolka.aleksander.schedule.planner.model.filter.SemesterFilter;
 import pl.bolka.aleksander.schedule.planner.model.specyfication.SemesterSpecification;
-import pl.bolka.aleksander.schedule.planner.model.specyfication.SubjectSpecyfication;
 
 import java.util.List;
 

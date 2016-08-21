@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataSpecializationController">
+    <children>
+        <TableView fx:id="specializationTable" layoutY="80.0" prefHeight="352.0" prefWidth="200.0" />
+        <TextField fx:id="name" layoutX="219.0" layoutY="108.0" prefHeight="31.0" prefWidth="193.0" promptText="nazwa kierunku" />
+        <Button fx:id="back" layoutX="20.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Wróć" />
+        <Button fx:id="mainMenu" layoutX="252.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Główne Menu" />
+        <Button fx:id="add" layoutX="217.0" layoutY="401.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="Dodaj" />
+        <Button fx:id="delete" layoutX="349.0" layoutY="401.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="Usuń" />
+        <Label layoutX="366.0" layoutY="87.0" text="Nazwa" />
+      <ComboBox fx:id="facultyComboBx" layoutX="219.0" layoutY="160.0" prefHeight="31.0" prefWidth="193.0" />
+      <ComboBox fx:id="studiesType" layoutX="219.0" layoutY="212.0" prefHeight="31.0" prefWidth="193.0" />
+      <Button fx:id="change" layoutX="280.0" layoutY="401.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="Zmień" />
+      <TextField fx:id="semesterCount" layoutX="219.0" layoutY="264.0" prefHeight="31.0" prefWidth="193.0" promptText="ilość semestrów" />
+      <Label layoutX="350.0" layoutY="139.0" prefHeight="21.0" prefWidth="60.0" text="Wydziały" />
+      <Label layoutX="305.0" layoutY="191.0" prefHeight="21.0" prefWidth="107.0" text="Rodzaj studiów" />
+      <Label layoutX="307.0" layoutY="243.0" text="Ilość semestrów" />
+      <Label layoutX="377.0" layoutY="295.0" text="Skrót" />
+      <TextField fx:id="shortCut" layoutX="219.0" layoutY="316.0" prefHeight="31.0" prefWidth="193.0" promptText="skrót" />
+      <TableView fx:id="studentGroupsTable" layoutX="434.0" layoutY="80.0" prefHeight="352.0" prefWidth="200.0" />
+    </children>
+</AnchorPane>
