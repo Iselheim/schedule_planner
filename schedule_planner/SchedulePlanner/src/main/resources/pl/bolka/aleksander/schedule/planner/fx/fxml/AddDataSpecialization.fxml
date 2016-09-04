@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataSpecializationController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataSpecializationController">
     <children>
         <TableView fx:id="specializationTable" layoutY="80.0" prefHeight="352.0" prefWidth="200.0" />
         <TextField fx:id="name" layoutX="219.0" layoutY="108.0" prefHeight="31.0" prefWidth="193.0" promptText="nazwa kierunku" />
@@ -24,5 +24,7 @@
       <Label layoutX="377.0" layoutY="295.0" text="Skrót" />
       <TextField fx:id="shortCut" layoutX="219.0" layoutY="316.0" prefHeight="31.0" prefWidth="193.0" promptText="skrót" />
       <TableView fx:id="studentGroupsTable" layoutX="434.0" layoutY="80.0" prefHeight="352.0" prefWidth="200.0" />
+      <TableView fx:id="subjectsTable" layoutX="665.0" layoutY="80.0" prefHeight="352.0" prefWidth="200.0" />
+      <Button fx:id="addNew" layoutX="217.0" layoutY="359.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="193.0" text="Dodaj nowy" />
     </children>
 </AnchorPane>

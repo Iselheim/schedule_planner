@@ -2,12 +2,7 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Specialization implements Serializable {
@@ -35,8 +30,11 @@ public class Specialization implements Serializable {
 
     private String shortcut = "";
 
-	@OneToMany(mappedBy = "specialization")
+	@OneToMany(mappedBy = "specialization",fetch = FetchType.EAGER)
     private List<StudentGroup> group;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Subject> subject;
 
     public long getId() {
         return id;
@@ -102,4 +100,11 @@ public class Specialization implements Serializable {
         this.group = group;
     }
 
+    public List<Subject> getSubject() {
+        return subject;
+    }
+
+    public void setSubject(List<Subject> subject) {
+        this.subject = subject;
+    }
 }

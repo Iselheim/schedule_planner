@@ -17,7 +17,7 @@ public class StudentGroupColumn extends TableColumn<StudentGroup,String> {
     private void setCellFactory() {
         setCellValueFactory(p -> {
             if (p.getValue() != null) {
-                return new SimpleStringProperty("Grupa: " + p.getValue().getNumber() + " sem. " + p.getValue().getSemester());
+                return new SimpleStringProperty("Grupa: " + p.getValue().getNumber() + " sem. " + p.getValue().getSemester().getNumber());
             } else {
                 return new SimpleStringProperty("");
             }

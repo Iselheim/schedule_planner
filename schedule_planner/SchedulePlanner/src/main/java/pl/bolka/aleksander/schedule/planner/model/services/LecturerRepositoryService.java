@@ -3,6 +3,7 @@ package pl.bolka.aleksander.schedule.planner.model.services;
 import org.springframework.stereotype.Service;
 import pl.bolka.aleksander.schedule.planner.model.entity.Lecturer;
 import pl.bolka.aleksander.schedule.planner.model.filter.LecturerFilter;
+import pl.bolka.aleksander.schedule.planner.model.specyfication.LecturerSpecification;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ public class LecturerRepositoryService extends AbstractRepositoryService<Lecture
 
     @Override
     public List<Lecturer> findAll(LecturerFilter filter) {
-        return null;
+        LecturerSpecification spec = new LecturerSpecification(filter);
+        return commonCustomRepository.findAll(spec);
     }
 
     @Override
     public Lecturer findOne(LecturerFilter filter) {
-        return null;
+        LecturerSpecification spec = new LecturerSpecification(filter);
+        return commonCustomRepository.findOne(spec);
     }
 }

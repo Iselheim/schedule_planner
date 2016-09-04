@@ -26,7 +26,6 @@ public class StudentGroup implements Serializable {
     private int number;
 
     @ManyToOne
-//    @JoinColumn(name = "specialization_id")
     private Specialization specialization;
 
     public long getId() {

@@ -7,6 +7,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 
 import java.util.List;

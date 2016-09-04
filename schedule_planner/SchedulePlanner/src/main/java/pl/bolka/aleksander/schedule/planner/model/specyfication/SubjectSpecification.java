@@ -12,11 +12,11 @@ import javax.persistence.criteria.Root;
 /**
  * Created by Aleksander Bołka on 2016-06-27.
  */
-public class SubjectSpecyfication implements Specification<Subject> {
+public class SubjectSpecification implements Specification<Subject> {
 
     private SubjectFilter filter;
 
-    public SubjectSpecyfication(SubjectFilter filter) {
+    public SubjectSpecification(SubjectFilter filter) {
         super();
         this.filter = filter;
     }

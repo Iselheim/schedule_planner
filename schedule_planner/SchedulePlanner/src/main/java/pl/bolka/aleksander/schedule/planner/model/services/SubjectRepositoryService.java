@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.model.entity.Subject;
 import pl.bolka.aleksander.schedule.planner.model.filter.SubjectFilter;
-import pl.bolka.aleksander.schedule.planner.model.specyfication.SubjectSpecyfication;
+import pl.bolka.aleksander.schedule.planner.model.specyfication.SubjectSpecification;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ public class SubjectRepositoryService extends AbstractRepositoryService<Subject,
 
     @Transactional
     public List<Subject> findAll(SubjectFilter subjectFilter){
-        SubjectSpecyfication spec = new SubjectSpecyfication(subjectFilter);
+        SubjectSpecification spec = new SubjectSpecification(subjectFilter);
         return commonCustomRepository.findAll(spec);
     }
 
     @Override
     public Subject findOne(SubjectFilter filter) {
-        SubjectSpecyfication spec = new SubjectSpecyfication(filter);
+        SubjectSpecification spec = new SubjectSpecification(filter);
         return commonCustomRepository.findOne(spec);
     }
 

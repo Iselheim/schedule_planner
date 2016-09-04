@@ -25,11 +25,8 @@ public class Semester implements Serializable {
 	@OneToMany
 	private Set<Week> week;
 
-	@OneToMany(mappedBy = "semester")
-	private List<StudentGroup> group;
-
-	@OneToMany(mappedBy = "semester")
-	private List<Subject> subject;
+	@OneToMany
+	private List<Specialization> specialization;
 
 	private int number;
 
@@ -67,12 +64,12 @@ public class Semester implements Serializable {
 		this.id = id;
 	}
 
-	public List<StudentGroup> getGroup() {
-		return group;
+	public List<Specialization> getSpecialization() {
+		return specialization;
 	}
 
-	public void setGroup(List<StudentGroup> group) {
-		this.group = group;
+	public void setSpecialization(List<Specialization> specialization) {
+		this.specialization = specialization;
 	}
 
 	public int getNumber() {
@@ -99,11 +96,4 @@ public class Semester implements Serializable {
 		this.week = week;
 	}
 
-	public List<Subject> getSubject() {
-		return subject;
-	}
-
-	public void setSubject(List<Subject> subject) {
-		this.subject = subject;
-	}
 }
