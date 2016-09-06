@@ -9,17 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 import pl.bolka.aleksander.schedule.planner.fx.column.SpecializationColumn;
 import pl.bolka.aleksander.schedule.planner.fx.column.StudentGroupColumn;
-import pl.bolka.aleksander.schedule.planner.model.entity.Faculty;
-import pl.bolka.aleksander.schedule.planner.model.entity.Specialization;
-import pl.bolka.aleksander.schedule.planner.model.entity.StudentGroup;
-import pl.bolka.aleksander.schedule.planner.model.entity.StudiesType;
+import pl.bolka.aleksander.schedule.planner.fx.column.SubjectColumn;
+import pl.bolka.aleksander.schedule.planner.model.entity.*;
 import pl.bolka.aleksander.schedule.planner.model.filter.FacultyFilter;
 import pl.bolka.aleksander.schedule.planner.model.filter.SpecializationFilter;
+import pl.bolka.aleksander.schedule.planner.model.filter.StudentGroupFilter;
+import pl.bolka.aleksander.schedule.planner.model.filter.SubjectFilter;
 import pl.bolka.aleksander.schedule.planner.model.services.AbstractRepositoryService;
 
 import java.util.List;
 
-//TODO skonczyć dodawanie kierunków
 /**
  * Created by Aleksander on 2016-08-21.
  */
@@ -63,11 +62,25 @@ public class AddDataSpecializationController  extends  FXController{
     @FXML
     public TableView<StudentGroup> studentGroupsTable;
 
+    @FXML
+    public TableView subjectsTable;
+
+    @FXML
+    public Button addNew;
+
     @Autowired
     private AbstractRepositoryService<Specialization, SpecializationFilter> specializationRepositoryService;
 
     @Autowired
     private AbstractRepositoryService<Faculty,FacultyFilter> facultyRepositoryService;
+
+    @Autowired
+    private AbstractRepositoryService<Subject,SubjectFilter> subjectRepositoryService;
+
+    @Autowired
+    private AbstractRepositoryService<StudentGroup,StudentGroupFilter> studentRepositoryService;
+
+    private Specialization pickedSpec;
 
     public AddDataSpecializationController(ScreensConfig flow) {
         super(flow);
@@ -88,19 +101,27 @@ public class AddDataSpecializationController  extends  FXController{
         setPickers();
     }
 
+    private void setSubjectTable() {
+        setColumns(subjectsTable,new SubjectColumn("Przedmioty"),subjectRepositoryService.findAll());
+    }
+
+    @Transactional
     private void setSpecializationTableListener() {
         specializationTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
             change.setDisable(false);
             delete.setDisable(false);
             add.setDisable(true);
             Specialization specialization = getSelectedItemFromTable(specializationTable);
+            pickedSpec = specialization;
             if(specialization!=null){
                 name.setText(specialization.getName());
                 facultyComboBx.getSelectionModel().select(specialization.getFaculty());
                 studiesType.getSelectionModel().select(specialization.getType().getName());
                 semesterCount.setText(specialization.getSemesterCount() + "");
                 shortCut.setText(specialization.getShortcut());
-                setColumns(studentGroupsTable, new StudentGroupColumn("Grupy"), specialization.getGroup());
+                List<StudentGroup> group = specialization.getGroup();
+                setColumns(studentGroupsTable, new StudentGroupColumn("Grupy"), group);
+                setColumns(subjectsTable,new SubjectColumn("Przedmioty"),specialization.getSubject());
             }
 
         });
@@ -144,6 +165,47 @@ public class AddDataSpecializationController  extends  FXController{
         add.setDisable(true);
         change.setDisable(true);
         delete.setDisable(true);
+
+        setAddNewButton();
+        setAddButton();
+        setDeleteButton();
+    }
+
+    private void setDeleteButton() {
+        //TODO nie dzala poprawnie
+        delete.setOnAction(event -> specializationRepositoryService.delete(pickedSpec));
+    }
+
+    @Transactional
+    private void setAddButton() {
+        add.setOnAction(event -> {
+            Specialization specialization = new Specialization();
+            specialization.setFaculty(facultyComboBx.getValue());
+            specialization.setGroup(getSelectedItemsFromTable(studentGroupsTable));
+            specialization.setName(name.getText());
+            specialization.setSemesterCount(Integer.parseInt(semesterCount.getText()));
+            specialization.setShortcut(shortCut.getText());
+            specialization.setSubject(getSelectedItemsFromTable(subjectsTable));
+            specialization.setType(StudiesType.valueOf(studiesType.getValue().toUpperCase()));
+            specializationRepositoryService.add(specialization);
+        });
+    }
+
+    private void setAddNewButton() {
+        addNew.setOnAction(event -> {
+            add.setDisable(false);
+            change.setDisable(true);
+            delete.setDisable(true);
+            setSelectionModeMultiple(subjectsTable);
+            setSelectionModeMultiple(studentGroupsTable);
+            setSubjectTable();
+            setStudentGroupsTable();
+        });
+    }
+
+
+    private void setStudentGroupsTable() {
+        setColumns(studentGroupsTable,new StudentGroupColumn("Grupy"),studentRepositoryService.findAll());
     }
 
     @Transactional

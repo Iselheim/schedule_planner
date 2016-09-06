@@ -108,13 +108,23 @@ public class ScreensConfig implements Observer {
     }
 
     @Bean
-    @Scope
+    @Scope("prototype")
     public AddDataSpecializationController getAddDataSpecializationController(){
         return new AddDataSpecializationController(this);
     }
 
     public void loadAddDataSpecializationController(){
         setNode(getNode(getAddDataSpecializationController()));
+    }
+
+    @Bean
+    @Scope("prototype")
+    public AddDataStudentGroupController getAddDataStudentGroupController(){
+        return new AddDataStudentGroupController(this);
+    }
+
+    public void loadAddDataStudentGroupController(){
+        setNode(getNode(getAddDataStudentGroupController()));
     }
 
     public void setPrimaryStage(Stage primaryStage) {
