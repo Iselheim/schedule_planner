@@ -31,7 +31,7 @@ public class StartPageController extends FXController {
     }
 
     private void setButtons() {
-        setMainWindowButtonGrupy();
+        setSchedulePlannerController();
         setMainWindowButtonAddData();
     }
 
@@ -39,8 +39,8 @@ public class StartPageController extends FXController {
         mainWindowButtonAddData.setOnAction((ActionEvent event) -> flow.loadAddDataChooseController());
     }
 
-    private void setMainWindowButtonGrupy() {
-        mainWindowButtonGrupy.setOnAction((ActionEvent event) -> flow.loadManualSelectByGroupsController());
+    private void setSchedulePlannerController() {
+        mainWindowButtonGrupy.setOnAction((ActionEvent event) -> flow.loadSchedulePlannerController());
     }
 
     @Override

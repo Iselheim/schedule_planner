@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.StartPageController">
    <children>
-      <Button fx:id="mainWindowButtonGrupy" layoutX="78.0" layoutY="137.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="120.0" text="Grupy" />
+      <Button fx:id="mainWindowButtonGrupy" layoutX="78.0" layoutY="137.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="120.0" text="Planowanie" />
       <Text layoutX="155.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Witaj w aplikacji do ukladania planów zajęć" wrappingWidth="289.7294921875" />
       <Text boundsType="LOGICAL_VERTICAL_CENTER" layoutX="157.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz sposób układania planu" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="289.7294921875" />
       <Button fx:id="mainWindowButtonAddData" layoutX="78.0" layoutY="281.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="171.0" text="Dodawanie danych" />

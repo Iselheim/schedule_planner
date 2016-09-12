@@ -1,22 +1,21 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import java.io.Serializable;
 
 //TODO relacje do przemyślenia
 @Entity
 public class Schedule implements Serializable, ScheduleInterface {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue
     private long id;
 
@@ -38,18 +37,6 @@ public class Schedule implements Serializable, ScheduleInterface {
     @OneToOne
     private StudentGroup group;
 
-    @Transient
-    private String text;
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Schedule() {
     }
 
@@ -61,9 +48,8 @@ public class Schedule implements Serializable, ScheduleInterface {
         this.hour = hour;
         this.group = group;
     }
-    
-    
-    
+
+
     public long getId() {
         return id;
     }
@@ -119,11 +105,4 @@ public class Schedule implements Serializable, ScheduleInterface {
     public void setGroup(StudentGroup group) {
         this.group = group;
     }
-
-    @Override
-    public String toString() {
-        return "PlanZajec [id=" + id + ", przedmiot=" + subject + ", wykladowca=" + lecturer + ", sala=" + room
-                + ", dzien=" + day + ", godzina=" + hour + ", grupa=" + group + "]";
-    }
-
 }

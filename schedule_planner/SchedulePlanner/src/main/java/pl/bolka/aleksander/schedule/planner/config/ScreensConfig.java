@@ -1,13 +1,10 @@
 package pl.bolka.aleksander.schedule.planner.config;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -69,11 +66,11 @@ public class ScreensConfig implements Observer {
 
     @Bean
     @Scope("prototype")
-    public AddDataLecturerController getAddDataLecturerController(){
+    public AddDataLecturerController getAddDataLecturerController() {
         return new AddDataLecturerController(this);
     }
 
-    public void loadAddDataLecturerController(){
+    public void loadAddDataLecturerController() {
         setNode(getNode(getAddDataLecturerController()));
     }
 
@@ -89,42 +86,52 @@ public class ScreensConfig implements Observer {
 
     @Bean
     @Scope("prototype")
-    public AddDataSubjectController getAddDataSubjectController(){
+    public AddDataSubjectController getAddDataSubjectController() {
         return new AddDataSubjectController(this);
     }
 
-    public void loadAddDataSubjectController(){
+    public void loadAddDataSubjectController() {
         setNode(getNode(getAddDataSubjectController()));
     }
 
     @Bean
     @Scope("prototype")
-    public AddDataSemesterController getAddDataSemesterController(){
+    public AddDataSemesterController getAddDataSemesterController() {
         return new AddDataSemesterController(this);
     }
 
-    public void loadAddDataSemesterController(){
+    public void loadAddDataSemesterController() {
         setNode(getNode(getAddDataSemesterController()));
     }
 
     @Bean
     @Scope("prototype")
-    public AddDataSpecializationController getAddDataSpecializationController(){
+    public AddDataSpecializationController getAddDataSpecializationController() {
         return new AddDataSpecializationController(this);
     }
 
-    public void loadAddDataSpecializationController(){
+    public void loadAddDataSpecializationController() {
         setNode(getNode(getAddDataSpecializationController()));
     }
 
     @Bean
     @Scope("prototype")
-    public AddDataStudentGroupController getAddDataStudentGroupController(){
+    public AddDataStudentGroupController getAddDataStudentGroupController() {
         return new AddDataStudentGroupController(this);
     }
 
-    public void loadAddDataStudentGroupController(){
+    public void loadAddDataStudentGroupController() {
         setNode(getNode(getAddDataStudentGroupController()));
+    }
+
+    @Bean
+    @Scope("prototype")
+    public SchedulePlannerController getSchedulePlannerController(){
+        return new SchedulePlannerController(this);
+    }
+
+    public void loadSchedulePlannerController(){
+        setNode(getNode(getSchedulePlannerController()));
     }
 
     public void setPrimaryStage(Stage primaryStage) {
