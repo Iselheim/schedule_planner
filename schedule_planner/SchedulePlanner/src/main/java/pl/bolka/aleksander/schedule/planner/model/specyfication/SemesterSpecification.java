@@ -22,6 +22,11 @@ public class SemesterSpecification implements Specification<Semester> {
 
         Predicate p = cb.disjunction();
 
+        if(filter.getNumber() != null){
+            p.getExpressions()
+                    .add(cb.equal(root.get("number"),filter.getNumber()));
+        }
+
         return p;
     }
 }

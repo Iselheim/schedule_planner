@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataSpecializationController">
+<?import javafx.scene.text.Text?>
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bolka.aleksander.schedule.planner.fx.controller.AddDataStudentGroupController">
     <children>
         <TableView fx:id="groupTable" layoutY="80.0" prefHeight="352.0" prefWidth="200.0" />
         <Button fx:id="back" layoutX="20.0" layoutY="455.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Wróć" />
@@ -17,6 +14,6 @@
       <TextField fx:id="quantity" layoutX="217.0" layoutY="103.0" promptText="liczebność" />
       <Text layoutX="308.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczebność" />
       <Text layoutX="330.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer" />
-      <TextField fx:id="quantity1" layoutX="217.0" layoutY="158.0" promptText="numer" />
+      <TextField fx:id="number" layoutX="217.0" layoutY="158.0" promptText="numer" />
     </children>
 </AnchorPane>

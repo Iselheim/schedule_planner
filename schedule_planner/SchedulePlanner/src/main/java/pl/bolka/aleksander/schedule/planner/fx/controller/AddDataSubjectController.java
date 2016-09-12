@@ -169,6 +169,7 @@ public class AddDataSubjectController extends FXController {
             selectedSubject.setHours(Integer.parseInt(hours.getText()));
             selectedSubject.setName(name.getText());
             SemesterFilter filter = new SemesterFilter();
+            filter.setNumber(Integer.valueOf(semester.getText()));
             Semester semester = semesterRepositoryService.findOne(filter);
             selectedSubject.setSemester(semester);
             selectedSubject.setLecturer(getSelectedItemsFromTable(lecturerTable));

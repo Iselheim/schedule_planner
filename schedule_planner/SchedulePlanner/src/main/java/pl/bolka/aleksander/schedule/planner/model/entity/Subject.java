@@ -30,7 +30,7 @@ public class Subject implements Serializable {
     @ManyToMany(mappedBy = "subject", fetch = FetchType.EAGER)
     private List<Lecturer> lecturer;
 
-    @OneToMany(fetch= FetchType.EAGER)
+    @ManyToMany(fetch= FetchType.EAGER)
     private List<Room> room;
 
     private int hours;
