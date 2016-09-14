@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
+import pl.bolka.aleksander.schedule.planner.model.entity.Identifiable;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
@@ -21,7 +22,7 @@ public class CustomRepositoryFactoryBean<R extends JpaRepository<T, I>, T, I ext
         return new CustomRepositoryFactory(entityManager);
     }
 
-    private static class CustomRepositoryFactory<T, I extends Serializable> extends JpaRepositoryFactory {
+    private static class CustomRepositoryFactory<T extends Identifiable, I extends Serializable> extends JpaRepositoryFactory {
 
         private EntityManager entityManager;
 
@@ -34,7 +35,7 @@ public class CustomRepositoryFactoryBean<R extends JpaRepository<T, I>, T, I ext
         @Override
         protected Object getTargetRepository(RepositoryMetadata metadata) {
 
-            return new CommonCustomRepositoryImpl<T, I>((Class<T>) metadata.getDomainType(), entityManager);
+            return new CommonCustomRepositoryImpl<T , I>((Class<T>) metadata.getDomainType(), entityManager);
         }
 
         @Override

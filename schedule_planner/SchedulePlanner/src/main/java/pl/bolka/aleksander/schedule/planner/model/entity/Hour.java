@@ -3,15 +3,23 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.sql.Time;
 
 @Entity
-public class Hour implements Serializable {
+public class Hour implements Identifiable {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     private Time timeFrom;
 
@@ -19,21 +27,6 @@ public class Hour implements Serializable {
     
     public Hour() {
         super();
-    }
-
-    public Hour(long id, Time od, Time doo) {
-        super();
-        this.id = id;
-        this.timeFrom = od;
-        this.timeTo = doo;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Time getTimeFrom() {

@@ -125,7 +125,7 @@ public class AddDataLecturerController extends FXController {
             subjectTable.getItems().clear();
             List<Subject> subjects = subjectRepositoryService.findAll();
             lecturerSubjectTable.getItems().clear();
-            setColumns(subjectTable, new SubjectColumn("Przedmioty"), subjects);
+            setColumn(subjectTable, new SubjectColumn("Przedmioty"), subjects);
         });
     }
 
@@ -172,7 +172,7 @@ public class AddDataLecturerController extends FXController {
     }
 
     private void setLecturerTable() {
-        setColumns(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(lecturerRepositoryService.findAll()));
+        setColumn(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(lecturerRepositoryService.findAll()));
 
     }
 
@@ -192,10 +192,10 @@ public class AddDataLecturerController extends FXController {
     }
 
     private void setSubjectsColumns(Lecturer lecturer) {
-        setColumns(lecturerSubjectTable, new SubjectColumn("Przedmioty wybrane"), lecturer.getSubject());
+        setColumn(lecturerSubjectTable, new SubjectColumn("Przedmioty wybrane"), lecturer.getSubject());
         SubjectFilter subjectFilter = new SubjectFilter();
         subjectFilter.setLecturer(lecturer);
-        setColumns(subjectTable, new SubjectColumn("Przedmioty"), subjectRepositoryService.findAll(subjectFilter));
+        setColumn(subjectTable, new SubjectColumn("Przedmioty"), subjectRepositoryService.findAll(subjectFilter));
     }
 
     private void setBackButton() {

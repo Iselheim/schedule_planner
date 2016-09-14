@@ -26,5 +26,12 @@ public class SubjectRepositoryService extends AbstractRepositoryService<Subject,
         return commonCustomRepository.findOne(spec);
     }
 
+    //TODO cos generycznego to jest do kitu
+    @Transactional
+    public Subject getRoomFromSubject(Subject subject){
+        commonCustomRepository.getOne(subject.getId());
+        subject.getRoom().size();
+        return subject;
+    }
 
 }

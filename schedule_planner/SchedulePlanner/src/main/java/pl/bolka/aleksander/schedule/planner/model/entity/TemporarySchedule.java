@@ -1,11 +1,7 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 //TODO relacje do przemyślenia
 @Entity
@@ -58,7 +54,7 @@ public class TemporarySchedule implements ScheduleInterface,Serializable {
     }
 
     @Override
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

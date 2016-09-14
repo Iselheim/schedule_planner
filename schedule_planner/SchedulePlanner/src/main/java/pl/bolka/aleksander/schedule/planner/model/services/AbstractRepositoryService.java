@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.bolka.aleksander.schedule.planner.model.entity.Identifiable;
 import pl.bolka.aleksander.schedule.planner.model.filter.Filter;
 import pl.bolka.aleksander.schedule.planner.model.repository.CommonCustomRepository;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Aleksander Bołka on 2016-06-26.
  */
 @Service
-public abstract class AbstractRepositoryService<E extends Serializable, F extends Filter> {
+public abstract class AbstractRepositoryService<E extends Identifiable, F extends Filter> {
 
     @Autowired
     protected CommonCustomRepository<E,Long> commonCustomRepository;
@@ -45,5 +45,11 @@ public abstract class AbstractRepositoryService<E extends Serializable, F extend
         return commonCustomRepository.findOne(specification);
     }
 
+    @Transactional
+    public E getEager(E e){
+        E eager = commonCustomRepository.getEager(e);
+        eager.getId();
+        return eager;
+    }
 
 }

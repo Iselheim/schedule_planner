@@ -25,6 +25,11 @@ public class StudentGroupSpecification implements Specification<StudentGroup> {
                                  CriteriaBuilder cb) {
 
         Predicate p = cb.disjunction();
+
+        if(filter.getSemester() != null){
+            p.getExpressions().add(cb.equal(root.get("semester"),filter.getSemester()));
+        }
+
         return p;
     }
 }

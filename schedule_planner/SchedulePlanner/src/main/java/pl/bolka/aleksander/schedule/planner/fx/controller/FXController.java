@@ -7,9 +7,9 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.apache.log4j.Logger;
-import org.springframework.transaction.annotation.Transactional;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 
+import java.util.Collection;
 import java.util.List;
 
 public abstract class FXController {
@@ -35,7 +35,7 @@ public abstract class FXController {
 		return tableView.getSelectionModel().getSelectedItems();
 	}
 
-	public  <E> ObservableList<E> translateToObsList(List<E> dtos){
+	public  <E> ObservableList<E> translateToObsList(Collection<E> dtos){
 		ObservableList<E> obsList = FXCollections.observableArrayList();
 		obsList.addAll(dtos);
 		return obsList;
@@ -47,10 +47,16 @@ public abstract class FXController {
 		return obsList;
 	}
 
-	protected void setColumns(TableView tableView, TableColumn tableColumn, List observableList){
+	protected void setColumn(TableView tableView, TableColumn tableColumn, Collection observableList){
 		tableView.getColumns().clear();
 		tableColumn.setPrefWidth(tableView.getPrefWidth());
 		tableView.getColumns().setAll(tableColumn);
+		tableView.setItems(translateToObsList(observableList));
+	}
+
+	protected void addColumn(TableView tableView,TableColumn tableColumn, Collection observableList){
+		tableColumn.setPrefWidth(tableView.getPrefWidth()/tableView.getColumns().size());
+		tableView.getColumns().add(tableColumn);
 		tableView.setItems(translateToObsList(observableList));
 	}
 

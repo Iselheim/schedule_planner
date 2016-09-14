@@ -3,15 +3,14 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Faculty implements Serializable {
+public class Faculty implements Identifiable {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private String name = "";
 
@@ -20,10 +19,6 @@ public class Faculty implements Serializable {
     @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private List<Specialization> specialization;
-
-//    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
-//    @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
-//    private List<Lecturer> lecturers;
 
     @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
@@ -48,14 +43,6 @@ public class Faculty implements Serializable {
         this.specialization = specialization;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -70,6 +57,16 @@ public class Faculty implements Serializable {
 
     public void setShortcut(String shortcut) {
         this.shortcut = shortcut;
+    }
+
+    //    private List<Lecturer> lecturers;
+//    @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

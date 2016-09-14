@@ -1,15 +1,11 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 @Entity
-public class Week implements Serializable{
+public class Week implements Serializable, Identifiable {
 
 	/**
 	 * 
@@ -20,7 +16,7 @@ public class Week implements Serializable{
 	@GeneratedValue
 	private Long id;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Day> days;
 	
 	private int weekOfSemester;

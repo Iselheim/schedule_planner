@@ -11,7 +11,7 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
  */
 public interface ScheduleInterface {
     
-    long getId();
+    Long getId();
 
     void setId(long id);
 

@@ -1,11 +1,10 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import java.io.Serializable;
-import java.util.List;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class Specialization implements Serializable {
+public class Specialization implements Identifiable {
 
     /**
      *
@@ -14,7 +13,7 @@ public class Specialization implements Serializable {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private String name = "";
 
@@ -30,13 +29,13 @@ public class Specialization implements Serializable {
 
     private String shortcut = "";
 
-	@OneToMany(mappedBy = "specialization",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "specialization",fetch = FetchType.LAZY)
     private List<StudentGroup> group;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Subject> subject;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

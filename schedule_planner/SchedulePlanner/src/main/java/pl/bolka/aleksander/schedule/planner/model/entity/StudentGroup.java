@@ -1,13 +1,12 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class StudentGroup implements Serializable {
+public class StudentGroup implements Identifiable {
 
     /**
 	 * 
@@ -28,7 +27,7 @@ public class StudentGroup implements Serializable {
     @ManyToOne
     private Specialization specialization;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

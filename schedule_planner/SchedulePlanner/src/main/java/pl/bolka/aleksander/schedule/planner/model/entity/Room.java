@@ -1,12 +1,11 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Room implements Serializable {
+public class Room implements Identifiable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,16 +15,16 @@ public class Room implements Serializable {
 
     protected int roomSpace;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Week> week;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Day> day;
 
     public Room() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -31,6 +31,10 @@ public class SubjectSpecification implements Specification<Subject> {
                     .add(cb.isNotMember(filter.getLecturer(),root.get("lecturer")));
         }
 
+        if(filter.getSemester() != null){
+            p.getExpressions().add(cb.equal(root.get("semester"),filter.getSemester()));
+        }
+
         return p;
 
     }

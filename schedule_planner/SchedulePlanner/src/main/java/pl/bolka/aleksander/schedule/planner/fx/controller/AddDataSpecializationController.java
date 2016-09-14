@@ -2,7 +2,10 @@ package pl.bolka.aleksander.schedule.planner.fx.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,7 +105,7 @@ public class AddDataSpecializationController  extends  FXController{
     }
 
     private void setSubjectTable() {
-        setColumns(subjectsTable,new SubjectColumn("Przedmioty"),subjectRepositoryService.findAll());
+        setColumn(subjectsTable,new SubjectColumn("Przedmioty"),subjectRepositoryService.findAll());
     }
 
     @Transactional
@@ -120,8 +123,8 @@ public class AddDataSpecializationController  extends  FXController{
                 semesterCount.setText(specialization.getSemesterCount() + "");
                 shortCut.setText(specialization.getShortcut());
                 List<StudentGroup> group = specialization.getGroup();
-                setColumns(studentGroupsTable, new StudentGroupColumn("Grupy"), group);
-                setColumns(subjectsTable,new SubjectColumn("Przedmioty"),specialization.getSubject());
+                setColumn(studentGroupsTable, new StudentGroupColumn("Grupy"), group);
+                setColumn(subjectsTable,new SubjectColumn("Przedmioty"),specialization.getSubject());
             }
 
         });
@@ -205,12 +208,12 @@ public class AddDataSpecializationController  extends  FXController{
 
 
     private void setStudentGroupsTable() {
-        setColumns(studentGroupsTable,new StudentGroupColumn("Grupy"),studentRepositoryService.findAll());
+        setColumn(studentGroupsTable,new StudentGroupColumn("Grupy"),studentRepositoryService.findAll());
     }
 
     @Transactional
     private void setSpecializationTable() {
-        setColumns(specializationTable,new SpecializationColumn("Kierunek"),translateToObsList(specializationRepositoryService.findAll()));
+        setColumn(specializationTable,new SpecializationColumn("Kierunek"),translateToObsList(specializationRepositoryService.findAll()));
     }
 
     private void setButtons() {

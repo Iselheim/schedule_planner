@@ -2,7 +2,10 @@ package pl.bolka.aleksander.schedule.planner.fx.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
@@ -123,7 +126,7 @@ public class AddDataSemesterController extends FXController {
 
     private void setSemesterTable() {
         List<Semester> semesters = semesterRepositoryService.findAll();
-        setColumns(semesterTable, new SemesterColumn("Semestry"), semesters);
+        setColumn(semesterTable, new SemesterColumn("Semestry"), semesters);
     }
 
     private void setNavigateButtons() {

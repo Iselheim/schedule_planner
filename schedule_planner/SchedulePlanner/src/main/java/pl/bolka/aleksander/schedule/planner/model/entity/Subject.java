@@ -1,11 +1,10 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Subject implements Serializable {
+public class Subject implements Identifiable {
 
     /**
 	 * 
@@ -27,10 +26,10 @@ public class Subject implements Serializable {
 
     private SubjectType subjectType;
 
-    @ManyToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "subject", fetch = FetchType.LAZY)
     private List<Lecturer> lecturer;
 
-    @ManyToMany(fetch= FetchType.EAGER)
+    @ManyToMany(fetch= FetchType.LAZY)
     private List<Room> room;
 
     private int hours;
@@ -51,7 +50,7 @@ public class Subject implements Serializable {
         this.lecturer = lecturer;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

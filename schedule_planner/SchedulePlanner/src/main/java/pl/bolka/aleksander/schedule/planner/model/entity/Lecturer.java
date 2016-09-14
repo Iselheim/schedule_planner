@@ -6,7 +6,7 @@ import java.util.List;
 
 //TODO dni i godziny preferencji pracy
 @Entity
-public class Lecturer implements Serializable {
+public class Lecturer implements Serializable, Identifiable {
 
     @Id
     @GeneratedValue
@@ -18,7 +18,7 @@ public class Lecturer implements Serializable {
 
     private String universityDegree = "";
 
-    @ManyToMany(fetch= FetchType.EAGER)
+    @ManyToMany(fetch= FetchType.LAZY)
     private List<Subject> subject;
 
     public List<Subject> getSubject() {
@@ -29,7 +29,7 @@ public class Lecturer implements Serializable {
         this.subject = subject;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

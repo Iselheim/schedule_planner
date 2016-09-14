@@ -10,7 +10,7 @@ import java.util.List;
  *
  */
 @Entity
-public class Day implements Serializable {
+public class Day implements Serializable, Identifiable {
 
     /**
 	 * 

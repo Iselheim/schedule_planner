@@ -2,7 +2,10 @@ package pl.bolka.aleksander.schedule.planner.fx.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
@@ -18,7 +21,6 @@ import pl.bolka.aleksander.schedule.planner.util.CallbackForDatePickers;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -134,7 +136,7 @@ public class AddDataRoomController extends FXController {
             dayFilter.setDate(Date.valueOf(localDate));
             Day day = dayRepositoryService.findOne(dayFilter);
             Hibernate.initialize(day.getHour());
-            setColumns(hourTable, new HourColumn("Godziny"), day.getHour());
+            setColumn(hourTable, new HourColumn("Godziny"), day.getHour());
         });
         List<Day> days = dayRepositoryService.findAll();
         datePicker.setDayCellFactory(CallbackForDatePickers.getCallBackForDates(getLocalDates(days)));
@@ -169,7 +171,7 @@ public class AddDataRoomController extends FXController {
 
     private void setRoomTable() {
         List<Room> rooms = roomRepositoryService.findAll();
-        setColumns(roomTable, new RoomColumn("Sale"), rooms);
+        setColumn(roomTable, new RoomColumn("Sale"), rooms);
     }
 
     private void setNavigateButtons() {

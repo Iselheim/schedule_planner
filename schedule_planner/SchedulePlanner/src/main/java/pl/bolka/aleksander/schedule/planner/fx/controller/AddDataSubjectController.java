@@ -153,9 +153,9 @@ public class AddDataSubjectController extends FXController {
             hours.clear();
             semester.clear();
             List<Room> rooms = roomRepositoryService.findAll();
-            setColumns(roomTable, new RoomColumn("Sale"), translateToObsList(rooms));
+            setColumn(roomTable, new RoomColumn("Sale"), translateToObsList(rooms));
             List<Lecturer> lecturers = lecturerRepositoryService.findAll();
-            setColumns(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(lecturers));
+            setColumn(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(lecturers));
         });
     }
 
@@ -198,8 +198,8 @@ public class AddDataSubjectController extends FXController {
                 add.setDisable(true);
                 typePicker.getSelectionModel().select(subject.getSubjectType().getName());
                 facultyPicker.getSelectionModel().select(subject.getFaculty());
-                setColumns(roomTable, new RoomColumn("Sale"), translateToObsList(subject.getRoom()));
-                setColumns(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(subject.getLecturer()));
+                setColumn(roomTable, new RoomColumn("Sale"), translateToObsList(subject.getRoom()));
+                setColumn(lecturerTable, new LecturerColumn("Wykładowcy"), translateToObsList(subject.getLecturer()));
                 semester.setText(subject.getSemester().getNumber() + "");
                 selectedSubject = subject;
             }
@@ -207,7 +207,7 @@ public class AddDataSubjectController extends FXController {
     }
 
     private void setSubjectTable() {
-        setColumns(subjectTable, new SubjectColumn("Przedmioty"), translateToObsList(subjectRepositoryService.findAll()));
+        setColumn(subjectTable, new SubjectColumn("Przedmioty"), translateToObsList(subjectRepositoryService.findAll()));
     }
 
     private void setFacultyPickerForEmpty() {

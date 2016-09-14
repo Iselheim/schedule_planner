@@ -82,7 +82,7 @@ public class AddDataStudentGroupController extends FXController {
     }
 
     private void setGroupTable() {
-        setColumns(groupTable,new StudentGroupColumn("Grupy"), studentGroupRepositoryService.findAll());
+        setColumn(groupTable,new StudentGroupColumn("Grupy"), studentGroupRepositoryService.findAll());
     }
 
     private void setTableListener() {

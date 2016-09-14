@@ -1,5 +1,7 @@
 package pl.bolka.aleksander.schedule.planner.model.filter;
 
+import pl.bolka.aleksander.schedule.planner.model.entity.Subject;
+
 import java.sql.Date;
 
 /**
@@ -10,6 +12,15 @@ public class RoomFilter implements Filter {
     private Long id;
 
     private Date date;
+    private static Subject subject;
+
+    public static void setSubject(Subject subject) {
+        RoomFilter.subject = subject;
+    }
+
+    public static Subject getSubject() {
+        return subject;
+    }
 
     public Date getDate() {
         return date;
