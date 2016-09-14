@@ -1,53 +1,30 @@
-package pl.bolka.aleksander.schedule.planner.model.entity;
+package pl.bolka.aleksander.schedule.planner.fx.column;
 
-import javax.persistence.*;
-import java.util.List;
+import pl.bolka.aleksander.schedule.planner.model.entity.*;
 
-//TODO relacje do przemyślenia
-@Entity
-public class Schedule implements Identifiable {
+import java.sql.Time;
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+/**
+ * Created by Aleksander on 2016-09-14.
+ */
+public class ScheduleRow {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @ManyToOne
     private Semester semester;
 
-    @ManyToOne
     private StudentGroup studentGroup;
 
-    @ManyToOne
     private Subject subject;
 
-    @ManyToOne
     private Lecturer lecturer;
 
-    @ManyToOne
     private Room room;
 
-    @OneToMany
-    private List<Week> week;
-
-    @ManyToOne
     private Day day;
 
-    @OneToMany
-    private List<Hour> hour;
+    private Time hoursFrom;
 
-    @Override
-    public Long getId() {
-        return id;
-    }
+    private Time hoursTo;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Semester getSemester() {
         return semester;
@@ -89,14 +66,6 @@ public class Schedule implements Identifiable {
         this.room = room;
     }
 
-    public List<Week> getWeek() {
-        return week;
-    }
-
-    public void setWeek(List<Week> week) {
-        this.week = week;
-    }
-
     public Day getDay() {
         return day;
     }
@@ -105,11 +74,19 @@ public class Schedule implements Identifiable {
         this.day = day;
     }
 
-    public List<Hour> getHour() {
-        return hour;
+    public Time getHoursFrom() {
+        return hoursFrom;
     }
 
-    public void setHour(List<Hour> hour) {
-        this.hour = hour;
+    public void setHoursFrom(Time hoursFrom) {
+        this.hoursFrom = hoursFrom;
+    }
+
+    public Time getHoursTo() {
+        return hoursTo;
+    }
+
+    public void setHoursTo(Time hoursTo) {
+        this.hoursTo = hoursTo;
     }
 }
