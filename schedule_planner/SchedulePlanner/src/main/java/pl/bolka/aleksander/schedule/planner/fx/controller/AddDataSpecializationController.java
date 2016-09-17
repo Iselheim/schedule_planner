@@ -190,7 +190,7 @@ public class AddDataSpecializationController  extends  FXController{
             specialization.setShortcut(shortCut.getText());
             specialization.setSubject(getSelectedItemsFromTable(subjectsTable));
             specialization.setType(StudiesType.valueOf(studiesType.getValue().toUpperCase()));
-            specializationRepositoryService.add(specialization);
+            specializationRepositoryService.save(specialization);
         });
     }
 

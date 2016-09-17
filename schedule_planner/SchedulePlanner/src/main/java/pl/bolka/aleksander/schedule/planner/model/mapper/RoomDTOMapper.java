@@ -2,7 +2,7 @@ package pl.bolka.aleksander.schedule.planner.model.mapper;
 
 import org.springframework.stereotype.Service;
 import pl.bolka.aleksander.schedule.planner.model.dto.RoomDTO;
-import pl.bolka.aleksander.schedule.planner.model.entity.Room;
+import pl.bolka.aleksander.schedule.planner.model.entity.FreeRoom;
 
 import java.util.HashSet;
 
@@ -12,10 +12,10 @@ import java.util.HashSet;
 //TODO mapper do Week
 
 @Service
-public class RoomDTOMapper extends GenericDTOMapper<Room, RoomDTO>{
+public class RoomDTOMapper extends GenericDTOMapper<FreeRoom, RoomDTO>{
 
     @Override
-    protected RoomDTO translateToDTO(Room entity) {
+    protected RoomDTO translateToDTO(FreeRoom entity) {
         RoomDTO dto = new RoomDTO(entity.getId());
         dto.setNumber(entity.getNumber());
         dto.setRoomSpace(entity.getRoomSpace());
@@ -24,12 +24,12 @@ public class RoomDTOMapper extends GenericDTOMapper<Room, RoomDTO>{
     }
 
     @Override
-    protected Room translateToEntity(RoomDTO dto) {
-        Room room = new Room();
-        room.setId(dto.getId());
-        room.setRoomSpace(dto.getRoomSpace());
-        room.setNumber(dto.getNumber());
-//        room.setWeek(new HashSet<>());
-        return room;
+    protected FreeRoom translateToEntity(RoomDTO dto) {
+        FreeRoom freeRoom = new FreeRoom();
+        freeRoom.setId(dto.getId());
+        freeRoom.setRoomSpace(dto.getRoomSpace());
+        freeRoom.setNumber(dto.getNumber());
+//        freeRoom.setWeek(new HashSet<>());
+        return freeRoom;
     }
 }

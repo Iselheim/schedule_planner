@@ -1,50 +1,19 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import java.util.Set;
+import javax.persistence.*;
 
-@Entity(name = "busy_room")
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BusyRoom extends Room {
 
-	private static final long serialVersionUID = 1L;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Day day;
 
-	@OneToMany
-    @JoinColumn
-    private Set<Day> day;
-
-    @Transient
-    private String text;
-
-    public BusyRoom() {
-
+    public Day getDay() {
+        return day;
     }
 
-    public BusyRoom(FreeRoom room) {
-        super();
-//        this.day = room.getDay();
-        this.number = (room.getNumber());
-        this.roomSpace = (room.getRoomSpace());
-        this.text = (room.getText());
-    }
-
-    public String getText() {
-        setText(this.toString());
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-//    public Set<Day> getDay() {
-//        return day;
-//    }
-
-    public void setDay(Set<Day> day) {
+    public void setDay(Day day) {
         this.day = day;
     }
-
 }

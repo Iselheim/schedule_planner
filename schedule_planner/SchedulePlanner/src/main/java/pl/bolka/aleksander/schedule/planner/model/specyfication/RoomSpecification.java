@@ -2,7 +2,7 @@ package pl.bolka.aleksander.schedule.planner.model.specyfication;
 
 import org.springframework.data.jpa.domain.Specification;
 import pl.bolka.aleksander.schedule.planner.model.entity.Day;
-import pl.bolka.aleksander.schedule.planner.model.entity.Room;
+import pl.bolka.aleksander.schedule.planner.model.entity.FreeRoom;
 import pl.bolka.aleksander.schedule.planner.model.filter.RoomFilter;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,7 +15,7 @@ import java.sql.Date;
  * Created by Aleksander Bołka on 2016-07-01.
  */
 
-public class RoomSpecification implements Specification<Room> {
+public class RoomSpecification implements Specification<FreeRoom> {
 
     private RoomFilter filter;
 
@@ -25,7 +25,7 @@ public class RoomSpecification implements Specification<Room> {
     }
 
     @Override
-    public Predicate toPredicate(Root<Room> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+    public Predicate toPredicate(Root<FreeRoom> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
 
         Predicate p = cb.disjunction();
 
@@ -35,6 +35,10 @@ public class RoomSpecification implements Specification<Room> {
 
         if (filter.getId() != null) {
             p.getExpressions().add(cb.equal(root.<Long>get("id"), filter.getId()));
+        }
+
+        if(filter.getNumber() != null){
+            p.getExpressions().add(cb.equal(root.get("number"),filter.getNumber()));
         }
 
         return p;

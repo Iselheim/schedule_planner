@@ -13,6 +13,7 @@ public class RoomFilter implements Filter {
 
     private Date date;
     private static Subject subject;
+    private String number;
 
     public static void setSubject(Subject subject) {
         RoomFilter.subject = subject;
@@ -36,5 +37,13 @@ public class RoomFilter implements Filter {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getNumber() {
+        return number;
     }
 }

@@ -3,10 +3,11 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Room implements Identifiable {
-
+/**
+ * Created by Aleksander on 2016-09-17.
+ */
+@MappedSuperclass
+public class Room implements Identifiable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
@@ -18,11 +19,7 @@ public class Room implements Identifiable {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Week> week;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Day> day;
 
-    public Room() {
-    }
 
     public Long getId() {
         return id;
@@ -56,11 +53,4 @@ public class Room implements Identifiable {
         this.week = week;
     }
 
-    public List<Day> getDay() {
-        return day;
-    }
-
-    public void setDay(List<Day> day) {
-        this.day = day;
-    }
 }

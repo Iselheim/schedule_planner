@@ -30,16 +30,16 @@ public class Subject implements Identifiable {
     private List<Lecturer> lecturer;
 
     @ManyToMany(fetch= FetchType.LAZY)
-    private List<Room> room;
+    private List<FreeRoom> freeRoom;
 
     private int hours;
     
-    public List<Room> getRoom() {
-        return room;
+    public List<FreeRoom> getFreeRoom() {
+        return freeRoom;
     }
 
-    public void setRoom(List<Room> room) {
-        this.room = room;
+    public void setFreeRoom(List<FreeRoom> freeRoom) {
+        this.freeRoom = freeRoom;
     }
 
     public List<Lecturer> getLecturer() {

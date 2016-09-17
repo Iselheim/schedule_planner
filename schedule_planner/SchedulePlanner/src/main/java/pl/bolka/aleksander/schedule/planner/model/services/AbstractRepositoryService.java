@@ -25,7 +25,7 @@ public abstract class AbstractRepositoryService<E extends Identifiable, F extend
     }
 
     @Transactional
-    public void add(E entity){
+    public void save(E entity){
         commonCustomRepository.save(entity);
     }
 
@@ -50,6 +50,11 @@ public abstract class AbstractRepositoryService<E extends Identifiable, F extend
         E eager = commonCustomRepository.getEager(e);
         eager.getId();
         return eager;
+    }
+
+    @Transactional
+    public void addAll(List<E> entityList){
+        commonCustomRepository.save(entityList);
     }
 
 }

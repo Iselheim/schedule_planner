@@ -24,7 +24,7 @@ public class SubjectDTOMapper extends GenericDTOMapper<Subject,SubjectDTO> {
         subjectDTO.setFaculty(entity.getFaculty());
         subjectDTO.setHours(entity.getHours());
 //        subjectDTO.setLecturer(lecturerDtoMapper.getDtos(entity.getLecturer()));
-        subjectDTO.setRoom(roomDTOMapper.getDtos(entity.getRoom()));
+        subjectDTO.setRoom(roomDTOMapper.getDtos(entity.getFreeRoom()));
         subjectDTO.setSubjectType(entity.getSubjectType());
         subjectDTO.setSemester(entity.getSemester());
         return subjectDTO;
@@ -38,7 +38,7 @@ public class SubjectDTOMapper extends GenericDTOMapper<Subject,SubjectDTO> {
         subject.setFaculty(dto.getFaculty());
         subject.setHours(dto.getHours());
         subject.setLecturer(lecturerDtoMapper.getEntitys(dto.getLecturer()));
-        subject.setRoom(roomDTOMapper.getEntitys(dto.getRoom()));
+        subject.setFreeRoom(roomDTOMapper.getEntitys(dto.getRoom()));
         subject.setSubjectType(dto.getSubjectType());
         subject.setSemester(dto.getSemester());
         return subject;

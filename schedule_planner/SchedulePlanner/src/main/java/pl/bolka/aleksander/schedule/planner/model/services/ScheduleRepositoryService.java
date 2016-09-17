@@ -24,4 +24,6 @@ public class ScheduleRepositoryService extends AbstractRepositoryService<Schedul
         ScheduleSpecification scheduleSpecification = new ScheduleSpecification(filter);
         return commonCustomRepository.findOne(scheduleSpecification);
     }
+
+
 }

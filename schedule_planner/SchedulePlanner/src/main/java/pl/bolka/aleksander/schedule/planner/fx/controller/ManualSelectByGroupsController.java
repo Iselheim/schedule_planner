@@ -131,16 +131,16 @@ public class ManualSelectByGroupsController extends FXController {
 //			StudentGroup studentGroup = GroupTable.getSelectionModel().getSelectedItem();
 //			Subject subject = SubjectTable.getSelectionModel().getSelectedItem();
 //			Lecturer lecturer = LecturerTable.getSelectionModel().getSelectedItem();
-//			FreeRoom room = FreeRoomsTable.getSelectionModel().getSelectedItem();
+//			FreeRoom freeRoom = FreeRoomsTable.getSelectionModel().getSelectedItem();
 //			Day day = DayTable.getSelectionModel().getSelectedItem();
 //			Hour hour = HourTable.getSelectionModel().getSelectedItem();
-//			BusyRoom busyRoom = new BusyRoom(room);
-//			ScheduleInterface schedule = new Schedule(subject, lecturer, room, day, hour, studentGroup);
+//			BusyRoom busyRoom = new BusyRoom(freeRoom);
+//			ScheduleInterface schedule = new Schedule(subject, lecturer, freeRoom, day, hour, studentGroup);
 //
 //			database.merge(busyRoom);
 //			ScheduleInterface temporarySchedule = new TemporarySchedule(schedule);
 //			database.addTemporarySchedule(temporarySchedule);
-//			schedules.add(schedule);
+//			schedules.save(schedule);
 //
 //			setSchedule(temporarySchedule);
 //		});
@@ -155,7 +155,7 @@ public class ManualSelectByGroupsController extends FXController {
 //		TableColumn<StudentGroup, String> column = new TableColumn<>("Grupa");
 //		column.setPrefWidth(GroupTable.getPrefWidth());
 //		GroupTable.getColumns().clear();
-//		if (GroupTable.getColumns().add(column)) {
+//		if (GroupTable.getColumns().save(column)) {
 //			setGroupTableColumnCellFactory(column);
 //		}
 //	}
@@ -176,7 +176,7 @@ public class ManualSelectByGroupsController extends FXController {
 //		for (StudentGroup studentGroup : group) {
 ////			Hibernate.initialize(studentGroup.getSubject());
 ////			if (!studentGroup.getSubject().isEmpty()) {
-////				groups.add(studentGroup);
+////				groups.save(studentGroup);
 ////			}
 //		}
 //		return groups;
@@ -187,7 +187,7 @@ public class ManualSelectByGroupsController extends FXController {
 //		TableColumn<Subject, String> column = new TableColumn<>("Przedmiot");
 //		column.setPrefWidth(SubjectTable.getPrefWidth());
 //		SubjectTable.getColumns().clear();
-//		if (SubjectTable.getColumns().add(column)) {
+//		if (SubjectTable.getColumns().save(column)) {
 //			setSubjectTableColumnCellFactory(column, group);
 //		}
 //	}
@@ -204,7 +204,7 @@ public class ManualSelectByGroupsController extends FXController {
 //		TableColumn<Lecturer, String> column = new TableColumn<>("Wykładowca");
 //		column.setPrefWidth(LecturerTable.getPrefWidth());
 //		LecturerTable.getColumns().clear();
-//		if (LecturerTable.getColumns().add(column)) {
+//		if (LecturerTable.getColumns().save(column)) {
 //			column.setCellValueFactory(new PropertyValueFactory<>("text"));
 //			ObservableList<Lecturer> list = FXCollections.observableArrayList();
 //			List<Lecturer> lecturer = subject.getLecturer();
@@ -217,21 +217,21 @@ public class ManualSelectByGroupsController extends FXController {
 //		TableColumn<FreeRoom, String> column = new TableColumn<>("Sale");
 //		column.setPrefWidth(FreeRoomsTable.getPrefWidth());
 //		FreeRoomsTable.getColumns().clear();
-//		if (FreeRoomsTable.getColumns().add(column)) {
+//		if (FreeRoomsTable.getColumns().save(column)) {
 //			column.setCellValueFactory(new PropertyValueFactory<>("text"));
 //			ObservableList<FreeRoom> saleTableNames = database.getFreeRooms(space);
 //			FreeRoomsTable.setItems(saleTableNames);
 //		}
 //	}
 //
-//	private void setDays(FreeRoom room) {
+//	private void setDays(FreeRoom freeRoom) {
 //		TableColumn<Day, String> column = new TableColumn<>("Dzien");
 //		double prefWidth = DayTable.getPrefWidth();
 //		column.setPrefWidth(prefWidth);
 //		DayTable.getColumns().clear();
-//		if (DayTable.getColumns().add(column)) {
+//		if (DayTable.getColumns().save(column)) {
 //			column.setCellValueFactory(new PropertyValueFactory<>("text"));
-//			ObservableList<Day> dzienTableNames = database.getDays(room);
+//			ObservableList<Day> dzienTableNames = database.getDays(freeRoom);
 //			DayTable.setItems(dzienTableNames);
 //		}
 //	}
@@ -239,7 +239,7 @@ public class ManualSelectByGroupsController extends FXController {
 //	private void setHours(Day day) {
 //		TableColumn<Hour, String> column = new TableColumn<>("Godzina");
 //		column.setPrefWidth(HourTable.getPrefWidth());
-//		if (HourTable.getColumns().add(column)) {
+//		if (HourTable.getColumns().save(column)) {
 //			column.setCellValueFactory(new PropertyValueFactory<>("text"));
 //			ObservableList<Hour> godzinaTableNames = database.getHours(day).sorted();
 //			HourTable.setItems(godzinaTableNames);
@@ -254,20 +254,20 @@ public class ManualSelectByGroupsController extends FXController {
 //		indexColumn.setCellValueFactory(
 //				column -> new ReadOnlyObjectWrapper<>(ScheduleTable.getItems().indexOf(column.getValue()) + 1)
 //						.asString());
-//		tableColumns.add(indexColumn);
-//		tableColumns.add(generateTemporaryScheduleColumn("Grupa", "group"));
-//		tableColumns.add(generateTemporaryScheduleColumn("Przedmiot", "subject"));
-//		tableColumns.add(generateTemporaryScheduleColumn("Wykładowca", "lecturer"));
-//		tableColumns.add(generateTemporaryScheduleColumn("Sala", "room"));
-//		tableColumns.add(generateTemporaryScheduleColumn("Dzień", "day"));
-//		tableColumns.add(generateTemporaryScheduleColumn("Godzina", "hour"));
+//		tableColumns.save(indexColumn);
+//		tableColumns.save(generateTemporaryScheduleColumn("Grupa", "group"));
+//		tableColumns.save(generateTemporaryScheduleColumn("Przedmiot", "subject"));
+//		tableColumns.save(generateTemporaryScheduleColumn("Wykładowca", "lecturer"));
+//		tableColumns.save(generateTemporaryScheduleColumn("Sala", "freeRoom"));
+//		tableColumns.save(generateTemporaryScheduleColumn("Dzień", "day"));
+//		tableColumns.save(generateTemporaryScheduleColumn("Godzina", "hour"));
 //		ScheduleTable.getColumns().clear();
 //		for (TableColumn<ScheduleInterface, String> tableColumn : tableColumns) {
-//			ScheduleTable.getColumns().add(tableColumn);
+//			ScheduleTable.getColumns().save(tableColumn);
 //		}
-//		scheduleList.add(scheduleInterface);
+//		scheduleList.save(scheduleInterface);
 //		refresh();
-//		ScheduleTable.getItems().add(scheduleInterface);
+//		ScheduleTable.getItems().save(scheduleInterface);
 //	}
 //
 //	private TableColumn<ScheduleInterface, String> generateTemporaryScheduleColumn(String name, String propertyName) {

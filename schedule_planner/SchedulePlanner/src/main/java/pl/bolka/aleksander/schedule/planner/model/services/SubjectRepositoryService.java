@@ -30,7 +30,7 @@ public class SubjectRepositoryService extends AbstractRepositoryService<Subject,
     @Transactional
     public Subject getRoomFromSubject(Subject subject){
         commonCustomRepository.getOne(subject.getId());
-        subject.getRoom().size();
+        subject.getFreeRoom().size();
         return subject;
     }
 

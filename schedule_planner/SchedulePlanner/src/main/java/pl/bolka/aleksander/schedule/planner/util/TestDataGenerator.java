@@ -33,7 +33,7 @@ public class TestDataGenerator {
         List<StudentGroup> studentGroups = generateStudentGroups(specialization);
 
         List<List<Subject>> subjects = generateSubjects(faculty, studentGroups.size());
-//        data.add(przedmiot);
+//        data.save(przedmiot);
 
         for (StudentGroup group : studentGroups) {
 //            group.setSubject(subjects.get(group.getSemester()));
@@ -161,7 +161,7 @@ public class TestDataGenerator {
             FreeRoom room = new FreeRoom();
             room.setRoomSpace(random(15, 20));
 //            room.setNumber(i);
-            room.setDay(dzienList);
+//            room.setDay(dzienList);
             freeRooms.add(room);
         }
         return freeRooms;
@@ -184,13 +184,13 @@ public class TestDataGenerator {
 //        dzien5.setName("Piątek");
 //        dzien5.setHour(godzinas);
 //        Set<Day> dzienList = new LinkedHashSet<>();
-//        dzienList.add(dzien);
-//        dzienList.add(dzien2);
-//        dzienList.add(dzien3);
-//        dzienList.add(dzien4);
-//        dzienList.add(dzien5);
+//        dzienList.save(dzien);
+//        dzienList.save(dzien2);
+//        dzienList.save(dzien3);
+//        dzienList.save(dzien4);
+//        dzienList.save(dzien5);
 //        for (Day dzien8 : dzienList) {
-//            data.add(dzien8);
+//            data.save(dzien8);
 //        }
 //        return dzienList;
 //    }

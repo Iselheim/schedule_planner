@@ -1,35 +1,21 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
-@Entity(name = "free_room")
-public class FreeRoom extends Room{
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class FreeRoom extends Room {
 
-    @ManyToMany
-    private Set<Day> day;
 
-    @Transient
-    private String text;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Day> day;
 
-    public String getText() {
-        setText(this.toString());
-        return text;
+    public List<Day> getDay() {
+        return day;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-//    public Set<Day> getDay() {
-//        return day;
-//    }
-
-    public void setDay(Set<Day> day) {
+    public void setDay(List<Day> day) {
         this.day = day;
     }
-
-    
 }

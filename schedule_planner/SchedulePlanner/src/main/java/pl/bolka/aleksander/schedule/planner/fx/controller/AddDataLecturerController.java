@@ -103,7 +103,7 @@ public class AddDataLecturerController extends FXController {
                 List<Subject> subjects = selectedLecturer.getSubject();
                 subjects.removeAll(lecturersSubjects);
                 selectedLecturer.setSubject(subjects);
-                lecturerRepositoryService.add(selectedLecturer);
+                lecturerRepositoryService.save(selectedLecturer);
                 setSubjectsColumns(selectedLecturer);
             } else {
                 lecturerRepositoryService.delete(selectedLecturer);
@@ -134,7 +134,7 @@ public class AddDataLecturerController extends FXController {
             change.setDisable(true);
             if (!firstName.getText().isEmpty()) {
                 Lecturer lecturer = createNewLecturer();
-                lecturerRepositoryService.add(lecturer);
+                lecturerRepositoryService.save(lecturer);
                 setLecturerTable();
             }
         });
@@ -160,7 +160,7 @@ public class AddDataLecturerController extends FXController {
     private void setChangeButton() {
         change.setDisable(true);
         change.setOnAction(event -> {
-            lecturerRepositoryService.add(setLecturer(selectedLecturer));
+            lecturerRepositoryService.save(setLecturer(selectedLecturer));
             setLecturerTable();
             setSubjectsColumns(selectedLecturer);
         });

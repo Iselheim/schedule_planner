@@ -12,7 +12,7 @@ import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 import pl.bolka.aleksander.schedule.planner.fx.column.HourColumn;
 import pl.bolka.aleksander.schedule.planner.fx.column.RoomColumn;
 import pl.bolka.aleksander.schedule.planner.model.entity.Day;
-import pl.bolka.aleksander.schedule.planner.model.entity.Room;
+import pl.bolka.aleksander.schedule.planner.model.entity.FreeRoom;
 import pl.bolka.aleksander.schedule.planner.model.filter.DayFilter;
 import pl.bolka.aleksander.schedule.planner.model.services.DayRepositoryService;
 import pl.bolka.aleksander.schedule.planner.model.services.RoomRepositoryService;
@@ -32,7 +32,7 @@ public class AddDataRoomController extends FXController {
     private static final String PATH = "/pl/bolka/aleksander/schedule/planner/fx/fxml/AddDataRoom.fxml";
 
     @FXML
-    public TableView<Room> roomTable;
+    public TableView<FreeRoom> roomTable;
 
     @FXML
     public TextField number;
@@ -73,7 +73,7 @@ public class AddDataRoomController extends FXController {
     @Autowired
     WeekRepositoryService weekRepositoryService;
 
-    Room room;
+    FreeRoom freeRoom;
 
     public AddDataRoomController(ScreensConfig flow) {
         super(flow);
@@ -101,8 +101,8 @@ public class AddDataRoomController extends FXController {
     private void setDeleteButton() {
         delete.setDisable(true);
         delete.setOnAction(event -> {
-            room = getSelectedItemFromTable(roomTable);
-            roomRepositoryService.delete(room);
+            freeRoom = getSelectedItemFromTable(roomTable);
+            roomRepositoryService.delete(freeRoom);
             roomTable.getSelectionModel().clearSelection();
             setRoomTable();
         });
@@ -122,8 +122,8 @@ public class AddDataRoomController extends FXController {
         add.setOnAction(event -> {
             change.setDisable(true);
             if (!number.getText().isEmpty()) {
-                Room room = new Room();
-                setRoom(room);
+                FreeRoom freeRoom = new FreeRoom();
+                setRoom(freeRoom);
                 setRoomTable();
             }
         });
@@ -150,7 +150,7 @@ public class AddDataRoomController extends FXController {
     private void setChangeButton() {
         change.setDisable(true);
         change.setOnAction(event -> {
-            roomRepositoryService.add(setRoom(room));
+            roomRepositoryService.save(setRoom(freeRoom));
             setRoomTable();
         });
     }
@@ -162,16 +162,16 @@ public class AddDataRoomController extends FXController {
             delete.setDisable(false);
             add.setDisable(true);
             if (getSelectedItemFromTable(roomTable) != null) {
-                room = getSelectedItemFromTable(roomTable);
+                freeRoom = getSelectedItemFromTable(roomTable);
             }
-            number.setText(room.getNumber());
-            roomSpace.setText(room.getRoomSpace() + "");
+            number.setText(freeRoom.getNumber());
+            roomSpace.setText(freeRoom.getRoomSpace() + "");
         });
     }
 
     private void setRoomTable() {
-        List<Room> rooms = roomRepositoryService.findAll();
-        setColumn(roomTable, new RoomColumn("Sale"), rooms);
+        List<FreeRoom> freeRooms = roomRepositoryService.findAll();
+        setColumn(roomTable, new RoomColumn("Sale"), freeRooms);
     }
 
     private void setNavigateButtons() {
@@ -179,13 +179,13 @@ public class AddDataRoomController extends FXController {
         setBackButton();
     }
 
-    private Room setRoom(Room room) {
-        room.setNumber(number.getText());
-        room.setRoomSpace(Integer.parseInt(roomSpace.getText()));
-        room.setDay(dayRepositoryService.findAll());
-//        room.setWeek(weekRepositoryService.findAll());
-        roomRepositoryService.add(room);
-        return room;
+    private FreeRoom setRoom(FreeRoom freeRoom) {
+        freeRoom.setNumber(number.getText());
+        freeRoom.setRoomSpace(Integer.parseInt(roomSpace.getText()));
+        freeRoom.setDay(dayRepositoryService.findAll());
+//        freeRoom.setWeek(weekRepositoryService.findAll());
+        roomRepositoryService.save(freeRoom);
+        return freeRoom;
     }
 
     @Override

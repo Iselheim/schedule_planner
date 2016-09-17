@@ -96,7 +96,7 @@ public class AddDataSemesterController extends FXController {
     }
 
     private void setAddButton() {
-        add.setOnAction(event -> semesterRepositoryService.add(getNewSemester()));
+        add.setOnAction(event -> semesterRepositoryService.save(getNewSemester()));
     }
 
     public Semester getNewSemester(){

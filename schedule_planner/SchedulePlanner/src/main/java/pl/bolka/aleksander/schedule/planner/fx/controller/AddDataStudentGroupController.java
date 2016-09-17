@@ -70,7 +70,7 @@ public class AddDataStudentGroupController extends FXController {
             StudentGroup studentGroup= new StudentGroup();
             studentGroup.setNumber(Integer.parseInt(number.getText()));
             studentGroup.setQuantity(Integer.parseInt(quantity.getText()));
-            studentGroupRepositoryService.add(studentGroup);
+            studentGroupRepositoryService.save(studentGroup);
         });
     }
 
