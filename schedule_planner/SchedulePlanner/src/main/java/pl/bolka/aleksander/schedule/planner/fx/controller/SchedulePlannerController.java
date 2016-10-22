@@ -161,6 +161,9 @@ public class SchedulePlannerController extends FXController {
             Day day = getSelectedItemFromTable(dayTable);
             List<Hour> hours = getSelectedItemsFromTable(hourTable);
             day.setHour(hours);
+            for (Week week : weeks) {
+                week.getDays().add(day);
+            }
 
             Schedule schedule = new Schedule();
             schedule.setSemester(semester);
@@ -264,8 +267,10 @@ public class SchedulePlannerController extends FXController {
     private void setDayTableListener() {
         dayTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
             Day day = getSelectedItemFromTable(dayTable);
-            List<Hour> hours = day.getHour();
-            setHourTable(hours);
+            if(day != null){
+                List<Hour> hours = day.getHour();
+                setHourTable(hours);
+            }
         });
     }
 
@@ -276,8 +281,10 @@ public class SchedulePlannerController extends FXController {
     private void setWeekTableListener() {
         weekTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
             Week week = getSelectedItemFromTable(weekTable);
-            Set<Day> days = week.getDays();
-            setDayTable(days);
+            if(week != null){
+                Set<Day> days = week.getDays();
+                setDayTable(days);
+            }
         });
     }
 
@@ -288,8 +295,10 @@ public class SchedulePlannerController extends FXController {
     private void setRoomTableListener() {
         roomsTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
             FreeRoom freeRoom = getSelectedItemFromTable(roomsTable);
-            List<Week> week = freeRoom.getWeek();
-            setWeekTable(week);
+            if(freeRoom != null){
+                List<Week> week = freeRoom.getWeek();
+                setWeekTable(week);
+            }
         });
     }
 
@@ -300,7 +309,10 @@ public class SchedulePlannerController extends FXController {
     private void setLecturerTableListener() {
         lecturerTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
             Subject subject = getSelectedItemFromTable(subjectTable);
-            setRoomTable(subject);
+            if (subject != null) {
+
+                setRoomTable(subject);
+            }
         });
     }
 
