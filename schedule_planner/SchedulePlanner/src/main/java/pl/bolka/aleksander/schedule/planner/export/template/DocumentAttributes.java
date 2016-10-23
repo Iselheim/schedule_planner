@@ -8,7 +8,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
  */
 public class DocumentAttributes {
 
-    private static final PDFont font = PDType1Font.TIMES_ROMAN;
+    private final PDFont font = PDType1Font.TIMES_ROMAN;
 
     private int fontSize;
 
@@ -20,7 +20,7 @@ public class DocumentAttributes {
         this.fontSize = fontSize;
     }
 
-    public static PDFont getFont() {
+    public PDFont getFont() {
         return font;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public interface Template {
 
-    Set<ColumnDefinition> getColumnsDefefinition();
+    Set<ColumnDefinition> getColumnDefinitions();
 
-    List<RowsDefinition> getRowsDefinition();
+    List<RowDefinition> getRowsDefinitions();
 }
