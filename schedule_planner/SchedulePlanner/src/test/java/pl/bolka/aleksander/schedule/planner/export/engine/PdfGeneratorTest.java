@@ -3,6 +3,7 @@ package pl.bolka.aleksander.schedule.planner.export.engine;
 import org.junit.Before;
 import org.junit.Test;
 import pl.bolka.aleksander.schedule.planner.export.data.ExportData;
+import pl.bolka.aleksander.schedule.planner.export.template.Template;
 import pl.bolka.aleksander.schedule.planner.export.template.TemplateImpl;
 
 import java.io.IOException;
@@ -10,7 +11,6 @@ import java.io.InputStream;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
 
 
 /**
@@ -22,7 +22,8 @@ public class PdfGeneratorTest {
 
     @Before
     public void init() {
-        generator = new PdfGenerator(mock(TemplateImpl.class));
+        Template template = new TemplateImpl();
+        generator = new PdfGenerator(template);
     }
 
     @Test
@@ -35,7 +36,7 @@ public class PdfGeneratorTest {
 
     @Test
     public void testSetTemplate() {
-        assertThat(generator.getTemplate(),notNullValue());
+        assertThat(generator.getTemplate(), notNullValue());
         assertThat(generator.getTemplate().getColumnDefinitions(), notNullValue());
         assertThat(generator.getTemplate().getRowsDefinitions(), notNullValue());
         assertThat(generator.getTemplate().getColumnDefinitions(), is(not(empty())));

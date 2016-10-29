@@ -4,6 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import pl.bolka.aleksander.schedule.planner.export.data.ExportData;
+import pl.bolka.aleksander.schedule.planner.export.template.Template;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,7 +16,13 @@ import java.io.InputStream;
  */
 public class PdfGenerator {
 
-    PDDocument document = new PDDocument();
+    private PDDocument document = new PDDocument();
+
+    private Template template;
+
+    public PdfGenerator(Template template) {
+        this.template = template;
+    }
 
     public InputStream generate(ExportData data) throws IOException {
         PDPageContentStream pdPageContentStream = getPdPageContentStream();
@@ -35,5 +42,9 @@ public class PdfGenerator {
         PDPage page = new PDPage();
         document.addPage(page);
         return new PDPageContentStream(document, page);
+    }
+
+    public Template getTemplate() {
+        return template;
     }
 }
