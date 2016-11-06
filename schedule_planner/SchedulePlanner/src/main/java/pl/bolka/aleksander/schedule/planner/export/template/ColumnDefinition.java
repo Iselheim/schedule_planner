@@ -5,9 +5,13 @@ package pl.bolka.aleksander.schedule.planner.export.template;
  */
 public class ColumnDefinition {
 
+    public static final int BASE_WIGHT = 20;
+
     private String header;
 
     private DocumentAttributes documentAttributes;
+
+    private int weight;
 
     public DocumentAttributes getDocumentAttributes() {
         return documentAttributes;
@@ -25,4 +29,11 @@ public class ColumnDefinition {
         this.header = header;
     }
 
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
 }

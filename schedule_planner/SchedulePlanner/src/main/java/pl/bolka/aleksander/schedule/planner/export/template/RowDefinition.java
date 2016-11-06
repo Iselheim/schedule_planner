@@ -9,6 +9,12 @@ public class RowDefinition {
 
     private DocumentAttributes documentAttributes;
 
+    private boolean unique;
+
+    public RowDefinition(){
+        unique = false;
+    }
+
     public String getRowName() {
         return rowName;
     }
@@ -24,4 +30,13 @@ public class RowDefinition {
     public void setDocumentAttributes(DocumentAttributes documentAttributes) {
         this.documentAttributes = documentAttributes;
     }
+
+    public void setUnique(boolean unique) {
+        this.unique = unique;
+    }
+
+    public boolean isUnique() {
+        return unique;
+    }
+
 }

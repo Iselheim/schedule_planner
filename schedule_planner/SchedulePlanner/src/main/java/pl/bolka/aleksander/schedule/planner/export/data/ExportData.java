@@ -17,4 +17,9 @@ public class ExportData {
     public void setData(List<Map<Integer, String>> data) {
         this.data = data;
     }
+
+    public int getGroupCount(){
+        //TODO
+        return 6;
+    }
 }
