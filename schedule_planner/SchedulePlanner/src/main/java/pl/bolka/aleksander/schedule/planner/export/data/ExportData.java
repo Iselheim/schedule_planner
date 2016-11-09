@@ -1,25 +1,38 @@
 package pl.bolka.aleksander.schedule.planner.export.data;
 
-import java.util.List;
-import java.util.Map;
+import pl.bolka.aleksander.schedule.planner.model.entity.Schedule;
 
 /**
  * Created by Aleksander on 2016-10-22.
  */
 public class ExportData {
 
-    private List<Map<Integer,String>> data;
+    private Position position;
 
-    public List<Map<Integer, String>> getData() {
-        return data;
+    private String content;
+
+    private ExportData(){
+
     }
 
-    public void setData(List<Map<Integer, String>> data) {
-        this.data = data;
-    }
-
-    public int getGroupCount(){
+    public static ExportData getExportData(Schedule schedule){
         //TODO
-        return 6;
+        return new ExportData();
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

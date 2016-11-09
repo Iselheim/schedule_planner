@@ -3,11 +3,11 @@ package pl.bolka.aleksander.schedule.planner.export.engine;
 import com.itextpdf.text.DocumentException;
 import org.junit.Before;
 import org.junit.Test;
-import pl.bolka.aleksander.schedule.planner.export.data.ExportData;
 import pl.bolka.aleksander.schedule.planner.export.template.Template;
 import pl.bolka.aleksander.schedule.planner.export.template.TemplateImpl;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -22,7 +22,7 @@ public class PdfGeneratorTest {
 
     @Before
     public void init() {
-        Template template = new TemplateImpl(0);
+        Template template = new TemplateImpl(6);
         generator = new PdfGenerator(template);
     }
 //
@@ -36,7 +36,7 @@ public class PdfGeneratorTest {
 
     @Test
     public void testFile() throws IOException, DocumentException {
-        generator.generate(new ExportData());
+        generator.generate(new LinkedList<>(),6);
     }
 
     @Test
