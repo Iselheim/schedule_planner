@@ -1,6 +1,7 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 //TODO relacje do przemyślenia
 @Entity
@@ -28,16 +29,16 @@ public class Schedule implements Identifiable {
     private Lecturer lecturer;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    private BusyRoom busyRoom;
+    private FreeRoom freeRoom;
 
-//    @ManyToMany
-//    private List<Week> week;
-//
-//    @ManyToOne
-//    private Day day;
-//
-//    @ManyToMany
-//    private List<Hour> hour;
+    @ManyToMany
+    private List<Week> week;
+
+    @ManyToOne
+    private Day day;
+
+    @ManyToMany
+    private List<Hour> hour;
 
     @Override
     public Long getId() {
@@ -80,35 +81,50 @@ public class Schedule implements Identifiable {
         this.lecturer = lecturer;
     }
 
-    public BusyRoom getBusyRoom() {
-        return busyRoom;
+    public FreeRoom getFreeRoom() {
+        return freeRoom;
     }
 
-    public void setBusyRoom(BusyRoom busyRoom) {
-        this.busyRoom = busyRoom;
+    public void setFreeRoom(FreeRoom freeRoom) {
+        this.freeRoom = freeRoom;
     }
 
-//    public List<Week> getWeek() {
-//        return week;
-//    }
-//
-//    public void setWeek(List<Week> week) {
-//        this.week = week;
-//    }
-//
-//    public Day getDay() {
-//        return day;
-//    }
-//
-//    public void setDay(Day day) {
-//        this.day = day;
-//    }
-//
-//    public List<Hour> getHour() {
-//        return hour;
-//    }
-//
-//    public void setHour(List<Hour> hour) {
-//        this.hour = hour;
-//    }
+    public List<Week> getWeek() {
+        return week;
+    }
+
+    public void setWeek(List<Week> week) {
+        this.week = week;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    public List<Hour> getHour() {
+        return hour;
+    }
+
+    public void setHour(List<Hour> hour) {
+        this.hour = hour;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Schedule schedule = (Schedule) o;
+
+        return id != null ? id.equals(schedule.id) : schedule.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

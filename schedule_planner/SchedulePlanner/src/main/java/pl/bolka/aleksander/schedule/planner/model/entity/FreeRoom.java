@@ -8,7 +8,7 @@ import java.util.List;
 public class FreeRoom extends Room {
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Day> day;
 
     public List<Day> getDay() {

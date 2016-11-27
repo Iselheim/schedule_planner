@@ -20,7 +20,7 @@
                 prefWidth="161.0" text="Dodaj sale"/>
         <Button fx:id="delete" layoutX="345.0" layoutY="235.0" mnemonicParsing="false" text="Usuń"/>
         <DatePicker fx:id="datePicker" layoutX="429.0" layoutY="80.0" prefHeight="31.0" prefWidth="200.0"/>
-        <TableView fx:id="hourTable" layoutX="429.0" layoutY="128.0" prefHeight="265.0" prefWidth="200.0"/>
+        <TableView fx:id="hours" layoutX="429.0" layoutY="128.0" prefHeight="265.0" prefWidth="200.0"/>
         <Label layoutX="327.0" layoutY="156.0" text="Ilość miejsc:"/>
         <Label layoutX="357.0" layoutY="80.0" text="Numer"/>
     </children>

@@ -32,7 +32,7 @@ public class PersistenceConfig {
     private static final String PROPERTY_NAME_HIBERNATE_JDBC_FETCH_SIZE = "hibernate.jdbc.fetch_size";
     private static final String PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE = "hibernate.jdbc.batch_size";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-    private static final String[] ENTITYMANAGER_PACKAGES_TO_SCAN = {"pl.bolka.aleksander.schedule.planner.model.entity"};
+    private static final String[] ENTITY_MANAGER_PACKAGES_TO_SCAN = {"pl.bolka.aleksander.schedule.planner.model.entity"};
 
 
     @Bean(destroyMethod = "close")
@@ -60,7 +60,7 @@ public class PersistenceConfig {
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdaptor());
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
+        entityManagerFactoryBean.setPackagesToScan(ENTITY_MANAGER_PACKAGES_TO_SCAN);
         entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
 
         return entityManagerFactoryBean;
@@ -75,6 +75,9 @@ public class PersistenceConfig {
         properties.put(AvailableSettings.USE_CLASS_ENHANCER, "false");
         properties.put(org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO, "update");
         properties.put(org.hibernate.cfg.AvailableSettings.FORMAT_SQL, "true");
+//        properties.put(AvailableSettings.SCHEMA_GEN_SCRIPTS_ACTION,"create");
+//        properties.put(AvailableSettings.SCHEMA_GEN_SCRIPTS_CREATE_TARGET,"D:/WorkSpace/schedule_planner/createSchema");
+
         return properties;
     }
 

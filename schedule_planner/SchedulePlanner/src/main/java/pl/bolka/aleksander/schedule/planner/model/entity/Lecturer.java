@@ -18,7 +18,7 @@ public class Lecturer implements Serializable, Identifiable {
 
     private String universityDegree = "";
 
-    @ManyToMany(fetch= FetchType.LAZY)
+    @ManyToMany(fetch= FetchType.EAGER)
     private List<Subject> subject;
 
     public List<Subject> getSubject() {
@@ -66,4 +66,18 @@ public class Lecturer implements Serializable, Identifiable {
         return universityDegree + " " + firstName + " " + lastName;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lecturer lecturer = (Lecturer) o;
+
+        return id == lecturer.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

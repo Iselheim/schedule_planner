@@ -2,7 +2,7 @@ package pl.bolka.aleksander.schedule.planner.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Week implements Serializable, Identifiable {
@@ -17,7 +17,7 @@ public class Week implements Serializable, Identifiable {
 	private Long id;
 	
 	@OneToMany(fetch = FetchType.EAGER)
-	private Set<Day> days;
+	private List<Day> days;
 	
 	private int weekOfSemester;
 
@@ -29,11 +29,11 @@ public class Week implements Serializable, Identifiable {
 		this.id = id;
 	}
 
-	public Set<Day> getDays() {
+	public List<Day> getDays() {
 		return days;
 	}
 
-	public void setDays(Set<Day> days) {
+	public void setDays(List<Day> days) {
 		this.days = days;
 	}
 
@@ -49,6 +49,18 @@ public class Week implements Serializable, Identifiable {
 		return serialVersionUID;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-		
+		Week week = (Week) o;
+
+		return id != null ? id.equals(week.id) : week.id == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
 }

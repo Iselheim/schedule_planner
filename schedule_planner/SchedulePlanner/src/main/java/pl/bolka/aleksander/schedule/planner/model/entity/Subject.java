@@ -26,10 +26,10 @@ public class Subject implements Identifiable {
 
     private SubjectType subjectType;
 
-    @ManyToMany(mappedBy = "subject", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "subject", fetch = FetchType.EAGER)
     private List<Lecturer> lecturer;
 
-    @ManyToMany(fetch= FetchType.LAZY)
+    @ManyToMany(fetch= FetchType.EAGER)
     private List<FreeRoom> freeRoom;
 
     private int hours;
@@ -98,4 +98,18 @@ public class Subject implements Identifiable {
 		this.hours = hours;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Subject subject = (Subject) o;
+
+        return id == subject.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

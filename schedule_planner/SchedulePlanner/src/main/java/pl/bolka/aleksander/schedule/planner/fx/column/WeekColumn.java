@@ -7,7 +7,7 @@ import pl.bolka.aleksander.schedule.planner.model.entity.Week;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by Aleksander on 2016-09-14.
@@ -29,7 +29,7 @@ public class WeekColumn extends TableColumn<Week, String> {
         });
     }
 
-    private String getDates(Set<Day> days) {
+    private String getDates(List<Day> days) {
         Date from = null;
         Date to = null;
         for (Day day : days) {

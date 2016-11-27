@@ -29,10 +29,10 @@ public class Specialization implements Identifiable {
 
     private String shortcut = "";
 
-	@OneToMany(mappedBy = "specialization",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "specialization",fetch = FetchType.EAGER)
     private List<StudentGroup> group;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Subject> subject;
 
     public Long getId() {
@@ -105,5 +105,20 @@ public class Specialization implements Identifiable {
 
     public void setSubject(List<Subject> subject) {
         this.subject = subject;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Specialization that = (Specialization) o;
+
+        return id != null ? id.equals(that.id) : that.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
