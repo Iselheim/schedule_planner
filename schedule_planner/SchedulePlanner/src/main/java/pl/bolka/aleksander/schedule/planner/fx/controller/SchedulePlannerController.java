@@ -7,13 +7,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
+import pl.bolka.aleksander.schedule.planner.exceptions.NotSupportedYetException;
 import pl.bolka.aleksander.schedule.planner.fx.column.*;
+import pl.bolka.aleksander.schedule.planner.fx.controller.validate.*;
 import pl.bolka.aleksander.schedule.planner.model.entity.*;
 import pl.bolka.aleksander.schedule.planner.model.filter.*;
 import pl.bolka.aleksander.schedule.planner.model.services.AbstractRepositoryService;
 
 import java.sql.Time;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Aleksander on 2016-09-12.
@@ -23,28 +28,28 @@ public class SchedulePlannerController extends FXController {
     private static final String PATH = "/pl/bolka/aleksander/schedule/planner/fx/fxml/SchedulePlanner.fxml";
 
     @FXML
-    public TableView<Semester> semesterTable;
+    public TableView<SemesterViewTO> semesterTable;
 
     @FXML
-    public TableView<StudentGroup> groupTable;
+    public TableView<StudentGroupViewTO> groupTable;
 
     @FXML
-    public TableView<Subject> subjectTable;
+    public TableView<SubjectViewTO> subjectTable;
 
     @FXML
-    public TableView<Lecturer> lecturerTable;
+    public TableView<LecturerViewTO> lecturerTable;
 
     @FXML
-    public TableView<FreeRoom> roomsTable;
+    public TableView<RoomViewTO> roomsTable;
 
     @FXML
-    public TableView<Week> weekTable;
+    public TableView<WeekViewTO> weekTable;
 
     @FXML
-    public TableView<Day> dayTable;
+    public TableView<DayViewTO> dayTable;
 
     @FXML
-    public TableView<Hour> hourTable;
+    public TableView<HourViewTO> hourTable;
 
     @FXML
     public TableView<Schedule> scheduleTable;
@@ -82,16 +87,9 @@ public class SchedulePlannerController extends FXController {
     @Autowired
     private AbstractRepositoryService<FreeRoom, RoomFilter> roomRepositoryService;
 
-    @Autowired
-    private AbstractRepositoryService<Week, WeekFilter> weekRepositoryService;
-
-    @Autowired
-    private AbstractRepositoryService<Day, DayFilter> dayRepositoryService;
-
-    @Autowired
-    private AbstractRepositoryService<Hour, HourFilter> hourRepositoryService;
-
     private List<Schedule> plan;
+
+    private ViewDataController dataController;
 
     public SchedulePlannerController(ScreensConfig flow) {
         super(flow);
@@ -99,13 +97,33 @@ public class SchedulePlannerController extends FXController {
 
     @Override
     public void initialize() {
+        try {
+            setViewDataController();
+        } catch (NotSupportedYetException e) {
+            return;
+        }
+
         setButtons();
 
-        setSemesterTable();
+        clearAllTableView();
         setTableListeners();
         setMultiSelection();
 
         plan = new ArrayList<>();
+    }
+
+    private void setViewDataController() throws NotSupportedYetException {
+        if (scheduleRepositoryService.findAll().isEmpty()) {
+            dataController = new ViewDataController();
+            dataController.setRooms(roomRepositoryService.findAll());
+            dataController.setSemesters(semesterRepositoryService.findAll());
+            dataController.setGroups(studentGroupRepositoryService.findAll());
+            dataController.setLecturers(lecturerRepositoryService.findAll());
+            dataController.setSubjects(subjectRepositoryService.findAll());
+            dataController.fillValidateStructure();
+        }else {
+            throw new NotSupportedYetException("Schedule in database is not empty!");
+        }
     }
 
     private void setButtons() {
@@ -118,68 +136,36 @@ public class SchedulePlannerController extends FXController {
     private void setSaveButton() {
         save.setOnAction(event -> {
 //            scheduleRepositoryService.addAll(plan);
-            for (Schedule row : plan) {
-                BusyRoom busyRoom = row.getBusyRoom();
-                RoomFilter filter = new RoomFilter();
-                filter.setNumber(busyRoom.getNumber());
-                FreeRoom freeRoom = roomRepositoryService.findOne(filter);
-                List<Week> weeksFromRoom = freeRoom.getWeek();
-                List<Week> weeksFromPlan = busyRoom.getWeek();
-                removeHour(weeksFromRoom, weeksFromPlan);
-                roomRepositoryService.save(freeRoom);
-                setSemesterTable();
-            }
+            clearAllTableView();
         });
-    }
-
-    private void removeHour(List<Week> weeksFromRoom, List<Week> weeksFromPlan) {
-        for (Week weekFromRoom : weeksFromRoom) {
-            for (Week weekFromPlan : weeksFromPlan) {
-                if(weekFromRoom.getId().equals(weekFromPlan.getId())){
-                    Set<Day> daysFromRoom = weekFromRoom.getDays();
-                    Set<Day> daysFromPlan = weekFromPlan.getDays();
-                    for (Day dayFromRoom : daysFromRoom) {
-                        for (Day dayFromPlan : daysFromPlan) {
-                            if(dayFromPlan.getId().equals(dayFromRoom.getId())){
-                                dayFromRoom.getHour().remove(dayFromPlan.getHour());
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private void setAddButton() {
         add.setOnAction(event -> {
-            Semester semester = getSelectedItemFromTable(semesterTable);
-            StudentGroup studentGroup = getSelectedItemFromTable(groupTable);
-            Subject subject = getSelectedItemFromTable(subjectTable);
-            Lecturer lecturer = getSelectedItemFromTable(lecturerTable);
-            FreeRoom freeRoom = getSelectedItemFromTable(roomsTable);
-            List<Week> weeks = getSelectedItemsFromTable(weekTable);
-            Day day = getSelectedItemFromTable(dayTable);
-            List<Hour> hours = getSelectedItemsFromTable(hourTable);
-            day.setHour(hours);
-            for (Week week : weeks) {
-                week.getDays().add(day);
-            }
-
-            Schedule schedule = new Schedule();
-            schedule.setSemester(semester);
-            schedule.setStudentGroup(studentGroup);
-            schedule.setSubject(subject);
-            schedule.setLecturer(lecturer);
-
-            BusyRoom busyRoom = new BusyRoom();
-            busyRoom.setWeek(weeks);
-            busyRoom.setDay(day);
-            busyRoom.setNumber(freeRoom.getNumber());
-            busyRoom.setRoomSpace(freeRoom.getRoomSpace());
-
-            schedule.setBusyRoom(busyRoom);
-
-            plan.add(schedule);
+            //TODO
+//            Semester semester = getSelectedItemFromTable(semesterTable);
+//            List<StudentGroup> studentGroups = getSelectedItemsFromTable(groupTable);
+//            Subject subject = getSelectedItemFromTable(subjectTable);
+//            Lecturer lecturer = getSelectedItemFromTable(lecturerTable);
+//            FreeRoom freeRoom = getSelectedItemFromTable(roomsTable);
+//            List<Week> weeks = getSelectedItemsFromTable(weekTable);
+//            Day day = getSelectedItemFromTable(dayTable);
+//            List<Hour> hours = getSelectedItemsFromTable(hourTable);
+//
+//            for (StudentGroup studentGroup : studentGroups) {
+//                Schedule schedule = new Schedule();
+//                schedule.setSemester(semester);
+//                schedule.setStudentGroup(studentGroup);
+//                schedule.setSubject(subject);
+//                schedule.setLecturer(lecturer);
+//                schedule.setHour(hours);
+//                schedule.setDay(day);
+//                schedule.setWeek(weeks);
+//                schedule.setFreeRoom(freeRoom);
+//
+//                plan.add(schedule);
+//                dataController.updateData(schedule);
+//            }
 
             setScheduleTable();
 
@@ -187,6 +173,7 @@ public class SchedulePlannerController extends FXController {
     }
 
     private void setScheduleTable() {
+        //TODO wyświetylanie tablie z ulozonym palenm
         List<ScheduleRow> scheduleRows = new ArrayList<>();
 
         for (Schedule schedule : plan) {
@@ -194,7 +181,7 @@ public class SchedulePlannerController extends FXController {
             scheduleRow.setSemester(schedule.getSemester());
             scheduleRow.setStudentGroup(schedule.getStudentGroup());
             scheduleRow.setLecturer(schedule.getLecturer());
-            scheduleRow.setBusyRoom(schedule.getBusyRoom());
+//            scheduleRow.setBusyRoom(schedule.getFreeRoom());
 //            scheduleRow.setDay(schedule.getDay());
             scheduleRow.setHoursFrom(getTimeFrom(schedule));
             scheduleRow.setHoursTo(getTimeTo(schedule));
@@ -218,40 +205,41 @@ public class SchedulePlannerController extends FXController {
 
     private Time getTimeTo(Schedule schedule) {
         Time time = null;
-//        List<Hour> hours = schedule.getHour();
-//        for (Hour hour : hours) {
-//            Time timeFrom = hour.getTimeTo();
-//            if (time == null) {
-//                time = timeFrom;
-//            } else {
-//                if (time.compareTo(timeFrom) > 0) {
-//                    time = timeFrom;
-//                }
-//            }
-//        }
+        List<Hour> hours = schedule.getHour();
+        for (Hour hour : hours) {
+            Time timeFrom = hour.getTimeTo();
+            if (time == null) {
+                time = timeFrom;
+            } else {
+                if (time.compareTo(timeFrom) > 0) {
+                    time = timeFrom;
+                }
+            }
+        }
         return time;
     }
 
     private Time getTimeFrom(Schedule schedule) {
         Time time = null;
-//        List<Hour> hours = schedule.getHour();
-//        for (Hour hour : hours) {
-//            Time timeFrom = hour.getTimeFrom();
-//            if (time == null) {
-//                time = timeFrom;
-//            } else {
-//                if (time.compareTo(timeFrom) < 0) {
-//                    time = timeFrom;
-//                }
-//            }
-//        }
+        List<Hour> hours = schedule.getHour();
+        for (Hour hour : hours) {
+            Time timeFrom = hour.getTimeFrom();
+            if (time == null) {
+                time = timeFrom;
+            } else {
+                if (time.compareTo(timeFrom) < 0) {
+                    time = timeFrom;
+                }
+            }
+        }
         return time;
     }
 
     private void setMultiSelection() {
         setSelectionModeMultiple(weekTable);
         setSelectionModeMultiple(hourTable);
-        setSelectionModeMultiple(dayTable);
+//        setSelectionModeMultiple(dayTable);
+        setSelectionModeMultiple(groupTable);
     }
 
     private void setTableListeners() {
@@ -266,99 +254,114 @@ public class SchedulePlannerController extends FXController {
 
     private void setDayTableListener() {
         dayTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            Day day = getSelectedItemFromTable(dayTable);
-            if(day != null){
-                List<Hour> hours = day.getHour();
-                setHourTable(hours);
+            DayViewTO day = getSelectedItemFromTable(dayTable);
+            if (day != null) {
+                setHourTable(day);
             }
         });
-    }
-
-    private void setHourTable(List<Hour> hours) {
-        setColumn(hourTable, new HourColumn("Godziny"), hours);
     }
 
     private void setWeekTableListener() {
         weekTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            Week week = getSelectedItemFromTable(weekTable);
-            if(week != null){
-                Set<Day> days = week.getDays();
-                setDayTable(days);
+            WeekViewTO week = getSelectedItemFromTable(weekTable);
+            if (week != null) {
+                setDayTable(week);
             }
         });
-    }
-
-    private void setDayTable(Set<Day> days) {
-        setColumn(dayTable, new DayColumn("Dzień tygodnia"), days);
     }
 
     private void setRoomTableListener() {
         roomsTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            FreeRoom freeRoom = getSelectedItemFromTable(roomsTable);
-            if(freeRoom != null){
-                List<Week> week = freeRoom.getWeek();
-                setWeekTable(week);
+            RoomViewTO freeRoom = getSelectedItemFromTable(roomsTable);
+            if (freeRoom != null) {
+                setWeekTable(freeRoom);
             }
         });
     }
 
-    private void setWeekTable(List<Week> week) {
-        setColumn(weekTable, new WeekColumn("Tygodnie"), week);
-    }
-
     private void setLecturerTableListener() {
         lecturerTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            Subject subject = getSelectedItemFromTable(subjectTable);
+            SubjectViewTO subject = getSelectedItemFromTable(subjectTable);
             if (subject != null) {
-
                 setRoomTable(subject);
             }
         });
     }
 
-    private void setRoomTable(Subject subject) {
-        Subject eagerSubject = subjectRepositoryService.getEager(subject);
-        List<FreeRoom> freeRoom = eagerSubject.getFreeRoom();
-        freeRoom.forEach(room1 -> roomRepositoryService.getEager(room1));
-        setColumn(roomsTable, new RoomColumn("Sale"), freeRoom);
-    }
-
     private void setSubjectTableListener() {
         subjectTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            Subject subject = getSelectedItemFromTable(subjectTable);
+            SubjectViewTO subject = getSelectedItemFromTable(subjectTable);
             if (subject != null) {
-                clearTable(semesterTable);
                 setLecturerTable(subject);
             }
         });
     }
 
-    private void setLecturerTable(Subject subject) {
-        LecturerFilter filter = new LecturerFilter();
-        filter.setSubject(subject);
-        List<Lecturer> lecturers = lecturerRepositoryService.findAll(filter);
-        setColumn(lecturerTable, new LecturerColumn("Wykładowcy"), lecturers);
-    }
-
     private void setGroupTableListener() {
         groupTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            StudentGroup studentGroup = getSelectedItemFromTable(groupTable);
+            StudentGroupViewTO studentGroup = getSelectedItemFromTable(groupTable);
             if (studentGroup != null) {
-                clearTable(groupTable);
                 setSubjectTable(studentGroup);
             }
         });
     }
 
-    private void setSubjectTable(StudentGroup studentGroup) {
-        Semester semester = studentGroup.getSemester();
-        SubjectFilter filter = new SubjectFilter();
-        filter.setSemester(semester);
-        List<Subject> subjects = subjectRepositoryService.findAll(filter);
-        setColumn(subjectTable, new SubjectColumn("Przedmiot"), subjects);
+    private void setSemesterTableListener() {
+        semesterTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
+            SemesterViewTO semester = getSelectedItemFromTable(semesterTable);
+            if (semester != null) {
+                setGroupTable(semester);
+            }
+        });
     }
 
-    private void setSemesterTable() {
+    private void setSemesterTableData() {
+        setColumn(semesterTable, new SemesterViewTOColumn("Semestr"), dataController.getViewTOStructure().values());
+    }
+
+    private void setGroupTable(SemesterViewTO semester) {
+        setColumn(groupTable, new StudentGroupViewTOColumn("Grupy"), semester.getGroups().values());
+    }
+
+    private void setSubjectTable(StudentGroupViewTO studentGroup) {
+        setColumn(subjectTable, new SubjectViewTOColumn("Przedmiot"), studentGroup.getSubjects().values());
+    }
+
+    private void setLecturerTable(SubjectViewTO subject) {
+        setColumn(lecturerTable, new LecturerViewTOColumn("Wykładowcy"), subject.getLecturers().values());
+    }
+
+    private void setRoomTable(SubjectViewTO subject) {
+        setColumn(roomsTable, new RoomColumn("Sale"), subject.getLecturers().values());
+    }
+
+    private void setWeekTable(RoomViewTO room) {
+        setColumn(weekTable, new WeekColumn("Tygodnie"), room.getWeeks().values());
+    }
+
+    private void setDayTable(WeekViewTO week) {
+        setColumn(dayTable, new DayValidateColumn("Dzień tygodnia"), week.getDays().values());
+    }
+
+    private void setHourTable(DayViewTO day) {
+        setColumn(hourTable, new HourColumn("Godziny"), day.getHours().values());
+    }
+
+    private void setNavigationButtons() {
+        setBackButton();
+        setMainMainButton();
+    }
+
+    private void setBackButton() {
+        back.setOnAction((ActionEvent event) -> flow.loadStartPageController());
+    }
+
+
+    private void setMainMainButton() {
+        mainMenu.setOnAction((ActionEvent event) -> flow.loadStartPageController());
+    }
+
+    private void clearAllTableView() {
         semesterTable.getColumns().clear();
         groupTable.getColumns().clear();
         subjectTable.getColumns().clear();
@@ -369,63 +372,6 @@ public class SchedulePlannerController extends FXController {
         hourTable.getColumns().clear();
         scheduleTable.getColumns().clear();
         setSemesterTableData();
-    }
-
-    private void setSemesterTableListener() {
-        semesterTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            Semester semester = getSelectedItemFromTable(semesterTable);
-            if (semester != null) {
-                clearTable(semesterTable);
-                setGroupTable(semester);
-            }
-        });
-    }
-
-    private void setGroupTable(Semester semester) {
-        StudentGroupFilter filter = new StudentGroupFilter();
-        filter.setSemester(semester);
-        setColumn(groupTable, new StudentGroupColumn("Grupy"), studentGroupRepositoryService.findAll(filter));
-    }
-
-    private void setSemesterTableData() {
-        setColumn(semesterTable, new SemesterColumn("Semestr"), translateToObsList(semesterRepositoryService.findAll()));
-    }
-
-    private void setNavigationButtons() {
-        setBackButton();
-        setMainMainButton();
-    }
-
-    private void clearTable(TableView tableView) {
-        //TODO indexOutOfBound
-//        List<TableView> viewList = new ArrayList<>();
-//        viewList.save(semesterTable);
-//        viewList.save(groupTable);
-//        viewList.save(subjectTable);
-//        viewList.save(lecturerTable);
-//        viewList.save(roomsTable);
-//        viewList.save(weekTable);
-//        viewList.save();
-//        viewList.save(hourTable);
-//        viewList.save(scheduleTable);
-//
-//        Collections.reverse(viewList);
-//
-//        for (TableView table : viewList) {
-//            if (table.equals(tableView)) {
-//                return;
-//            }
-//            table.getColumns().clear();
-//        }
-
-    }
-
-    private void setBackButton() {
-        back.setOnAction((ActionEvent event) -> flow.loadStartPageController());
-    }
-
-    private void setMainMainButton() {
-        mainMenu.setOnAction((ActionEvent event) -> flow.loadStartPageController());
     }
 
     @Override
