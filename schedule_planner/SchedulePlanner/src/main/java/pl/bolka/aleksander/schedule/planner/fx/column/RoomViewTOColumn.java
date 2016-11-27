@@ -2,13 +2,14 @@ package pl.bolka.aleksander.schedule.planner.fx.column;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
-import pl.bolka.aleksander.schedule.planner.fx.controller.validate.DayViewTO;
+import pl.bolka.aleksander.schedule.planner.fx.controller.validate.RoomViewTO;
 
 /**
- * Created by Aleksander on 2016-09-14.
+ * Created by Aleksander Bołka on 2016-07-01.
  */
-public class DayValidateColumn extends TableColumn<DayViewTO,String>{
-    public DayValidateColumn(String name) {
+public class RoomViewTOColumn extends TableColumn<RoomViewTO, String> {
+
+    public RoomViewTOColumn(String name) {
         super(name);
         setCellFactory();
     }
@@ -16,7 +17,7 @@ public class DayValidateColumn extends TableColumn<DayViewTO,String>{
     private void setCellFactory() {
         setCellValueFactory(p -> {
             if (p.getValue() != null) {
-                return new SimpleStringProperty(p.getValue().getName());
+                return new SimpleStringProperty("sala " + p.getValue().getNumber() + " miejsce: " + p.getValue().getRoomSpace());
             } else {
                 return new SimpleStringProperty("");
             }

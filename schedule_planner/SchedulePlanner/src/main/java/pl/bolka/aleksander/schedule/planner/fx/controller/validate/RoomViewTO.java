@@ -11,6 +11,10 @@ public class RoomViewTO {
 
     private Map<Long,WeekViewTO> weeks;
 
+    private String number;
+
+    private String roomSpace;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -24,5 +28,21 @@ public class RoomViewTO {
 
     public void setWeeks(Map<Long, WeekViewTO> weeks) {
         this.weeks = weeks;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getRoomSpace() {
+        return roomSpace;
+    }
+
+    public void setRoomSpace(String roomSpace) {
+        this.roomSpace = roomSpace;
     }
 }

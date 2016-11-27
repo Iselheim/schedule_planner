@@ -9,6 +9,10 @@ public class WeekViewTO {
 
     private Long id;
 
+    private String weekOfSemester;
+
+    private String dates;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -25,5 +29,21 @@ public class WeekViewTO {
 
     public void setDays(Map<Long, DayViewTO> days) {
         this.days = days;
+    }
+
+    public String getWeekOfSemester() {
+        return weekOfSemester;
+    }
+
+    public void setWeekOfSemester(String weekOfSemester) {
+        this.weekOfSemester = weekOfSemester;
+    }
+
+    public String getDates() {
+        return dates;
+    }
+
+    public void setDates(String dates) {
+        this.dates = dates;
     }
 }
