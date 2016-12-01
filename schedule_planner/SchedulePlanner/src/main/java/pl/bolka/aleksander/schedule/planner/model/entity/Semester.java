@@ -95,7 +95,12 @@ public class Semester implements Identifiable {
 		this.week = week;
 	}
 
-    @Override
+	@Override
+	public String toString() {
+		return "Semestr " + getNumber() + "\n rok: " + getYear();
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

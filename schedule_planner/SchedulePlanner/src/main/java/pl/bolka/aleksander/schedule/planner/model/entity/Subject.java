@@ -26,7 +26,7 @@ public class Subject implements Identifiable {
 
     private SubjectType subjectType;
 
-    @ManyToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "subject")
     private List<Lecturer> lecturer;
 
     @ManyToMany(fetch= FetchType.EAGER)
@@ -111,5 +111,10 @@ public class Subject implements Identifiable {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return getName() + "\n" + getSubjectType().getName();
     }
 }

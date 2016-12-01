@@ -88,4 +88,9 @@ public class StudentGroup implements Identifiable {
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
     }
+
+    @Override
+    public String toString() {
+        return "Grupa: " + getNumber() + " sem. " + getSemester().getNumber();
+    }
 }

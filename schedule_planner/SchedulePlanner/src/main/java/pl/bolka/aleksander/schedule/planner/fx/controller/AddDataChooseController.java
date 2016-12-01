@@ -3,7 +3,15 @@ package pl.bolka.aleksander.schedule.planner.fx.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
+import pl.bolka.aleksander.schedule.planner.fx.column.ScheduleRow;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Aleksander Bołka on 2016-06-22.
@@ -87,5 +95,17 @@ public class AddDataChooseController extends FXController {
     @Override
     public String getPath() {
         return PATH;
+    }
+
+    protected void addColumnsForScheduleTable(TableView tableView, Map<TableColumn, String> tableColumns, Collection<ScheduleRow> observableList) {
+        tableColumns.keySet().forEach(tableColumn -> tableColumn.setPrefWidth(tableView.getPrefWidth() / tableColumns.size()));
+        tableView.getColumns().clear();
+        Set<Map.Entry<TableColumn, String>> entries = tableColumns.entrySet();
+        for (Map.Entry<TableColumn, String> entry : entries) {
+            TableColumn tableColumn = entry.getKey();
+            tableColumn.setCellValueFactory(new PropertyValueFactory<ScheduleRow, String>(entry.getValue()));
+        }
+        tableView.getColumns().addAll(tableColumns.keySet());
+        tableView.setItems(translateToObsList(observableList));
     }
 }

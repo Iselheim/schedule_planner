@@ -210,4 +210,5 @@ public class AddDataLecturerController extends FXController {
     public String getPath() {
         return PATH;
     }
+
 }

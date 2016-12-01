@@ -200,5 +200,4 @@ public class AddDataRoomController extends FXController {
     private void setMainMainButton() {
         mainMenu.setOnAction((ActionEvent event) -> flow.loadStartPageController());
     }
-
 }

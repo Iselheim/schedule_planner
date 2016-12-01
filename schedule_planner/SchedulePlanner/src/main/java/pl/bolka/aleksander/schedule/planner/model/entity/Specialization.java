@@ -29,10 +29,10 @@ public class Specialization implements Identifiable {
 
     private String shortcut = "";
 
-	@OneToMany(mappedBy = "specialization",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "specialization")
     private List<StudentGroup> group;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private List<Subject> subject;
 
     public Long getId() {

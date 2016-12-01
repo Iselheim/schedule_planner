@@ -73,5 +73,8 @@ public class Day implements Serializable, Identifiable {
 		this.hour = hour;
 	}
 
-
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

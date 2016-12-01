@@ -17,7 +17,7 @@ public class ScheduleRow {
 
     private Lecturer lecturer;
 
-    private BusyRoom busyRoom;
+    private FreeRoom room;
 
     private Day day;
 
@@ -58,12 +58,12 @@ public class ScheduleRow {
         this.lecturer = lecturer;
     }
 
-    public BusyRoom getBusyRoom() {
-        return busyRoom;
+    public FreeRoom getRoom() {
+        return room;
     }
 
-    public void setBusyRoom(BusyRoom busyRoom) {
-        this.busyRoom = busyRoom;
+    public void setRoom(FreeRoom room) {
+        this.room = room;
     }
 
     public Day getDay() {

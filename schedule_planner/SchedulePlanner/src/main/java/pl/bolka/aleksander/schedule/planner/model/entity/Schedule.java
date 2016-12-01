@@ -34,8 +34,8 @@ public class Schedule implements Identifiable {
     @ManyToMany
     private List<Week> week;
 
-    @ManyToOne
-    private Day day;
+    @ManyToMany
+    private List<Day> day;
 
     @ManyToMany
     private List<Hour> hour;
@@ -97,11 +97,11 @@ public class Schedule implements Identifiable {
         this.week = week;
     }
 
-    public Day getDay() {
+    public List<Day> getDay() {
         return day;
     }
 
-    public void setDay(Day day) {
+    public void setDay(List<Day> day) {
         this.day = day;
     }
 
