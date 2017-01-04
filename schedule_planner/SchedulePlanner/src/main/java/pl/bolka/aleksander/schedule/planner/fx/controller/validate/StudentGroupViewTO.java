@@ -5,21 +5,11 @@ import java.util.Map;
 /**
  * Created by Aleksander on 2016-11-27.
  */
-public class StudentGroupViewTO {
-
-    private Long id;
+public class StudentGroupViewTO extends ViewTO{
 
     private String number;
 
     private String semesterNumber;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     private Map<Long,SubjectViewTO> subjects;
 

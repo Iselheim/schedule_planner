@@ -5,21 +5,11 @@ import java.util.Map;
 /**
  * Created by Aleksander on 2016-11-27.
  */
-public class WeekViewTO {
-
-    private Long id;
+public class WeekViewTO extends ViewTO {
 
     private String weekOfSemester;
 
     private String dates;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     private Map<Long, DayViewTO> days;
 

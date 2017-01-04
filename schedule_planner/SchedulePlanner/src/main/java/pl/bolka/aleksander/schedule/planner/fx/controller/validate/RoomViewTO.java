@@ -5,22 +5,13 @@ import java.util.Map;
 /**
  * Created by Aleksander on 2016-11-27.
  */
-public class RoomViewTO {
-
-    private Long id;
+public class RoomViewTO extends ViewTO{
 
     private Map<Long,WeekViewTO> weeks;
 
     private String number;
 
     private String roomSpace;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getId() {
-        return id;
-    }
 
     public Map<Long, WeekViewTO> getWeeks() {
         return weeks;

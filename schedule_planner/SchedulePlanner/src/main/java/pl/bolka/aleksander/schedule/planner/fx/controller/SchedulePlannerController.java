@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 import pl.bolka.aleksander.schedule.planner.exceptions.NotSupportedYetException;
 import pl.bolka.aleksander.schedule.planner.fx.column.*;
@@ -123,7 +124,7 @@ public class SchedulePlannerController extends FXController {
             dataController.setLecturers(lecturerRepositoryService.findAll());
             dataController.setSubjects(subjectRepositoryService.findAll());
             dataController.fillValidateStructure();
-        }else {
+        } else {
             throw new NotSupportedYetException("Schedule in database is not empty!");
         }
     }
@@ -131,8 +132,14 @@ public class SchedulePlannerController extends FXController {
     private void setButtons() {
         setNavigationButtons();
 
+        setAddDisable();
+
         setAddButton();
         setSaveButton();
+    }
+
+    private void setAddDisable() {
+        add.setDisable(true);
     }
 
     private void setSaveButton() {
@@ -155,11 +162,11 @@ public class SchedulePlannerController extends FXController {
             List<HourViewTO> hourViewTOS = getSelectedItemsFromTable(hourTable);
 
             for (StudentGroupViewTO studentGroup : groupViewTOS) {
-                plan.add(dataController.getSchedule(semesterViewTO,studentGroup,subjectViewTO,lecturerViewTO,roomViewTO,weekViewTOS,dayViewTO,hourViewTOS));
+                plan.add(dataController.getSchedule(semesterViewTO, studentGroup, subjectViewTO, lecturerViewTO, roomViewTO, weekViewTOS, dayViewTO, hourViewTOS));
             }
             clearAllTableView();
             setScheduleTable();
-
+            setAddDisable();
         });
     }
 
@@ -242,28 +249,39 @@ public class SchedulePlannerController extends FXController {
         setRoomTableListener();
         setWeekTableListener();
         setDayTableListener();
+        setHourTableListener();
+    }
+
+    private void setHourTableListener() {
+        hourTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
+            List<HourViewTO> hourViewTOS = getSelectedItemsFromTable(hourTable);
+            if (!CollectionUtils.isEmpty(hourViewTOS)) {
+                add.setDisable(false);
+            }
+        });
     }
 
     private void setDayTableListener() {
-        dayTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
+        dayTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
             DayViewTO day = getSelectedItemFromTable(dayTable);
-            if (day != null) {
-                setHourTable(day);
+            List<WeekViewTO> weeks = getSelectedItemsFromTable(weekTable);
+            if (null != weeks && !weeks.isEmpty() && null != day) {
+                setHourTable(day, weeks);
             }
         });
     }
 
     private void setWeekTableListener() {
-        weekTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            WeekViewTO week = getSelectedItemFromTable(weekTable);
-            if (week != null) {
-                setDayTable(week);
+        weekTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
+            List<WeekViewTO> weeks = getSelectedItemsFromTable(weekTable);
+            if (weeks != null && !weeks.isEmpty()) {
+                setDayTable(weeks);
             }
         });
     }
 
     private void setRoomTableListener() {
-        roomsTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
+        roomsTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
             List<RoomViewTO> roomViewTOS = getSelectedItemsFromTable(roomsTable);
             if (roomViewTOS != null && !roomViewTOS.isEmpty()) {
                 setWeekTable(roomViewTOS);
@@ -272,7 +290,7 @@ public class SchedulePlannerController extends FXController {
     }
 
     private void setLecturerTableListener() {
-        lecturerTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
+        lecturerTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
             LecturerViewTO lecturerViewTO = getSelectedItemFromTable(lecturerTable);
             if (lecturerViewTO != null) {
                 setRoomTable(lecturerViewTO);
@@ -281,7 +299,7 @@ public class SchedulePlannerController extends FXController {
     }
 
     private void setSubjectTableListener() {
-        subjectTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
+        subjectTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
             SubjectViewTO subject = getSelectedItemFromTable(subjectTable);
             if (subject != null) {
                 setLecturerTable(subject);
@@ -290,16 +308,16 @@ public class SchedulePlannerController extends FXController {
     }
 
     private void setGroupTableListener() {
-        groupTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            StudentGroupViewTO studentGroup = getSelectedItemFromTable(groupTable);
-            if (studentGroup != null) {
-                setSubjectTable(studentGroup);
+        groupTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
+            List<StudentGroupViewTO> studentGroups = getSelectedItemsFromTable(groupTable);
+            if (null != studentGroups && !studentGroups.isEmpty()) {
+                setSubjectTable(studentGroups);
             }
         });
     }
 
     private void setSemesterTableListener() {
-        semesterTable.getSelectionModel().selectedItemProperty().addListener(observable -> {
+        semesterTable.getSelectionModel().selectedIndexProperty().addListener(observable -> {
             SemesterViewTO semester = getSelectedItemFromTable(semesterTable);
             if (semester != null) {
                 setGroupTable(semester);
@@ -315,8 +333,16 @@ public class SchedulePlannerController extends FXController {
         setColumn(groupTable, new StudentGroupViewTOColumn("Grupy"), semester.getGroups().values());
     }
 
-    private void setSubjectTable(StudentGroupViewTO studentGroup) {
-        setColumn(subjectTable, new SubjectViewTOColumn("Przedmiot"), studentGroup.getSubjects().values());
+    private void setSubjectTable(List<StudentGroupViewTO> studentGroups) {
+        Map<Long, SubjectViewTO> subjects = null;
+        for (StudentGroupViewTO group : studentGroups) {
+            if (null == subjects) {
+                subjects = group != null ? group.getSubjects() : null;
+            } else {
+                subjects = getEqualsPart(subjects, group.getSubjects());
+            }
+        }
+        setColumn(subjectTable, new SubjectViewTOColumn("Przedmiot"), subjects != null ? subjects.values() : new ArrayList());
     }
 
     private void setLecturerTable(SubjectViewTO subject) {
@@ -339,12 +365,37 @@ public class SchedulePlannerController extends FXController {
         return list;
     }
 
-    private void setDayTable(WeekViewTO week) {
-        setColumn(dayTable, new DayViewTOColumn("Dzień tygodnia"), week.getDays().values());
+    private void setDayTable(List<WeekViewTO> weeks) {
+        Map<Long, DayViewTO> days = getLongDayViewTOMap(weeks);
+        setColumn(dayTable, new DayViewTOColumn("Dzień tygodnia"), days != null ? days.values() : new ArrayList());
     }
 
-    private void setHourTable(DayViewTO day) {
-        setColumn(hourTable, new HourViewTOColumn("Godziny"), day.getHours().values());
+    private Map<Long, DayViewTO> getLongDayViewTOMap(List<WeekViewTO> weeks) {
+        Map<Long, DayViewTO> days = null;
+        for (WeekViewTO week : weeks) {
+            if (null == days) {
+                days = week.getDays();
+            } else {
+                days = getEqualsPartForDays(days, week.getDays());
+            }
+        }
+        return days;
+    }
+
+    private void setHourTable(DayViewTO day, List<WeekViewTO> weeks) {
+        Map<Long, HourViewTO> hours = new LinkedHashMap<>();
+        for (WeekViewTO week : weeks) {
+            for (DayViewTO dayViewTO : week.getDays().values()) {
+                if (dayViewTO.getName().equals(day.getName())) {
+                    if (hours.isEmpty()) {
+                        hours = day.getHours();
+                    } else {
+                        hours = getEqualsPart(hours, day.getHours());
+                    }
+                }
+            }
+        }
+        setColumn(hourTable, new HourViewTOColumn("Godziny"), hours != null ? hours.values() : new ArrayList());
     }
 
     private void setNavigationButtons() {
@@ -372,6 +423,30 @@ public class SchedulePlannerController extends FXController {
         hourTable.getColumns().clear();
         scheduleTable.getColumns().clear();
         setSemesterTableData();
+    }
+
+    private <T> Map<Long, T> getEqualsPart(Map<Long, T> one, Map<Long, T> two) {
+        Map<Long, T> resultMap = new LinkedHashMap<>();
+        Set<Long> ones = one.keySet();
+        Set<Long> twos = two.keySet();
+        for (Long aLong : ones) {
+            if (twos.contains(aLong)) {
+                resultMap.put(aLong, one.get(aLong));
+            }
+        }
+        return resultMap;
+    }
+
+    private Map<Long, DayViewTO> getEqualsPartForDays(Map<Long, DayViewTO> one, Map<Long, DayViewTO> two) {
+        Map<Long, DayViewTO> resultMap = new LinkedHashMap<>();
+        one.forEach((aLong, dayViewTO) -> {
+            two.forEach((aLong1, dayViewTO1) -> {
+                if (dayViewTO.getName().equals(dayViewTO1.getName())) {
+                    resultMap.put(aLong, dayViewTO);
+                }
+            });
+        });
+        return resultMap;
     }
 
     @Override

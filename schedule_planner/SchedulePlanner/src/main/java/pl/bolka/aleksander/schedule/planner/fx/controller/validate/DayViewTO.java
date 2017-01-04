@@ -5,20 +5,11 @@ import java.util.Map;
 /**
  * Created by Aleksander on 2016-11-27.
  */
-public class DayViewTO {
-    private Long id;
+public class DayViewTO extends ViewTO{
 
     private Map<Long,HourViewTO> hours;
 
     private String name;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     public Map<Long, HourViewTO> getHours() {
         return hours;
@@ -35,4 +26,6 @@ public class DayViewTO {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

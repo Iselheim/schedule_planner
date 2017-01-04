@@ -5,18 +5,12 @@ import java.util.Map;
 /**
  * Created by Aleksander on 2016-11-27.
  */
-public class SemesterViewTO {
-    private Long id;
+public class SemesterViewTO extends ViewTO{
+
     private String number;
+
     private String year;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
     private Map<Long,StudentGroupViewTO> groups;
 
     public Map<Long, StudentGroupViewTO> getGroups() {
