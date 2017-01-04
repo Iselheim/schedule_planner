@@ -220,17 +220,20 @@ public class ViewDataController {
         return weekList;
     }
 
-
+    //TODO refaktor
     public Schedule getSchedule(SemesterViewTO semesterViewTO, StudentGroupViewTO studentGroup, SubjectViewTO subjectViewTO, LecturerViewTO lecturerViewTO, RoomViewTO roomViewTO, List<WeekViewTO> weekViewTOS, DayViewTO dayViewTO, List<HourViewTO> hourViewTOS) {
         Schedule schedule = new Schedule();
-        LecturerViewTO lecturerFromStructure = viewTOStructure.get(semesterViewTO.getId())
-                .getGroups().get(studentGroup.getId())
+        StudentGroupViewTO studentGroupViewTO = viewTOStructure.get(semesterViewTO.getId())
+                .getGroups().get(studentGroup.getId());
+        LecturerViewTO lecturerFromStructure = studentGroupViewTO
                 .getSubjects().get(subjectViewTO.getId())
                 .getLecturers().get(lecturerViewTO.getId());
         Map<Long, WeekViewTO> weeks = lecturerFromStructure
                 .getRooms().get(roomViewTO.getId())
                 .getWeeks();
-        setTimeOnSchedule(weekViewTOS, dayViewTO, hourViewTOS, schedule, weeks);
+        Map<PlanType, List<WeekViewTO>> idsToRemove = setTimeOnSchedule(weekViewTOS, dayViewTO, hourViewTOS, weeks);
+
+        removeHoursDaysAndHoursFromStudentGroup(studentGroupViewTO, idsToRemove);
 
         schedule.setFreeRoom(getRoom(roomViewTO));
         schedule.setLecturer(getLecturer(lecturerViewTO));
@@ -248,9 +251,9 @@ public class ViewDataController {
             lecturerFromStructure.getRooms().remove(roomViewTO.getId());
         }
 
-        viewTOStructure.get(semesterViewTO.getId()).getGroups().get(studentGroup.getId()).getSubjects().remove(subjectViewTO.getId());
+        studentGroupViewTO.getSubjects().remove(subjectViewTO.getId());
 
-        if (viewTOStructure.get(semesterViewTO.getId()).getGroups().get(studentGroup.getId()).getSubjects().isEmpty()) {
+        if (studentGroupViewTO.getSubjects().isEmpty()) {
             viewTOStructure.get(semesterViewTO.getId()).getGroups().remove(studentGroup.getId());
         }
 
@@ -284,28 +287,101 @@ public class ViewDataController {
         return days;
     }
 
-    private void setTimeOnSchedule(List<WeekViewTO> weekViewTOS, DayViewTO dayViewTO, List<HourViewTO> hourViewTOS, Schedule schedule, Map<Long, WeekViewTO> weeks) {
-        List<Long> idsToRemove = new ArrayList<>();
+    private Map<PlanType, List<WeekViewTO>> setTimeOnSchedule(List<WeekViewTO> weekViewTOS, DayViewTO dayViewTO, List<HourViewTO> hourViewTOS, Map<Long, WeekViewTO> weeks) {
+        Map<PlanType, List<WeekViewTO>> idsToRemove = new HashMap<>();
+        idsToRemove.computeIfAbsent(PlanType.HOUR, k -> new ArrayList<>());
+        idsToRemove.computeIfAbsent(PlanType.DAY, k -> new ArrayList<>());
+        idsToRemove.computeIfAbsent(PlanType.WEEK, k -> new ArrayList<>());
         weeks.forEach((aLong, weekViewTO) -> {
             if (weekViewTOS.contains(weekViewTO)) {
                 if (weekViewTO.getDays().get(dayViewTO.getId()) != null) {
-                    Map<Long, HourViewTO> hours = weekViewTO.getDays().get(dayViewTO.getId()).getHours();
                     for (HourViewTO hourViewTO : hourViewTOS) {
                         setScheduleTime(dayViewTO, hourViewTO, weekViewTO);
-                        hours.remove(hourViewTO.getId());
+                        idsToRemove.get(PlanType.HOUR).add(getWeekWithHourToRemove(dayViewTO, hourViewTO,weekViewTO));
                     }
                     if (weekViewTO.getDays().get(dayViewTO.getId()).getHours().isEmpty()) {
-                        weekViewTO.getDays().remove(dayViewTO.getId());
+                        idsToRemove.get(PlanType.DAY).add(getWeekWithDayToRemove(dayViewTO,weekViewTO));
                     }
                     if (weekViewTO.getDays().isEmpty()) {
-                        idsToRemove.add(weekViewTO.getId());
+                        idsToRemove.get(PlanType.WEEK).add(getWeekToRemove(weekViewTO));
                     }
                 }
             }
         });
-        for (Long aLong : idsToRemove) {
-            weeks.remove(aLong);
-        }
+        return idsToRemove;
+    }
+
+    private WeekViewTO getWeekToRemove(WeekViewTO weekViewTO) {
+        WeekViewTO weekToRemove = new WeekViewTO();
+        weekToRemove.setId(weekViewTO.getId());
+        return weekToRemove;
+    }
+
+    private WeekViewTO getWeekWithDayToRemove(DayViewTO dayViewTO, WeekViewTO weekViewTO) {
+        Map<Long, DayViewTO> daysToRemove = new HashMap<>();
+        DayViewTO dayViewTO1 = getDayViewTO(dayViewTO);
+        daysToRemove.put(dayViewTO.getId(),dayViewTO1);
+
+        WeekViewTO weekWithDayToRemove = getWeekToRemove(weekViewTO);
+        weekWithDayToRemove.setDays(daysToRemove);
+        return weekWithDayToRemove;
+    }
+
+    private WeekViewTO getWeekWithHourToRemove(DayViewTO dayViewTO, HourViewTO hourViewTO, WeekViewTO weekViewTO) {
+        Map<Long,HourViewTO> hourToRemove = new HashMap<>();
+        hourToRemove.put(hourViewTO.getId(), new HourViewTO());
+
+        Map<Long, DayViewTO> daysWithHourToRemove = new HashMap<>();
+        DayViewTO dayViewTO1 = getDayViewTO(dayViewTO);
+        dayViewTO1.setHours(hourToRemove);
+        daysWithHourToRemove.put(dayViewTO.getId(),dayViewTO1);
+
+        WeekViewTO weekWthHourToRemove = getWeekToRemove(weekViewTO);
+        weekWthHourToRemove.setDays(daysWithHourToRemove);
+        return weekWthHourToRemove;
+    }
+
+    private DayViewTO getDayViewTO(DayViewTO dayViewTO) {
+        DayViewTO dayViewTO1 = new DayViewTO();
+        dayViewTO1.setId(dayViewTO.getId());
+        return dayViewTO1;
+    }
+
+    private void removeHoursDaysAndHoursFromStudentGroup(StudentGroupViewTO studentGroupViewTO, Map<PlanType, List<WeekViewTO>> idsToRemove) {
+        Map<Long, SubjectViewTO> subjects = studentGroupViewTO.getSubjects();
+        subjects.forEach((subjectId, subjectViewTO) -> {
+            subjectViewTO.getLecturers().forEach((LecturerId, lecturerViewTO) -> {
+                lecturerViewTO.getRooms().forEach((roomId, roomViewTO) -> {
+                    idsToRemove.get(PlanType.WEEK).forEach(idToRemove -> roomViewTO.getWeeks().remove(idToRemove.getId()));
+                    roomViewTO.getWeeks().forEach((weekId, weekViewTO) -> {
+                        List<WeekViewTO> weekViewTOS = idsToRemove.get(PlanType.DAY);
+                        if (weekViewTOS.contains(weekViewTO)) {
+                            weekViewTOS.forEach(idToRemove -> {
+                                idToRemove.getDays().forEach((dayId, dayViewTO) -> {
+                                    weekViewTO.getDays().remove(dayId);
+                                });
+
+                            });
+                        }
+                        weekViewTO.getDays().forEach((dayId, dayViewTO) -> {
+                            List<WeekViewTO> weeksWithHoursToRemove = idsToRemove.get(PlanType.HOUR);
+                            if (weeksWithHoursToRemove.contains(weekViewTO)) {
+                                weeksWithHoursToRemove.forEach(weekWithHoursToRemove -> {
+                                    Map<Long, DayViewTO> daysWithHourToRemove = weekWithHoursToRemove.getDays();
+                                    if (daysWithHourToRemove.containsKey(dayViewTO.getId())) {
+                                        daysWithHourToRemove.forEach((dayId2, dayViewTO1) -> {
+                                            Map<Long, HourViewTO> hoursToRemove = dayViewTO1.getHours();
+                                            hoursToRemove.forEach((aLong, hourViewTO) -> dayViewTO.getHours().remove(aLong));
+
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+                });
+            });
+        });
     }
 
     private void setScheduleTime(DayViewTO dayViewTO, HourViewTO hourViewTO, WeekViewTO weekViewTO) {
