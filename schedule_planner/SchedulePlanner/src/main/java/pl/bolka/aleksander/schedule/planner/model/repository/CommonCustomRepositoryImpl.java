@@ -17,13 +17,18 @@ import java.util.Set;
  * Created by Aleksander Bołka on 2016-06-21.
  */
 public class CommonCustomRepositoryImpl<T extends Identifiable, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements CommonCustomRepository<T, ID> {
+
+    private EntityManager entityManager;
+
     public CommonCustomRepositoryImpl(Class<T> domainClass, EntityManager em) {
         super(domainClass, em);
+        this.entityManager = em;
     }
 
     public CommonCustomRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
                                       EntityManager entityManager) {
         super(entityInformation, entityManager);
+        this.entityManager = entityManager;
     }
 
 
@@ -55,7 +60,12 @@ public class CommonCustomRepositoryImpl<T extends Identifiable, ID extends Seria
         return t;
     }
 
-//    @Override
+    @Override
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    //    @Override
 //    public T findOne(Specification<T> spec) {
 //       return super.findOne(spec);
 //    }

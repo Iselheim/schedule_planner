@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import pl.bolka.aleksander.schedule.planner.model.entity.Identifiable;
 
+import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface CommonCustomRepository<T extends Identifiable, ID extends Seria
     T findOne(Specification specification);
 
     T getEager(T t);
+
+    EntityManager getEntityManager();
+
 }

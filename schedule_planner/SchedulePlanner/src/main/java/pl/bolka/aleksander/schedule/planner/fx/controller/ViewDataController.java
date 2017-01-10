@@ -43,6 +43,7 @@ public class ViewDataController {
         }
     }
 
+
     private SemesterViewTO getSemesterValidates(Semester semester) {
         SemesterViewTO semesterViewTO = new SemesterViewTO();
         Map<Long, StudentGroupViewTO> groupValidates = getGroupValidates(semester);
@@ -52,7 +53,6 @@ public class ViewDataController {
         semesterViewTO.setYear(semester.getYear() + "");
         return semesterViewTO;
     }
-
 
     private Map<Long, StudentGroupViewTO> getGroupValidates(Semester semester) {
         List<StudentGroup> groups = getGroups(semester);
@@ -162,6 +162,7 @@ public class ViewDataController {
         //TODO
     }
 
+
     private List<StudentGroup> getGroups(Semester semester) {
         return groups.stream().filter(group -> group.getSemester().equals(semester)).collect(Collectors.toList());
     }
@@ -170,7 +171,6 @@ public class ViewDataController {
     private List<Subject> getSubjects(StudentGroup studentGroup) {
         return subjects.stream().filter(subject -> subject.getSemester().equals(studentGroup.getSemester())).collect(Collectors.toList());
     }
-
 
     public Map<Long, SemesterViewTO> getViewTOStructure() {
         return viewTOStructure;
@@ -188,24 +188,51 @@ public class ViewDataController {
         return subjectViewTOs;
     }
 
+    public SemesterForSchedule getSemesterForSchedule(SemesterViewTO selectedItemFromTable) {
+        return new SemesterForSchedule(getSemester(selectedItemFromTable));
+    }
+
     public Semester getSemester(SemesterViewTO selectedItemFromTable) {
         return semesters.stream().filter(semester -> semester.getId().equals(selectedItemFromTable.getId())).collect(Collectors.toList()).get(0);
     }
 
-    public StudentGroup getStudentGroups(StudentGroupViewTO selectedItemsFromTable) {
+    public StudentGroupForSchedule getStudentGroupForSchedule(StudentGroupViewTO selectedItemsFromTable) {
+        return new StudentGroupForSchedule(getStudentGroup(selectedItemsFromTable));
+    }
+
+
+    public StudentGroup getStudentGroup(StudentGroupViewTO selectedItemsFromTable) {
         return groups.stream().filter(studentGroup -> studentGroup.getId().equals(selectedItemsFromTable.getId())).collect(Collectors.toList()).get(0);
+    }
+
+    public SubjectForSchedule getSubjectForSchedule(SubjectViewTO selectedItemFromTable) {
+        return new SubjectForSchedule(getSubject(selectedItemFromTable));
     }
 
     public Subject getSubject(SubjectViewTO selectedItemFromTable) {
         return subjects.stream().filter(subject -> subject.getId().equals(selectedItemFromTable.getId())).collect(Collectors.toList()).get(0);
     }
 
+    private LecturerForSchedule getLecturerForSchedule(LecturerViewTO lecturerViewTO) {
+        return new LecturerForSchedule(getLecturer(lecturerViewTO));
+    }
+
     public Lecturer getLecturer(LecturerViewTO lecturerViewTO) {
         return lecturers.stream().filter(lecturer -> lecturer.getId().equals(lecturerViewTO.getId())).collect(Collectors.toList()).get(0);
     }
 
+    public FreeRoomForSchedule getRoomForSchedule(RoomViewTO roomViewTO) {
+        return new FreeRoomForSchedule(getRoom(roomViewTO));
+    }
+
     public FreeRoom getRoom(RoomViewTO roomViewTO) {
         return rooms.stream().filter(room -> room.getId().equals(roomViewTO.getId())).collect(Collectors.toList()).get(0);
+    }
+
+    public List<WeekForSchedule> getWeeksForSchedule(List<WeekViewTO> weekViewTOS) {
+        List<WeekForSchedule> weekForSchedules = new ArrayList<>();
+        getWeeks(weekViewTOS).forEach(week -> weekForSchedules.add(new WeekForSchedule(week)));
+        return weekForSchedules;
     }
 
     public List<Week> getWeeks(List<WeekViewTO> weekViewTOS) {
@@ -235,17 +262,15 @@ public class ViewDataController {
 
         removeHoursDaysAndHoursFromStudentGroup(studentGroupViewTO, idsToRemove);
 
-        schedule.setFreeRoom(getRoom(roomViewTO));
-        schedule.setLecturer(getLecturer(lecturerViewTO));
-        schedule.setSubject(getSubject(subjectViewTO));
-        schedule.setStudentGroup(getStudentGroups(studentGroup));
-        schedule.setSemester(getSemester(semesterViewTO));
+        schedule.setFreeRoom(getRoomForSchedule(roomViewTO));
+        schedule.setLecturer(getLecturerForSchedule(lecturerViewTO));
+        schedule.setSubject(getSubjectForSchedule(subjectViewTO));
+        schedule.setStudentGroup(getStudentGroupForSchedule(studentGroup));
+        schedule.setSemester(getSemesterForSchedule(semesterViewTO));
+        schedule.setWeek(getWeeksForSchedule(weekViewTOS));
         List<Week> weekList = getWeeks(weekViewTOS);
-        schedule.setWeek(weekList);
-        List<Day> dayList = getDays(weekList, dayViewTO);
-        schedule.setDay(dayList);
-        List<Hour> hourList = getHours(hourViewTOS, dayList);
-        schedule.setHour(hourList);
+        schedule.setDay(getDaysForSchedule(weekList,dayViewTO));
+        schedule.setHour(getHoursForSchedule(hourViewTOS,getDays(weekList, dayViewTO)));
 
         if (lecturerFromStructure.getRooms().get(roomViewTO.getId()).getWeeks().isEmpty()) {
             lecturerFromStructure.getRooms().remove(roomViewTO.getId());
@@ -263,6 +288,12 @@ public class ViewDataController {
         return schedule;
     }
 
+    private List<HourForSchedule> getHoursForSchedule(List<HourViewTO> hourViewTOS, List<Day> dayList) {
+        List<HourForSchedule> hourForSchedules = new ArrayList<>();
+        getHours(hourViewTOS,dayList).forEach(hour -> hourForSchedules.add(new HourForSchedule(hour)));
+        return hourForSchedules;
+    }
+
     private List<Hour> getHours(List<HourViewTO> hourViewTOS, List<Day> dayList) {
         List<Hour> hourList = new ArrayList<>();
         dayList.get(0).getHour().forEach(hour -> {
@@ -275,7 +306,13 @@ public class ViewDataController {
         return hourList;
     }
 
-    private List<Day> getDays(List<Week> weekList, DayViewTO dayViewTO) {
+    private List<DayForSchedule> getDaysForSchedule(List<Week> weekList, DayViewTO dayViewTO) {
+        List<DayForSchedule> dayForSchedules = new ArrayList<>();
+        getDays(weekList,dayViewTO).forEach(day -> dayForSchedules.add(new DayForSchedule(day)));
+        return dayForSchedules;
+    }
+
+        private List<Day> getDays(List<Week> weekList, DayViewTO dayViewTO) {
         List<Day> days = new ArrayList<>();
         for (Week week : weekList) {
             week.getDays().forEach(day -> {
@@ -296,11 +333,11 @@ public class ViewDataController {
             if (weekViewTOS.contains(weekViewTO)) {
                 if (weekViewTO.getDays().get(dayViewTO.getId()) != null) {
                     for (HourViewTO hourViewTO : hourViewTOS) {
-                        setScheduleTime(dayViewTO, hourViewTO, weekViewTO);
-                        idsToRemove.get(PlanType.HOUR).add(getWeekWithHourToRemove(dayViewTO, hourViewTO,weekViewTO));
+//                        setScheduleTime(dayViewTO, hourViewTO, weekViewTO, schedule);
+                        idsToRemove.get(PlanType.HOUR).add(getWeekWithHourToRemove(dayViewTO, hourViewTO, weekViewTO));
                     }
                     if (weekViewTO.getDays().get(dayViewTO.getId()).getHours().isEmpty()) {
-                        idsToRemove.get(PlanType.DAY).add(getWeekWithDayToRemove(dayViewTO,weekViewTO));
+                        idsToRemove.get(PlanType.DAY).add(getWeekWithDayToRemove(dayViewTO, weekViewTO));
                     }
                     if (weekViewTO.getDays().isEmpty()) {
                         idsToRemove.get(PlanType.WEEK).add(getWeekToRemove(weekViewTO));
@@ -320,7 +357,7 @@ public class ViewDataController {
     private WeekViewTO getWeekWithDayToRemove(DayViewTO dayViewTO, WeekViewTO weekViewTO) {
         Map<Long, DayViewTO> daysToRemove = new HashMap<>();
         DayViewTO dayViewTO1 = getDayViewTO(dayViewTO);
-        daysToRemove.put(dayViewTO.getId(),dayViewTO1);
+        daysToRemove.put(dayViewTO.getId(), dayViewTO1);
 
         WeekViewTO weekWithDayToRemove = getWeekToRemove(weekViewTO);
         weekWithDayToRemove.setDays(daysToRemove);
@@ -328,13 +365,13 @@ public class ViewDataController {
     }
 
     private WeekViewTO getWeekWithHourToRemove(DayViewTO dayViewTO, HourViewTO hourViewTO, WeekViewTO weekViewTO) {
-        Map<Long,HourViewTO> hourToRemove = new HashMap<>();
+        Map<Long, HourViewTO> hourToRemove = new HashMap<>();
         hourToRemove.put(hourViewTO.getId(), new HourViewTO());
 
         Map<Long, DayViewTO> daysWithHourToRemove = new HashMap<>();
         DayViewTO dayViewTO1 = getDayViewTO(dayViewTO);
         dayViewTO1.setHours(hourToRemove);
-        daysWithHourToRemove.put(dayViewTO.getId(),dayViewTO1);
+        daysWithHourToRemove.put(dayViewTO.getId(), dayViewTO1);
 
         WeekViewTO weekWthHourToRemove = getWeekToRemove(weekViewTO);
         weekWthHourToRemove.setDays(daysWithHourToRemove);
@@ -384,7 +421,7 @@ public class ViewDataController {
         });
     }
 
-    private void setScheduleTime(DayViewTO dayViewTO, HourViewTO hourViewTO, WeekViewTO weekViewTO) {
+    private void setScheduleTime(DayViewTO dayViewTO, HourViewTO hourViewTO, WeekViewTO weekViewTO, Schedule schedule) {
         for (FreeRoom room : rooms) {
             List<Week> week = room.getWeek();
             for (Week week1 : week) {
@@ -394,7 +431,12 @@ public class ViewDataController {
                         if (day.getId().equals(dayViewTO.getId())) {
                             List<Hour> hour = day.getHour();
                             for (Hour hour1 : hour) {
-                                if (hour1.getId().equals(hourViewTO.getId())) {
+                                if (null != hour1.getId() && null != hourViewTO.getId() && hour1.getId().equals(hourViewTO.getId())) {
+                                    if (null == schedule.getHour()) {
+                                        System.out.println("null == schedule.getHour()");
+                                    } else {
+                                        System.out.println("null != schedule.getHour(): " + schedule.getHour().toString());
+                                    }
                                 }
                             }
                         }

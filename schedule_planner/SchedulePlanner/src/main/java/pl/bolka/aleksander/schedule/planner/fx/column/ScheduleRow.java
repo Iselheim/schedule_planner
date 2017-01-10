@@ -9,68 +9,67 @@ import java.sql.Time;
  */
 public class ScheduleRow {
 
-    private Semester semester;
+    private SemesterForSchedule semester;
 
-    private StudentGroup studentGroup;
+    private StudentGroupForSchedule studentGroup;
 
-    private Subject subject;
+    private SubjectForSchedule subject;
 
-    private Lecturer lecturer;
+    private LecturerForSchedule lecturer;
 
-    private FreeRoom room;
+    private FreeRoomForSchedule room;
 
-    private Day day;
+    private DayForSchedule day;
 
     private Time hoursFrom;
 
     private Time hoursTo;
 
-
-    public Semester getSemester() {
+    public SemesterForSchedule getSemester() {
         return semester;
     }
 
-    public void setSemester(Semester semester) {
+    public void setSemester(SemesterForSchedule semester) {
         this.semester = semester;
     }
 
-    public StudentGroup getStudentGroup() {
+    public StudentGroupForSchedule getStudentGroup() {
         return studentGroup;
     }
 
-    public void setStudentGroup(StudentGroup studentGroup) {
+    public void setStudentGroup(StudentGroupForSchedule studentGroup) {
         this.studentGroup = studentGroup;
     }
 
-    public Subject getSubject() {
+    public SubjectForSchedule getSubject() {
         return subject;
     }
 
-    public void setSubject(Subject subject) {
+    public void setSubject(SubjectForSchedule subject) {
         this.subject = subject;
     }
 
-    public Lecturer getLecturer() {
+    public LecturerForSchedule getLecturer() {
         return lecturer;
     }
 
-    public void setLecturer(Lecturer lecturer) {
+    public void setLecturer(LecturerForSchedule lecturer) {
         this.lecturer = lecturer;
     }
 
-    public FreeRoom getRoom() {
+    public FreeRoomForSchedule getRoom() {
         return room;
     }
 
-    public void setRoom(FreeRoom room) {
+    public void setRoom(FreeRoomForSchedule room) {
         this.room = room;
     }
 
-    public Day getDay() {
+    public DayForSchedule getDay() {
         return day;
     }
 
-    public void setDay(Day day) {
+    public void setDay(DayForSchedule day) {
         this.day = day;
     }
 

@@ -1,16 +1,18 @@
 package pl.bolka.aleksander.schedule.planner.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
 /**
  * The persistent class for the dzien model table.
  *
  */
 @Entity
-public class Day implements Serializable, Identifiable {
+public class DayForSchedule implements Serializable, Identifiable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,24 +20,20 @@ public class Day implements Serializable, Identifiable {
     @GeneratedValue
     private Long id;
 
-    private String name = "";
+	@Column(nullable = false)
+    private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Hour> hour;
-
+	@Column(nullable = false)
 	private Date date;
-	
-	private boolean isFree = false;
 
-    public Day() {
-    }
-
-    public boolean isFree() {
-		return isFree;
+	public DayForSchedule() {
+		super();
 	}
 
-	public void setFree(boolean isFree) {
-		this.isFree = isFree;
+	public DayForSchedule(Day day) {
+		super();
+		this.name = day.getName();
+		this.date = day.getDate();
 	}
 
 	public Date getDate() {
@@ -61,14 +59,6 @@ public class Day implements Serializable, Identifiable {
     public void setName(String name) {
         this.name = name;
     }
-
-	public List<Hour> getHour() {
-		return hour;
-	}
-
-	public void setHour(List<Hour> hour) {
-		this.hour = hour;
-	}
 
 	@Override
 	public String toString() {

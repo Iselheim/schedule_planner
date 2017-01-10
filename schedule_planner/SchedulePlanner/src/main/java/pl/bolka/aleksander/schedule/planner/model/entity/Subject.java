@@ -6,9 +6,6 @@ import java.util.List;
 @Entity
 public class Subject implements Identifiable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

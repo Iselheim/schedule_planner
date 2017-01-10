@@ -144,7 +144,7 @@ public class SchedulePlannerController extends FXController {
 
     private void setSaveButton() {
         save.setOnAction(event -> {
-//            scheduleRepositoryService.addAll(plan);
+            scheduleRepositoryService.addAll(plan);
             clearAllTableView();
         });
     }
@@ -204,13 +204,13 @@ public class SchedulePlannerController extends FXController {
 
     private Time getTimeTo(Schedule schedule) {
         Time time = null;
-        List<Hour> hours = schedule.getHour();
-        for (Hour hour : hours) {
+        List<HourForSchedule> hours = schedule.getHour();
+        for (HourForSchedule hour : hours) {
             Time timeFrom = hour.getTimeTo();
             if (time == null) {
                 time = timeFrom;
             } else {
-                if (time.compareTo(timeFrom) > 0) {
+                if (time.compareTo(timeFrom) < 0) {
                     time = timeFrom;
                 }
             }
@@ -220,13 +220,13 @@ public class SchedulePlannerController extends FXController {
 
     private Time getTimeFrom(Schedule schedule) {
         Time time = null;
-        List<Hour> hours = schedule.getHour();
-        for (Hour hour : hours) {
+        List<HourForSchedule> hours = schedule.getHour();
+        for (HourForSchedule hour : hours) {
             Time timeFrom = hour.getTimeFrom();
             if (time == null) {
                 time = timeFrom;
             } else {
-                if (time.compareTo(timeFrom) < 0) {
+                if (time.compareTo(timeFrom) > 0) {
                     time = timeFrom;
                 }
             }
