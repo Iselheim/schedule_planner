@@ -1,16 +1,8 @@
 package pl.bolka.aleksander.schedule.planner.export.engine;
 
-import com.itextpdf.text.DocumentException;
 import org.junit.Before;
-import org.junit.Test;
 import pl.bolka.aleksander.schedule.planner.export.template.Template;
 import pl.bolka.aleksander.schedule.planner.export.template.TemplateImpl;
-
-import java.io.IOException;
-import java.util.LinkedList;
-
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 
 /**
@@ -34,15 +26,46 @@ public class PdfGeneratorTest {
 //        assertThat(file.available(), is(greaterThan(0)));
 //    }
 
-    @Test
-    public void testFile() throws IOException, DocumentException {
-        generator.generate(new LinkedList<>(),6);
-    }
-
-    @Test
-    public void testSetTemplate() {
-        assertThat(generator.getTemplate(), notNullValue());
-
-    }
+//    @Test
+//    public void testFile() throws IOException, DocumentException {
+//        Map<Position, ExportData> mapSmall = new HashMap<>();
+//        Map<DayEnum, Map<Position, ExportData>> map = new HashMap<>();
+//        mapSmall.put(new Position(1,2),getExportData1());
+//        mapSmall.put(new Position(3,2),getExportData2());
+//        mapSmall.put(new Position(0,2),getExportData0());
+//        map.put(DayEnum.Poniedzialek, mapSmall);
+//        map.put(DayEnum.Wtorek, mapSmall);
+//        map.put(DayEnum.Sroda, mapSmall);
+//        map.put(DayEnum.Czwartek, mapSmall);
+//        map.put(DayEnum.Piatek, mapSmall);
+//        generator.generate(map, 6);
+//    }
+//
+//    private ExportData getExportData2() {
+//        ExportData exportData = ExportData.getExportData(new Schedule());
+//        exportData.setHeigt(2);
+//        exportData.setWeight(2);
+//        exportData.setContent("2x2");
+//        return exportData;
+//    }
+//
+//    private ExportData getExportData1() {
+//        ExportData exportData = ExportData.getExportData(new Schedule());
+//        exportData.setHeigt(2);
+//        exportData.setContent("2x1");
+//        return exportData;
+//    }
+//
+//    private ExportData getExportData0() {
+//        ExportData exportData = ExportData.getExportData(new Schedule());
+//        exportData.setContent("1x1");
+//        return exportData;
+//    }
+//
+//    @Test
+//    public void testSetTemplate() {
+//        assertThat(generator.getTemplate(), notNullValue());
+//
+//    }
 
 }

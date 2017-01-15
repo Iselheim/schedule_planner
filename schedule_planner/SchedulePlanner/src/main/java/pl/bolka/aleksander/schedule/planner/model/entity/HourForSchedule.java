@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.sql.Time;
 
 @Entity
-public class HourForSchedule implements Identifiable {
+public class HourForSchedule implements Identifiable, Comparable {
 
     @Id
     @GeneratedValue
@@ -72,5 +72,11 @@ public class HourForSchedule implements Identifiable {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        HourForSchedule hourForSchedule = (HourForSchedule) o;
+        return hourForSchedule.getTimeFrom().compareTo(this.getTimeFrom());
     }
 }

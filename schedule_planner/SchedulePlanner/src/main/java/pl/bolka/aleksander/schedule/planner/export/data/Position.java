@@ -2,10 +2,6 @@ package pl.bolka.aleksander.schedule.planner.export.data;
 
 public class Position {
 
-    private int heigt;
-
-    private int weight;
-
     private int gridX;
 
     private int gridY;
@@ -13,21 +9,11 @@ public class Position {
     public Position() {
     }
 
-    public int getHeigt() {
-        return heigt;
+    public Position(int gridX, int gridY) {
+        this.gridX = gridX;
+        this.gridY = gridY;
     }
 
-    public void setHeigt(int heigt) {
-        this.heigt = heigt;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
 
     public int getGridX() {
         return gridX;
@@ -43,5 +29,23 @@ public class Position {
 
     public void setGridY(int gridY) {
         this.gridY = gridY;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Position position = (Position) o;
+
+        if (gridX != position.gridX) return false;
+        return gridY == position.gridY;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = gridX;
+        result = 31 * result + gridY;
+        return result;
     }
 }

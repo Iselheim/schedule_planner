@@ -8,9 +8,6 @@ import javax.persistence.ManyToOne;
 @Entity
 public class StudentGroup implements Identifiable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -12,9 +12,6 @@ import java.util.Set;
 @Entity
 public class Semester implements Identifiable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

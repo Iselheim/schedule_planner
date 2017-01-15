@@ -16,29 +16,40 @@ public class Schedule implements Identifiable {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    private Semester semester;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private SemesterForSchedule semester;
 
-    @ManyToOne
-    private StudentGroup studentGroup;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private StudentGroupForSchedule studentGroup;
 
-    @ManyToOne
-    private Subject subject;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private SubjectForSchedule subject;
 
-    @ManyToOne
-    private Lecturer lecturer;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private LecturerForSchedule lecturer;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    private FreeRoom freeRoom;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private FreeRoomForSchedule freeRoom;
 
-    @ManyToMany
-    private List<Week> week;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<WeekForSchedule> week;
 
-    @ManyToMany
-    private List<Day> day;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<DayForSchedule> day;
 
-    @ManyToMany
-    private List<Hour> hour;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<HourForSchedule> hour;
+
+    @Transient
+    private boolean printed = false;
+
+    public boolean isPrinted() {
+        return printed;
+    }
+
+    public void setPrinted(boolean printed) {
+        this.printed = printed;
+    }
 
     @Override
     public Long getId() {
@@ -49,67 +60,67 @@ public class Schedule implements Identifiable {
         this.id = id;
     }
 
-    public Semester getSemester() {
+    public SemesterForSchedule getSemester() {
         return semester;
     }
 
-    public void setSemester(Semester semester) {
+    public void setSemester(SemesterForSchedule semester) {
         this.semester = semester;
     }
 
-    public StudentGroup getStudentGroup() {
+    public StudentGroupForSchedule getStudentGroup() {
         return studentGroup;
     }
 
-    public void setStudentGroup(StudentGroup studentGroup) {
+    public void setStudentGroup(StudentGroupForSchedule studentGroup) {
         this.studentGroup = studentGroup;
     }
 
-    public Subject getSubject() {
+    public SubjectForSchedule getSubject() {
         return subject;
     }
 
-    public void setSubject(Subject subject) {
+    public void setSubject(SubjectForSchedule subject) {
         this.subject = subject;
     }
 
-    public Lecturer getLecturer() {
+    public LecturerForSchedule getLecturer() {
         return lecturer;
     }
 
-    public void setLecturer(Lecturer lecturer) {
+    public void setLecturer(LecturerForSchedule lecturer) {
         this.lecturer = lecturer;
     }
 
-    public FreeRoom getFreeRoom() {
+    public FreeRoomForSchedule getFreeRoom() {
         return freeRoom;
     }
 
-    public void setFreeRoom(FreeRoom freeRoom) {
+    public void setFreeRoom(FreeRoomForSchedule freeRoom) {
         this.freeRoom = freeRoom;
     }
 
-    public List<Week> getWeek() {
+    public List<WeekForSchedule> getWeek() {
         return week;
     }
 
-    public void setWeek(List<Week> week) {
+    public void setWeek(List<WeekForSchedule> week) {
         this.week = week;
     }
 
-    public List<Day> getDay() {
+    public List<DayForSchedule> getDay() {
         return day;
     }
 
-    public void setDay(List<Day> day) {
+    public void setDay(List<DayForSchedule> day) {
         this.day = day;
     }
 
-    public List<Hour> getHour() {
+    public List<HourForSchedule> getHour() {
         return hour;
     }
 
-    public void setHour(List<Hour> hour) {
+    public void setHour(List<HourForSchedule> hour) {
         this.hour = hour;
     }
 

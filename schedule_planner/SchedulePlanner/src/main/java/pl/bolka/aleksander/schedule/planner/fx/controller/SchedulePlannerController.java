@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 import pl.bolka.aleksander.schedule.planner.exceptions.NotSupportedYetException;
+import pl.bolka.aleksander.schedule.planner.export.PdfExporter;
 import pl.bolka.aleksander.schedule.planner.fx.column.*;
 import pl.bolka.aleksander.schedule.planner.fx.controller.validate.*;
 import pl.bolka.aleksander.schedule.planner.model.entity.*;
@@ -89,6 +90,9 @@ public class SchedulePlannerController extends FXController {
     @Autowired
     private AbstractRepositoryService<Week, WeekFilter> weekRepositoryService;
 
+    @Autowired
+    private PdfExporter pdfExporter;
+
     private List<Schedule> plan;
 
     private ViewDataController dataController;
@@ -115,7 +119,7 @@ public class SchedulePlannerController extends FXController {
     }
 
     private void setViewDataController() throws NotSupportedYetException {
-        if (scheduleRepositoryService.findAll().isEmpty()) {
+//        if (scheduleRepositoryService.findAll().isEmpty()) {
             dataController = new ViewDataController();
             dataController.setRooms(roomRepositoryService.findAll());
             dataController.setWeeks(weekRepositoryService.findAll());
@@ -124,9 +128,10 @@ public class SchedulePlannerController extends FXController {
             dataController.setLecturers(lecturerRepositoryService.findAll());
             dataController.setSubjects(subjectRepositoryService.findAll());
             dataController.fillValidateStructure();
-        } else {
-            throw new NotSupportedYetException("Schedule in database is not empty!");
-        }
+//        } else {
+//            scheduleRepositoryService.delete(scheduleRepositoryService.findAll().get(0));
+//            throw new NotSupportedYetException("Schedule in database is not empty!");
+//        }
     }
 
     private void setButtons() {
@@ -136,6 +141,11 @@ public class SchedulePlannerController extends FXController {
 
         setAddButton();
         setSaveButton();
+        setPDFButton();
+    }
+
+    private void setPDFButton() {
+        exportToPdf.setOnAction(event -> pdfExporter.getPdf());
     }
 
     private void setAddDisable() {

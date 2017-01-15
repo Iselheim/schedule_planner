@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 @Entity
 public class Hour implements Identifiable {
@@ -24,7 +25,7 @@ public class Hour implements Identifiable {
     private Time timeFrom;
 
     private Time timeTo;
-    
+
     public Hour() {
         super();
     }
@@ -47,7 +48,8 @@ public class Hour implements Identifiable {
 
     @Override
     public String toString() {
-        return timeFrom + "-" + timeTo;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        return simpleDateFormat.format(timeFrom) + "-" + simpleDateFormat.format(timeTo);
     }
 
     @Override
