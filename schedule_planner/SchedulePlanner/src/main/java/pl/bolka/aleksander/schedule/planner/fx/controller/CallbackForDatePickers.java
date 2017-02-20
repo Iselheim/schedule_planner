@@ -1,4 +1,4 @@
-package pl.bolka.aleksander.schedule.planner.util;
+package pl.bolka.aleksander.schedule.planner.fx.controller;
 
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;

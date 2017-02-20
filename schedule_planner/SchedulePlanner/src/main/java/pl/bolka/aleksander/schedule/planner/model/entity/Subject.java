@@ -23,7 +23,7 @@ public class Subject implements Identifiable {
 
     private SubjectType subjectType;
 
-    @ManyToMany(mappedBy = "subject")
+    @ManyToMany(mappedBy = "subject", fetch = FetchType.EAGER)
     private List<Lecturer> lecturer;
 
     @ManyToMany(fetch= FetchType.EAGER)

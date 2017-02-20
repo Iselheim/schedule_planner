@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import pl.bolka.aleksander.schedule.planner.config.ScreensConfig;
 import pl.bolka.aleksander.schedule.planner.exceptions.NotSupportedYetException;
-import pl.bolka.aleksander.schedule.planner.export.PdfExporter;
+import pl.bolka.aleksander.schedule.planner.export.engine.PdfExporter;
 import pl.bolka.aleksander.schedule.planner.fx.column.*;
 import pl.bolka.aleksander.schedule.planner.fx.controller.validate.*;
 import pl.bolka.aleksander.schedule.planner.model.entity.*;
@@ -129,7 +129,11 @@ public class SchedulePlannerController extends FXController {
             dataController.setSubjects(subjectRepositoryService.findAll());
             dataController.fillValidateStructure();
 //        } else {
-//            scheduleRepositoryService.delete(scheduleRepositoryService.findAll().get(0));
+//        List<Schedule> all = scheduleRepositoryService.findAll();
+//        for (Schedule schedule : all) {
+//            scheduleRepositoryService.delete(schedule);
+//        }
+
 //            throw new NotSupportedYetException("Schedule in database is not empty!");
 //        }
     }

@@ -15,7 +15,6 @@ import pl.bolka.aleksander.schedule.planner.model.entity.Semester;
 import pl.bolka.aleksander.schedule.planner.model.filter.DayFilter;
 import pl.bolka.aleksander.schedule.planner.model.filter.SemesterFilter;
 import pl.bolka.aleksander.schedule.planner.model.services.AbstractRepositoryService;
-import pl.bolka.aleksander.schedule.planner.util.CallbackForDatePickers;
 
 import java.sql.Date;
 import java.time.LocalDate;

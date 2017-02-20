@@ -1,4 +1,4 @@
-package pl.bolka.aleksander.schedule.planner.export.data;
+package pl.bolka.aleksander.schedule.planner.export.template;
 
 public class Position {
 

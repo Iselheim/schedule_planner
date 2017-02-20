@@ -1,12 +1,10 @@
-package pl.bolka.aleksander.schedule.planner.export;
+package pl.bolka.aleksander.schedule.planner.export.engine;
 
 import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.bolka.aleksander.schedule.planner.export.data.ExportData;
-import pl.bolka.aleksander.schedule.planner.export.data.Position;
-import pl.bolka.aleksander.schedule.planner.export.engine.DayEnum;
-import pl.bolka.aleksander.schedule.planner.export.engine.PdfGenerator;
+import pl.bolka.aleksander.schedule.planner.export.template.Position;
 import pl.bolka.aleksander.schedule.planner.model.entity.Hour;
 import pl.bolka.aleksander.schedule.planner.model.entity.HourForSchedule;
 import pl.bolka.aleksander.schedule.planner.model.entity.Schedule;

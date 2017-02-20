@@ -7,7 +7,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.bolka.aleksander.schedule.planner.export.data.ExportData;
-import pl.bolka.aleksander.schedule.planner.export.data.Position;
+import pl.bolka.aleksander.schedule.planner.export.template.Position;
 import pl.bolka.aleksander.schedule.planner.export.template.Template;
 import pl.bolka.aleksander.schedule.planner.export.template.TemplateImpl;
 import pl.bolka.aleksander.schedule.planner.model.entity.Hour;
@@ -88,7 +88,9 @@ public class PdfGenerator {
                             }
                             cell.setRowSpan(exportData.getHeigt());
                         } else if (exportData.getHeigt() == 1 && exportData.getWeight() != 1) {
-                            tab[i][j + exportData.getWeight() - 1] = new Cell(false);
+                            for (int jj = 0; jj < exportData.getWeight(); jj++) {
+                                tab[i][j + jj] = new Cell(false);
+                            }
                             cell.setColSpan(exportData.getWeight());
                         } else if (exportData.getHeigt() != 1 && exportData.getWeight() != 1) {
                             for (int ii = 0; ii < exportData.getHeigt(); ii++) {

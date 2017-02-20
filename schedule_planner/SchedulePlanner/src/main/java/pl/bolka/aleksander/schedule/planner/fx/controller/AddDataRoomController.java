@@ -17,7 +17,6 @@ import pl.bolka.aleksander.schedule.planner.model.filter.DayFilter;
 import pl.bolka.aleksander.schedule.planner.model.services.DayRepositoryService;
 import pl.bolka.aleksander.schedule.planner.model.services.RoomRepositoryService;
 import pl.bolka.aleksander.schedule.planner.model.services.WeekRepositoryService;
-import pl.bolka.aleksander.schedule.planner.util.CallbackForDatePickers;
 
 import java.sql.Date;
 import java.time.LocalDate;

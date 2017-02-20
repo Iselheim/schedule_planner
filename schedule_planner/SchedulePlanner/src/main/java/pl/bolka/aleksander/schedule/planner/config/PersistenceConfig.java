@@ -40,8 +40,10 @@ public class PersistenceConfig {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/schedule_planner");
+//        dataSource.setUrl("jdbc:postgresql://localhost:5432/schedule_planner");
+//        dataSource.setUrl("jdbc:postgresql://localhost:5432/losowe");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/dokladneOdwzorowanie");
+//        dataSource.setUrl("jdbc:postgresql://localhost:5432/struktura");
         dataSource.setUsername("postgres");
         dataSource.setPassword("asdqwe1234");
         return dataSource;
@@ -70,10 +72,10 @@ public class PersistenceConfig {
     private Properties jpaHibernateProperties() {
 
         Properties properties = new Properties();
-        properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, "false");
+        properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, "true");
         properties.put(AvailableSettings.SCHEMA_GEN_DATABASE_ACTION, "none");
         properties.put(AvailableSettings.USE_CLASS_ENHANCER, "false");
-        properties.put(org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO, "update");
+        properties.put(org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO, "validate");
         properties.put(org.hibernate.cfg.AvailableSettings.FORMAT_SQL, "true");
 //        properties.put(AvailableSettings.SCHEMA_GEN_SCRIPTS_ACTION,"create");
 //        properties.put(AvailableSettings.SCHEMA_GEN_SCRIPTS_CREATE_TARGET,"D:/WorkSpace/schedule_planner/createSchema");

@@ -15,9 +15,6 @@ public interface Template {
 
     float[] getColumnWidths();
 
-//    Set<ColumnDefinition> getColumnDefinitions();
-
-//    List<RowDefinition> getRowsDefinitions();
 
 
 }

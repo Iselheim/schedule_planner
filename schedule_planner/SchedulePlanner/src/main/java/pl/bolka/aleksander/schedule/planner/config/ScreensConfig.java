@@ -50,10 +50,6 @@ public class ScreensConfig implements Observer {
         return new ManualSelectByGroupsController(this);
     }
 
-    public void loadManualSelectByGroupsController() {
-        setNode(getNode(getManualSelectByGroupsController()));
-    }
-
     @Bean
     @Scope("prototype")
     public AddDataChooseController getAddDataChooseController() {
@@ -157,17 +153,6 @@ public class ScreensConfig implements Observer {
         root.getChildren().setAll(node);
     }
 
-    // FXController getController(Class<? extends FXController> controller) {
-    // try {
-    // Constructor<? extends FXController> constructor =
-    // controller.getConstructor(ScreensConfig.class);
-    // return (FXController) constructor.newInstance(this);
-    // } catch (Exception e) {
-    // logger.error("Nie mo�na zbudowa� obiektu", e);
-    // }
-    // throw new RuntimeException("Nie mo�na zbudowa� obiektu");
-    // }
-
     private Node getNode(final FXController controller) {
         URL location = getClass().getResource(controller.getPath());
         FXMLLoader loader = new FXMLLoader(location);
@@ -195,6 +180,10 @@ public class ScreensConfig implements Observer {
 
     public void setContext(ApplicationContext context) {
         this.context = context;
+    }
+
+    public void loadManualSelectByGroupsController() {
+        setNode(getNode(getManualSelectByGroupsController()));
     }
 
 
